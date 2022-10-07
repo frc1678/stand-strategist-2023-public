@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import ui.DataScreen
+import ui.LoadingScreen
 import ui.NotesScreen
 import ui.StartingScreen
 
@@ -11,8 +12,9 @@ import ui.StartingScreen
 @Preview
 fun App() {
     MaterialTheme {
-        var currentScreen by remember { mutableStateOf(Screens.STARTING) }
+        var currentScreen by remember { mutableStateOf(Screens.LOADING) }
         when (currentScreen) {
+            Screens.LOADING -> LoadingScreen()
             Screens.STARTING -> StartingScreen()
             Screens.DATA -> DataScreen()
             Screens.NOTES -> NotesScreen()
@@ -21,7 +23,7 @@ fun App() {
 }
 
 enum class Screens {
-    STARTING, DATA, NOTES
+    LOADING, STARTING, DATA, NOTES
 }
 
 fun main() = application {
