@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(onLoaded: () -> Unit) {
     LaunchedEffect(true) {
         println("started loading")
+        onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Text("Loading...", textAlign = TextAlign.Center)

@@ -14,7 +14,7 @@ fun App() {
     MaterialTheme {
         var currentScreen by remember { mutableStateOf(Screens.LOADING) }
         when (currentScreen) {
-            Screens.LOADING -> LoadingScreen()
+            Screens.LOADING -> LoadingScreen(onLoaded = { currentScreen = Screens.STARTING })
             Screens.STARTING -> StartingScreen()
             Screens.DATA -> DataScreen()
             Screens.NOTES -> NotesScreen()
