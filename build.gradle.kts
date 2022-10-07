@@ -2,8 +2,9 @@ import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
+    kotlin("multiplatform") version "1.6.10"
     id("org.jetbrains.compose")
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 group = "org.citruscircuits"
@@ -26,6 +27,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
             }
         }
     }
