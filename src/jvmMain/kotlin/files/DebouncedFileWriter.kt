@@ -12,9 +12,8 @@ val DEBOUNCE = 1000.milliseconds
 class DebouncedFileWriter<T>(private val file: File, private val deserializer: (T) -> String) {
 
     suspend fun start() {
-        while (true) {
-            val data = channel.receive()
-            if (!file.exists()) withContext(Dispatchers.IO) { file.createNewFile() }
+        for (data in channel) withContext(Dispatchers.IO) {
+            if (!file.exists()) file.createNewFile()
             file.writeText(deserializer(data))
             delay(DEBOUNCE)
         }
@@ -22,7 +21,7 @@ class DebouncedFileWriter<T>(private val file: File, private val deserializer: (
 
     private val channel = Channel<T>(Channel.CONFLATED)
 
-    fun writeData(data: T) {
-        channel.trySend(data)
+    suspend fun writeData(data: T) {
+        channel.send(data)
     }
 }

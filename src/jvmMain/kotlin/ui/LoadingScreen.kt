@@ -19,9 +19,6 @@ fun LoadingScreen(onLoaded: () -> Unit) {
     LaunchedEffect(true) {
         MAIN_FOLDER.mkdir()
         readSettings()
-        launch(Dispatchers.IO) {
-            settingsWriter.start()
-        }
         onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

@@ -9,7 +9,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Settings(val lastMatch: Int)
+data class Settings(var lastMatch: Int)
 
 var settings: Settings? by mutableStateOf(null)
 
