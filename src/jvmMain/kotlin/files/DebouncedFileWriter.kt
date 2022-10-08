@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 val DEBOUNCE = 1000.milliseconds
 
-class FileWriter<T>(private val file: File, private val deserializer: (T) -> String) {
+class DebouncedFileWriter<T>(private val file: File, private val deserializer: (T) -> String) {
 
     suspend fun start() {
         while (true) {
