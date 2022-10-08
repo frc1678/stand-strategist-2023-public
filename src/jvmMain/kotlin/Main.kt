@@ -31,7 +31,7 @@ enum class Screens {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(onCloseRequest = ::exitApplication, title = "Stand Strategist") {
         App()
     }
 }
