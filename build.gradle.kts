@@ -5,6 +5,7 @@ plugins {
     kotlin("multiplatform") version "1.6.10"
     id("org.jetbrains.compose")
     kotlin("plugin.serialization") version "1.6.10"
+    id("org.jmailen.kotlinter") version "3.7.0"
 }
 
 group = "org.citruscircuits"

@@ -22,5 +22,4 @@ class DebouncedFileWriter<T>(private val file: File, private val deserializer: (
     fun writeData(data: T) {
         channel.trySend(data)
     }
-
 }
