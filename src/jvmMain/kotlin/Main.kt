@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import files.Observer
 import ui.DataScreen
 import ui.LoadingScreen
 import ui.NotesScreen
@@ -16,6 +17,8 @@ import ui.StartingScreen
 @Preview
 fun App() {
     MaterialTheme {
+        Observer()
+
         var currentScreen by remember { mutableStateOf(Screens.LOADING) }
         when (currentScreen) {
             Screens.LOADING -> LoadingScreen(onLoaded = { currentScreen = Screens.STARTING })

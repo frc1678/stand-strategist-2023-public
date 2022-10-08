@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
@@ -18,4 +19,8 @@ fun readSettings() {
     } else {
         Settings(1)
     }
+}
+
+val settingsWriter = DebouncedFileWriter<Settings>(SETTINGS_FILE) {
+    Json.encodeToString(it)
 }
