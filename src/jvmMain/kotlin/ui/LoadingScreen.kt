@@ -8,11 +8,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import files.readSettings
 
 @Composable
 fun LoadingScreen(onLoaded: () -> Unit) {
     LaunchedEffect(true) {
-        println("started loading")
+        readSettings()
         onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
