@@ -15,3 +15,5 @@ val MATCH_SCHEDULE_FILE = File(MAIN_FOLDER, "match_schedule.json")
 val TIM_DATA_FILE = File(MAIN_FOLDER, "tim_data.csv")
 
 val TEAM_DATA_FILE = File(MAIN_FOLDER, "team_data.csv")
+
+val SETTINGS_FILE = File(MAIN_FOLDER, "settings.json")
