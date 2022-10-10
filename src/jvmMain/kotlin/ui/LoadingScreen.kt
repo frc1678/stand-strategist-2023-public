@@ -8,14 +8,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import io.MAIN_FOLDER
 import files.readSettings
+import files.readTimData
+import io.MAIN_FOLDER
 
 @Composable
 fun LoadingScreen(onLoaded: () -> Unit) {
     LaunchedEffect(true) {
         MAIN_FOLDER.mkdir()
         readSettings()
+        readTimData()
         onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
