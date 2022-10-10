@@ -11,7 +11,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Settings(var lastMatch: Int)
+data class Settings(var lastMatch: Int, var name: String)
 
 var settings: Settings? by mutableStateOf(null)
 
@@ -19,7 +19,7 @@ fun readSettings() {
     settings = if (SETTINGS_FILE.exists()) {
         Json.decodeFromString(SETTINGS_FILE.readText())
     } else {
-        Settings(1)
+        Settings(1, "Unnamed")
     }
 }
 
