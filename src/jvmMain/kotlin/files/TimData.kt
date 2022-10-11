@@ -44,7 +44,10 @@ fun readTimData() {
     } else {
         dataFrameOf(timDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
+    doneReadingTimData = true
 }
+
+var doneReadingTimData = false
 
 fun editTimData(edit: AnyFrame.() -> Unit) {
     timData = dataFrameOf(timData!!.columns()).apply(edit)

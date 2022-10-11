@@ -40,7 +40,10 @@ fun readTeamData() {
     } else {
         dataFrameOf(teamDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
+    doneReadingTeamData = true
 }
+
+var doneReadingTeamData = false
 
 fun editTeamData(edit: AnyFrame.() -> Unit) {
     teamData = dataFrameOf(teamData!!.columns()).apply(edit)

@@ -21,7 +21,10 @@ fun readSettings() {
     } else {
         Settings()
     }
+    doneReadingSettings = true
 }
+
+var doneReadingSettings = false
 
 val settingsWriter = DebouncedFileWriter<Settings>(SETTINGS_FILE) {
     Json.encodeToString(it)
