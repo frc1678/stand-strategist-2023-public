@@ -17,10 +17,7 @@ import org.jetbrains.kotlinx.dataframe.io.toCsv
 
 private val timDataCols = mutableListOf<ColumnAccessor<Any?>>()
 
-private fun <T> ColumnAccessor<T>.register(): ColumnAccessor<T> {
-    timDataCols.add(this)
-    return this
-}
+private fun <T> ColumnAccessor<T>.register() = this.also { timDataCols.add(this) }
 
 val matchNumber by column<Int>("Match Number").register()
 val alliance by column<String>("Alliance").register()
