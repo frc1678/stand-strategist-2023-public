@@ -14,7 +14,6 @@ import org.jetbrains.kotlinx.dataframe.api.named
 import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
-import util.emptyCol
 
 private val timDataCols = mutableListOf<ColumnAccessor<Any?>>()
 
