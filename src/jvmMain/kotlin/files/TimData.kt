@@ -31,7 +31,7 @@ fun readTimData() {
             emptyCol<Int?>("defenseRating"),
             emptyCol<Boolean?>("shootingHub"),
             emptyCol<Int?>("timeLeftToClimb"),
-            emptyCol<String?>("notes")
+            emptyCol<String>("notes")
         )
     }
 }
