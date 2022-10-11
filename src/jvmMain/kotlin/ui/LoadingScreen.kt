@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import files.readSettings
+import files.readTeamData
 import files.readTimData
 import io.MAIN_FOLDER
 
@@ -18,6 +19,7 @@ fun LoadingScreen(onLoaded: () -> Unit) {
         MAIN_FOLDER.mkdir()
         readSettings()
         readTimData()
+        readTeamData()
         onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
