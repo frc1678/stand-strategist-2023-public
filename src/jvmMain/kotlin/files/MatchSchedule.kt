@@ -37,5 +37,5 @@ fun matchScheduleDialog(window: ComposeWindow): MatchSchedule {
     }
     if (fileDialog.file == null) throw RuntimeException("Error: No match schedule file selected! Please select one.")
     File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
-    return Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
+    return Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
 }
