@@ -23,13 +23,17 @@ fun readMatchSchedule(window: ComposeWindow) {
     matchSchedule = if (MATCH_SCHEDULE_FILE.exists()) {
         Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
     } else {
-        val fileDialog = FileDialog(window, "Select match schedule", FileDialog.LOAD).apply {
-            isMultipleMode = false
-            setFilenameFilter { _, name -> name.endsWith(".json") }
-            isVisible = true
-        }
-        if (fileDialog.file == null) throw RuntimeException("Error: No match schedule file selected! Please select one.")
-        File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
-        Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
+        matchScheduleDialog(window)
     }
+}
+
+fun matchScheduleDialog(window: ComposeWindow): Map<String, Match>? {
+    val fileDialog = FileDialog(window, "Select match schedule", FileDialog.LOAD).apply {
+        isMultipleMode = false
+        setFilenameFilter { _, name -> name.endsWith(".json") }
+        isVisible = true
+    }
+    if (fileDialog.file == null) throw RuntimeException("Error: No match schedule file selected! Please select one.")
+    File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
+    return Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
 }
