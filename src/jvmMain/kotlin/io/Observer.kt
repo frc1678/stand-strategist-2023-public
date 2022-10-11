@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 fun Observer() {
     LaunchedEffect(true) {
         for (
-        writer in listOf(
-            settingsWriter, timDataWriter, teamDataWriter
-        )
+            writer in listOf(
+                settingsWriter, timDataWriter, teamDataWriter
+            )
         ) launch(Dispatchers.IO) {
             writer.start()
         }
