@@ -6,10 +6,26 @@ import androidx.compose.runtime.setValue
 import io.DebouncedFileWriter
 import io.TEAM_DATA_FILE
 import org.jetbrains.kotlinx.dataframe.AnyFrame
+import org.jetbrains.kotlinx.dataframe.api.column
+import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
+import org.jetbrains.kotlinx.dataframe.api.named
+import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
-import util.emptyCol
+
+private val teamDataCols = mutableListOf<ColumnAccessor<Any?>>()
+
+private fun <T> ColumnAccessor<T>.register(): ColumnAccessor<T> {
+    teamDataCols.add(this)
+    return this
+}
+
+val team by column<String>("Team").register()
+val competence by column<String>("Driving and Scoring Competence").register()
+val strengthsAndWeaknesses by column<String>("Strengths/Weaknesses").register()
+val defensiveMethod by column<String>("Defensive Method").register()
+val extraNotes by column<String>("Notes").register()
 
 /**
  * The main object storing all the team data.
@@ -22,12 +38,7 @@ fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
         TEAM_DATA_FILE.readDataFrame()
     } else {
-        dataFrameOf(
-            emptyCol<String>("competence"),
-            emptyCol<String>("strengthsWeaknesses"),
-            emptyCol<String>("defensiveMethod"),
-            emptyCol<String>("notes")
-        )
+        dataFrameOf(teamDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
 }
 

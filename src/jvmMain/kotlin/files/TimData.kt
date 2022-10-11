@@ -7,10 +7,30 @@ import io.DebouncedFileWriter
 import io.TIM_DATA_FILE
 import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
+import org.jetbrains.kotlinx.dataframe.api.column
+import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
+import org.jetbrains.kotlinx.dataframe.api.named
+import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 import util.emptyCol
+
+private val timDataCols = mutableListOf<ColumnAccessor<Any?>>()
+
+private fun <T> ColumnAccessor<T>.register(): ColumnAccessor<T> {
+    timDataCols.add(this)
+    return this
+}
+
+val matchNumber by column<Int>("Match Number").register()
+val alliance by column<String>("Alliance").register()
+val teamNumber by column<Int>("Team Number").register()
+val defense by column<Boolean?>("Played Defense").register()
+val defenseRating by column<Int?>("Defense Rating").register()
+val shootingHub by column<Boolean?>("Shooting Hub").register()
+val timeLeftToClimb by column<Int?>("Time Left to Climb").register()
+val notes by column<String>("Notes").register()
 
 /**
  * The main object storing all the Team-In-Match data.
@@ -23,16 +43,7 @@ fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
         TIM_DATA_FILE.readDataFrame()
     } else {
-        dataFrameOf(
-            emptyCol<Int>("matchNumber"),
-            emptyCol<String>("alliance"),
-            emptyCol<Int>("teamNumber"),
-            emptyCol<Boolean?>("defense"),
-            emptyCol<Int?>("defenseRating"),
-            emptyCol<Boolean?>("shootingHub"),
-            emptyCol<Int?>("timeLeftToClimb"),
-            emptyCol<String>("notes")
-        )
+        dataFrameOf(timDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
 }
 
