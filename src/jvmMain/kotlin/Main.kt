@@ -21,11 +21,14 @@ fun App(window: ComposeWindow) {
     MaterialTheme {
         Observer()
         var loaded by remember { mutableStateOf(false) }
-        if (!loaded) LoadingScreen(window, onLoaded = { loaded = true })
-        else when (settings!!.screen) {
-            Screens.STARTING -> StartingScreen()
-            Screens.DATA -> DataScreen()
-            Screens.NOTES -> NotesScreen()
+        if (!loaded) {
+            LoadingScreen(window, onLoaded = { loaded = true })
+        } else {
+            when (settings!!.screen) {
+                Screens.STARTING -> StartingScreen()
+                Screens.DATA -> DataScreen()
+                Screens.NOTES -> NotesScreen()
+            }
         }
     }
 }
