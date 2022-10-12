@@ -1,11 +1,10 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform") version "1.6.10"
+    kotlin("multiplatform") version "1.7.20"
     id("org.jetbrains.compose")
-    kotlin("plugin.serialization") version "1.6.10"
-    id("org.jmailen.kotlinter") version "3.7.0"
+    kotlin("plugin.serialization") version "1.7.20"
+    id("org.jmailen.kotlinter") version "3.12.0"
 }
 
 group = "org.citruscircuits"
@@ -20,7 +19,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "17"
         }
         withJava()
     }
