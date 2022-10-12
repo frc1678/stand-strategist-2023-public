@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import files.settings
 import io.Observer
 import ui.DataScreen
 import ui.LoadingScreen
@@ -19,10 +20,9 @@ import ui.StartingScreen
 fun App(window: ComposeWindow) {
     MaterialTheme {
         Observer()
-
-        var currentScreen by remember { mutableStateOf(Screens.LOADING) }
-        when (currentScreen) {
-            Screens.LOADING -> LoadingScreen(window, onLoaded = { currentScreen = Screens.STARTING })
+        var loaded by remember { mutableStateOf(false) }
+        if (!loaded) LoadingScreen(window, onLoaded = { loaded = true })
+        else when (settings!!.screen) {
             Screens.STARTING -> StartingScreen()
             Screens.DATA -> DataScreen()
             Screens.NOTES -> NotesScreen()
@@ -31,7 +31,7 @@ fun App(window: ComposeWindow) {
 }
 
 enum class Screens {
-    LOADING, STARTING, DATA, NOTES
+    STARTING, DATA, NOTES
 }
 
 fun main() = application {

@@ -1,5 +1,6 @@
 package files
 
+import Screens
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,7 +12,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Settings(var lastMatch: Int = 1, var name: String = "Unnamed")
+data class Settings(var match: Int = 1, var name: String = "Unnamed", var screen: Screens = Screens.STARTING)
 
 var settings: Settings? by mutableStateOf(null)
 
