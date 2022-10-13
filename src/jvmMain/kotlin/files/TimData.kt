@@ -33,7 +33,7 @@ val notes by column<String>("Notes").register()
  *
  * Don't directly make edits to this object, use [editTimData].
  */
-var timData: AnyFrame? by mutableStateOf(DataFrame.empty())
+var timData: AnyFrame? by mutableStateOf(null)
 
 fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
