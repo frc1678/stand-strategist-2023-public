@@ -18,22 +18,4 @@ import files.settings
 
 @Composable
 fun StartingScreen() {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        TextField(
-            value = settings!!.name,
-            onValueChange = { editSettings { name = it } },
-            textStyle = TextStyle(fontSize = 200.sp)
-        )
-        Text(settings!!.match.toString(), fontSize = 200.sp)
-        Row(horizontalArrangement = Arrangement.spacedBy(30.dp)) {
-            val teams = matchSchedule!![settings!!.match.toString()]!!.teams.filter { it.color == settings!!.alliance }
-            teams.forEach {
-                Text(it.number.toString(), fontSize = 100.sp)
-            }
-        }
-    }
 }
