@@ -12,7 +12,12 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Settings(var match: Int = 1, var alliance: String = "blue", var name: String = "Unnamed", var screen: Screens = Screens.STARTING)
+data class Settings(
+    var match: Int = 1,
+    var alliance: String = "blue",
+    var name: String = "Unnamed",
+    var screen: Screens = Screens.STARTING
+)
 
 var settings: Settings? by mutableStateOf(null)
 

@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import io.DebouncedFileWriter
 import io.TIM_DATA_FILE
 import org.jetbrains.kotlinx.dataframe.AnyFrame
-import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
