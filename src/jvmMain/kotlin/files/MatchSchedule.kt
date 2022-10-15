@@ -17,9 +17,9 @@ data class Match(val teams: List<Team>)
 @Serializable
 data class Team(val number: Int, val color: String)
 
-typealias MatchSchedule = Map<String, Match>?
+typealias MatchSchedule = Map<String, Match>
 
-var matchSchedule: MatchSchedule by mutableStateOf(null)
+var matchSchedule: MatchSchedule? by mutableStateOf(null)
 
 fun readMatchSchedule(window: ComposeWindow) {
     matchSchedule = if (MATCH_SCHEDULE_FILE.exists()) {
@@ -32,7 +32,7 @@ fun readMatchSchedule(window: ComposeWindow) {
     }
 }
 
-fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSchedule {
+fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSchedule? {
     val fileDialog = FileDialog(window, "Select match schedule", FileDialog.LOAD).apply {
         isMultipleMode = false
         setFilenameFilter { _, name -> name.endsWith(".json") }
