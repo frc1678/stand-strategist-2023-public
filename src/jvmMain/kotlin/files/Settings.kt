@@ -28,7 +28,7 @@ fun readSettings() {
 var doneReadingSettings = false
 
 fun editSettings(edit: Settings.() -> Unit) {
-    settings = settings!!.apply(edit)
+    settings = settings!!.copy().apply(edit)
 }
 
 val settingsWriter = DebouncedFileWriter<Settings>(SETTINGS_FILE) {
