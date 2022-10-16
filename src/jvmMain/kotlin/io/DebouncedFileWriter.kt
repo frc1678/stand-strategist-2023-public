@@ -23,6 +23,7 @@ val DEBOUNCE = 1000.milliseconds
  * - the [start] method called from the [LaunchedEffect] of [Observer], and
  * - the [writeData] method called whenever the corresponding data is updated (use [Observer]).
  *
+ * @param T The type of object that needs to be deserialized.
  * @param file The [File] to write to.
  * @param deserializer A lambda function that takes the serialized data as a parameter
  * and returns a `String` version ready to be written to the [file].

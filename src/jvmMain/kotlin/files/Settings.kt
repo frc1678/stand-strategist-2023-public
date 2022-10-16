@@ -11,6 +11,9 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+/**
+ * Data class used to represent the app's current settings.
+ */
 @Serializable
 data class Settings(
     var match: Int = 1,
@@ -19,8 +22,14 @@ data class Settings(
     var screen: Screens = Screens.STARTING
 )
 
+/**
+ * The main settings object. Do not edit this directly, use [editSettings].
+ */
 var settings: Settings? by mutableStateOf(null)
 
+/**
+ * Reads from the [SETTINGS_FILE] into [settings]. Constructs a new [Settings] object if the file doesn't exist.
+ */
 fun readSettings() {
     settings = if (SETTINGS_FILE.exists()) {
         Json.decodeFromString(SETTINGS_FILE.readText())
@@ -32,10 +41,19 @@ fun readSettings() {
 
 var doneReadingSettings = false
 
+/**
+ * Applies [edit] to the [settings] and sets a new instance of [Settings] so that recomposition gets triggered.
+ *
+ * @param edit The operation to be applied to the [settings].
+ */
 fun editSettings(edit: Settings.() -> Unit) {
     settings = settings!!.copy().apply(edit)
 }
 
+/**
+ * The [DebouncedFileWriter] for the [settings].
+ * Data can be written to the file by calling [DebouncedFileWriter.writeData] on this instance.
+ */
 val settingsWriter = DebouncedFileWriter<Settings>(SETTINGS_FILE) {
     Json.encodeToString(it)
 }
