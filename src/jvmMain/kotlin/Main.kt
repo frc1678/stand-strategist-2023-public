@@ -24,11 +24,12 @@ fun App(window: ComposeWindow) {
         if (!loaded) {
             LoadingScreen(window, onLoaded = { loaded = true })
         } else {
-            when (settings!!.screen) {
-                Screens.STARTING -> StartingScreen()
-                Screens.DATA -> DataScreen()
-                Screens.NOTES -> NotesScreen()
-            }
+            DataScreen()
+//            when (settings!!.screen) {
+//                Screens.STARTING -> StartingScreen()
+//                Screens.DATA -> DataScreen()
+//                Screens.NOTES -> NotesScreen()
+//            }
         }
     }
 }
