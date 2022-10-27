@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
 
 @Composable
-fun StartingScreen() {
+fun StartingScreen(modifier: Modifier) {
 
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         var text by remember { mutableStateOf("Hello") }
         var text2 by remember { mutableStateOf("Hello") }

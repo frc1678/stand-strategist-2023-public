@@ -176,9 +176,9 @@ val dataPoints = arrayOf("", "Defense", "Defense Rating", "Shooting Hub", "Time 
 
 @Composable
 
-fun DataScreen() {
+fun DataScreen(modifier: Modifier) {
 
-    Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
+    Row(modifier = modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
         Columns(0)
 
         Columns(1)

@@ -8,12 +8,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import files.settings
 import io.Observer
-import ui.DataScreen
 import ui.LoadingScreen
-import ui.NotesScreen
-import ui.StartingScreen
+import ui.NavWrapper
 
 @Composable
 @Preview
@@ -24,12 +21,7 @@ fun App(window: ComposeWindow) {
         if (!loaded) {
             LoadingScreen(window, onLoaded = { loaded = true })
         } else {
-            NotesScreen()
-//            when (settings!!.screen) {
-//                Screens.STARTING -> StartingScreen()
-//                Screens.DATA -> DataScreen()
-//                Screens.NOTES -> NotesScreen()
-//            }
+            NavWrapper()
         }
     }
 }
