@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import files.matchSchedule
+import files.settings
 
 @Composable
 fun NotesScreen(modifier: Modifier) {
@@ -28,9 +30,13 @@ fun NotesScreen(modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(170.dp)
         ) {
             Text("")
-            Text("Team 1")
-            Text("Team 2")
-            Text("Team 3")
+            for (i in 0 until 3) {
+                Text(
+                    matchSchedule!![settings!!.match.toString()]!!.teams.filter {
+                        it.color == settings!!.alliance
+                    }[i].number.toString()
+                )
+            }
         }
         Column(
             modifier = Modifier.padding(horizontal = 10.dp).padding(top = 90.dp).fillMaxHeight(),

@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import files.matchSchedule
+import files.settings
 
 @Composable
 fun DataScreen(modifier: Modifier) {
@@ -35,9 +37,13 @@ fun DataScreen(modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(170.dp)
         ) {
             Text("")
-            Text("Team 1")
-            Text("Team 2")
-            Text("Team 3")
+            for (i in 0 until 3) {
+                Text(
+                    matchSchedule!![settings!!.match.toString()]!!.teams.filter {
+                        it.color == settings!!.alliance
+                    }[i].number.toString()
+                )
+            }
         }
 
         Column(
