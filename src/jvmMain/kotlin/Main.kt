@@ -5,7 +5,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.awt.ComposeWindow
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.isMetaPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import io.Observer
@@ -30,8 +37,15 @@ enum class Screens {
     STARTING, DATA, NOTES
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "Stand Strategist") {
+    Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
+        if (it.isMetaPressed && it.key == Key.S && it.type == KeyEventType.KeyDown) {
+            println("yes")
+        }
+        true
+    }) {
         App(window)
     }
+
 }
