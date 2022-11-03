@@ -19,7 +19,7 @@ import org.jetbrains.kotlinx.dataframe.io.toCsv
  * The [ColumnAccessor]s for all the columns in the [teamData].
  * Used to initially construct the empty [DataFrame] with the correct columns.
  */
-private val teamDataCols = mutableListOf<ColumnAccessor<Any?>>()
+val teamDataCols = mutableListOf<ColumnAccessor<Any?>>()
 
 /**
  * Adds a [ColumnAccessor] to [teamDataCols].
