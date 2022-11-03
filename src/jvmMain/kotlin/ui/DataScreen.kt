@@ -39,9 +39,9 @@ fun DataScreen(modifier: Modifier) {
             Text("")
             for (i in 0 until 3) {
                 Text(
-                    matchSchedule!![settings!!.match.toString()]!!.teams.filter {
+                    matchSchedule!![settings!!.match.toString()]?.teams?.filter {
                         it.color == settings!!.alliance
-                    }[i].number.toString()
+                    }?.get(i)?.number?.toString() ?: "?"
                 )
             }
         }
