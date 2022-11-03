@@ -8,50 +8,47 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.TextStyle
+import files.editSettings
+import files.matchSchedule
+import files.settings
 
 @Composable
 fun StartingScreen(modifier: Modifier) {
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize()
     ) {
-        var text by remember { mutableStateOf("Hello") }
-        var text2 by remember { mutableStateOf("Hello") }
         TextField(
-            value = text,
-            onValueChange = { text = it },
+            value = settings!!.name,
+            onValueChange = { editSettings { name = it } },
             label = { Text("Input Name:") },
             textStyle = (TextStyle(fontSize = 100.sp)),
             modifier = Modifier.padding(50.dp)
         )
 
-        var matchNum = 1
         TextField(
-            value = text2,
-            onValueChange = { text2 = it },
+            value = settings!!.match.toString(),
+            onValueChange = { editSettings { match = it.toIntOrNull() ?: 0 } },
             label = { Text("Match Number: ") },
             textStyle = (TextStyle(fontSize = 100.sp)),
             modifier = Modifier.padding(50.dp)
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text("1", fontSize = 100.sp)
-            Text("2", fontSize = 100.sp)
-            Text("3", fontSize = 100.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
+            for (i in 0 until 3) {
+                Text(
+                    matchSchedule!![settings!!.match.toString()]?.teams?.filter {
+                        it.color == settings!!.alliance
+                    }?.get(i)?.number?.toString() ?: "?",
+                    fontSize = 100.sp
+                )
+            }
         }
     }
-
 }
-
-
