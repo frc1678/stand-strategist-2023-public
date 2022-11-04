@@ -1,16 +1,15 @@
 package files
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import io.DebouncedFileWriter
 import io.TEAM_DATA_FILE
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
 import org.jetbrains.kotlinx.dataframe.api.named
+import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
@@ -28,7 +27,7 @@ val teamDataCols = mutableListOf<ColumnAccessor<Any?>>()
  */
 private fun <T> ColumnAccessor<T>.register() = this.also { teamDataCols.add(this) }
 
-val team by column<String>("Team").register()
+val team by column<Int>("Team").register()
 val competence by column<String>("Driving and Scoring Competence").register()
 val strengthsAndWeaknesses by column<String>("Strengths/Weaknesses").register()
 val defensiveMethod by column<String>("Defensive Method").register()
@@ -37,9 +36,18 @@ val extraNotes by column<String>("Notes").register()
 /**
  * The main object storing all the team data.
  *
- * Don't directly make edits to this object, use [editTeamData].
+ * To update the data, use [DataFrame.update]:
+ * ```kt
+ * teamData = teamData!!.update(/* column */)
+ *     .where { /* row condition */ }
+ *      .with { /* new value */ }
+ * ```
  */
-var teamData: AnyFrame? by mutableStateOf(null)
+var teamData: AnyFrame? = null
+    set(value) {
+        field = value
+        runBlocking { teamDataWriter.writeData(value!!) }
+    }
 
 /**
  * Reads the team data from the [TEAM_DATA_FILE] into [teamData]. Creates a new [DataFrame] if the file doesn't exist.
@@ -54,15 +62,6 @@ fun readTeamData() {
 }
 
 var doneReadingTeamData = false
-
-/**
- * Applies [edit] to the [teamData] and sets a new [DataFrame] so that recomposition gets triggered.
- *
- * @param edit The operation to be applied to the [teamData].
- */
-fun editTeamData(edit: AnyFrame.() -> Unit) {
-    teamData = dataFrameOf(teamData!!.columns()).apply(edit)
-}
 
 /**
  * The [DebouncedFileWriter] for the [teamData].

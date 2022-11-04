@@ -10,16 +10,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import files.editTeamData
 import files.matchSchedule
 import files.settings
 import files.team
 import files.teamData
 import files.teamDataCols
-import org.jetbrains.kotlinx.dataframe.api.single
-import org.jetbrains.kotlinx.dataframe.api.singleOrNull
+import org.jetbrains.kotlinx.dataframe.api.firstOrNull
 import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.api.where
 import org.jetbrains.kotlinx.dataframe.api.with
@@ -36,8 +38,8 @@ fun NotesScreen(modifier: Modifier) {
                 verticalArrangement = Arrangement.spacedBy(170.dp)
             ) {
                 Text("")
-                for (i in 0 until 3) {
-                    Text(teams?.get(i)?.number?.toString() ?: "?")
+                for (currentTeam in teams ?: emptyList()) {
+                    Text("${currentTeam.number}")
                 }
             }
             for (col in teamDataCols.filter { it.name() != team.name() }) {
@@ -46,41 +48,34 @@ fun NotesScreen(modifier: Modifier) {
                     verticalArrangement = Arrangement.spacedBy(145.dp)
                 ) {
                     Text(col.name())
-                    for (i in 0 until 3) {
-                        val row = teamData!!.singleOrNull {
-                            get(team).toString() == (teams?.get(i)?.number?.toString() ?: "")
-                        }
-                        TextField(
-                            value = row?.get(col)?.toString() ?: "",
-                            onValueChange = { input ->
-                                editTeamData { update { col }.where { index() == row?.index() }.with { input } }
-                            },
-                            modifier = Modifier.width(330.dp)
+                    for (currentTeam in teams ?: emptyList()) {
+                        TeamDataText(
+                            initialData = teamData!!
+                                .firstOrNull { it[team] == currentTeam.number }
+                                ?.get(col)
+                                ?.toString() ?: "",
+                            onChange = { new ->
+                                teamData = teamData!!.update(col)
+                                    .where { team() == currentTeam.number }
+                                    .with { new }
+                            }
                         )
                     }
                 }
             }
         }
-        /*Column(
-            modifier = Modifier.padding(horizontal = 10.dp).padding(top = 90.dp).fillMaxHeight(),
-            verticalArrangement = Arrangement.spacedBy(145.dp)
-        ) {
-            Text("Notes")
-            TextField(
-                value = text,
-                onValueChange = { text = it },
-                modifier = Modifier.width(330.dp)
-            )
-            TextField(
-                value = text2,
-                onValueChange = { text2 = it },
-                modifier = Modifier.width(330.dp)
-            )
-            TextField(
-                value = text3,
-                onValueChange = { text3 = it },
-                modifier = Modifier.width(330.dp)
-            )
-        }*/
     }
+}
+
+@Composable
+fun TeamDataText(initialData: String, onChange: (String) -> Unit) {
+    var text by remember { mutableStateOf(initialData) }
+    TextField(
+        value = text,
+        onValueChange = {
+            text = it
+            onChange(it)
+        },
+        modifier = Modifier.width(330.dp)
+    )
 }

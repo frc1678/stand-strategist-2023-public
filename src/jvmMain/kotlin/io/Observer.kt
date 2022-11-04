@@ -34,7 +34,4 @@ fun Observer() {
     LaunchedEffect(timData) {
         if (doneReadingTimData && timData != null) timDataWriter.writeData(timData!!)
     }
-    LaunchedEffect(teamData) {
-        if (doneReadingTeamData && teamData != null) teamDataWriter.writeData(teamData!!)
-    }
 }
