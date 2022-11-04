@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=jetbrains,kotlin,java,android,eclipse,netbeans,windows,macos,linux,vim,emacs,gradle
 
 ### Android ###
-# Gradle files
+# Gradle io.files
 .gradle/
 build/
 
@@ -12,7 +12,7 @@ local.properties
 # Log/OS Files
 *.log
 
-# Android Studio generated files and folders
+# Android Studio generated io.files and folders
 captures/
 .externalNativeBuild/
 .cxx/
@@ -26,7 +26,7 @@ misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
-# Keystore files
+# Keystore io.files
 *.jks
 *.keystore
 
@@ -125,14 +125,14 @@ tramp
 # flymake-mode
 *_flymake.*
 
-# eshell files
+# eshell io.files
 /eshell/history
 /eshell/lastdir
 
 # elpa packages
 /elpa/
 
-# reftex files
+# reftex io.files
 *.rel
 
 # AUCTeX auto folder
@@ -148,7 +148,7 @@ flycheck_*.el
 # server auth directory
 /server/
 
-# projectiles files
+# projectiles io.files
 .projectile
 
 # directory configuration
@@ -164,7 +164,7 @@ flycheck_*.el
 
 # Log file
 
-# BlueJ files
+# BlueJ io.files
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
@@ -197,10 +197,10 @@ replay_pid*
 # AWS User-specific
 .idea/**/aws.xml
 
-# Generated files
+# Generated io.files
 .idea/**/contentModel.xml
 
-# Sensitive or high-churn files
+# Sensitive or high-churn io.files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
@@ -214,7 +214,7 @@ replay_pid*
 .idea/**/libraries
 
 # Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
+# When using Gradle or Maven with auto-import, you should exclude module io.files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
 .idea/artifacts
@@ -301,7 +301,7 @@ fabric.properties
 
 # Log file
 
-# BlueJ files
+# BlueJ io.files
 
 # Mobile Tools for Java (J2ME)
 
@@ -311,7 +311,7 @@ fabric.properties
 
 ### Linux ###
 
-# temporary files which can be created if a process still has a handle open of a deleted file
+# temporary io.files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
 
 # KDE directory preferences
@@ -320,7 +320,7 @@ fabric.properties
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
-# .nfs files are created when an open file is removed but is still being accessed
+# .nfs io.files are created when an open file is removed but is still being accessed
 .nfs*
 
 ### macOS ###
@@ -353,7 +353,7 @@ Temporary Items
 .apdisk
 
 ### macOS Patch ###
-# iCloud generated files
+# iCloud generated io.files
 *.icloud
 
 ### NetBeans ###
@@ -367,7 +367,7 @@ nbdist/
 ### Vim ###
 # Swap
 [._]*.s[a-v][a-z]
-!*.svg  # comment out if you don't need vector files
+!*.svg  # comment out if you don't need vector io.files
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
@@ -379,13 +379,13 @@ Sessionx.vim
 
 # Temporary
 .netrwhist
-# Auto-generated tag files
+# Auto-generated tag io.files
 tags
 # Persistent undo
 [._]*.un~
 
 ### Windows ###
-# Windows thumbnail cache files
+# Windows thumbnail cache io.files
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
@@ -400,7 +400,7 @@ ehthumbs_vista.db
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# Windows Installer files
+# Windows Installer io.files
 *.cab
 *.msi
 *.msix
@@ -418,7 +418,7 @@ $RECYCLE.BIN/
 # Ignore Gradle GUI config
 gradle-app.setting
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+# Avoid ignoring Gradle wrapper jar file (.jar io.files are usually ignored)
 !gradle-wrapper.jar
 
 # Avoid ignore Gradle wrappper properties
@@ -427,7 +427,7 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# Eclipse Gradle plugin generated files
+# Eclipse Gradle plugin generated io.files
 # Eclipse Core
 .project
 # JDT-specific (Eclipse Java Development Tools)

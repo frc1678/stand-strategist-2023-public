@@ -1,4 +1,4 @@
-package ui
+package ui.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import files.editSettings
-import files.matchSchedule
-import files.settings
+import io.files.editSettings
+import io.files.matchSchedule
+import io.files.settings
 
 @Composable
-fun StartingScreen(modifier: Modifier) {
+fun StartingPage(modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,

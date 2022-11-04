@@ -1,4 +1,4 @@
-package ui
+package ui.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import files.matchSchedule
-import files.settings
+import io.files.matchSchedule
+import io.files.settings
 
 @Composable
-fun DataScreen(modifier: Modifier) {
+fun DataPage(modifier: Modifier) {
     Row(modifier = modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
         var text by remember { mutableStateOf("") }
         var text2 by remember { mutableStateOf("") }

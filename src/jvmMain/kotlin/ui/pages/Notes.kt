@@ -1,4 +1,4 @@
-package ui
+package ui.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,18 +16,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import files.matchSchedule
-import files.settings
-import files.team
-import files.teamData
-import files.teamDataCols
+import io.files.matchSchedule
+import io.files.settings
+import io.files.team
+import io.files.teamData
+import io.files.teamDataCols
 import org.jetbrains.kotlinx.dataframe.api.firstOrNull
 import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.api.where
 import org.jetbrains.kotlinx.dataframe.api.with
 
 @Composable
-fun NotesScreen(modifier: Modifier) {
+fun NotesPage(modifier: Modifier) {
     Row(modifier = modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
         val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
             it.color == settings!!.alliance

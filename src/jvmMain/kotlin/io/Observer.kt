@@ -2,15 +2,13 @@ package io
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import files.doneReadingSettings
-import files.doneReadingTeamData
-import files.doneReadingTimData
-import files.settings
-import files.settingsWriter
-import files.teamData
-import files.teamDataWriter
-import files.timData
-import files.timDataWriter
+import io.files.doneReadingSettings
+import io.files.doneReadingTimData
+import io.files.settings
+import io.files.settingsWriter
+import io.files.teamDataWriter
+import io.files.timData
+import io.files.timDataWriter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

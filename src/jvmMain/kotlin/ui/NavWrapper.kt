@@ -11,8 +11,11 @@ import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import files.editSettings
-import files.settings
+import io.files.editSettings
+import io.files.settings
+import ui.pages.DataPage
+import ui.pages.NotesPage
+import ui.pages.StartingPage
 
 @Composable
 fun NavWrapper() {
@@ -29,9 +32,9 @@ fun NavWrapper() {
             Icon(Icons.Outlined.ArrowBack, "Back")
         }
         when (settings!!.screen) {
-            Screens.STARTING -> StartingScreen(Modifier.weight(1f))
-            Screens.DATA -> DataScreen(Modifier.weight(1f))
-            Screens.NOTES -> NotesScreen(Modifier.weight(1f))
+            Screens.STARTING -> StartingPage(Modifier.weight(1f))
+            Screens.DATA -> DataPage(Modifier.weight(1f))
+            Screens.NOTES -> NotesPage(Modifier.weight(1f))
         }
         IconButton(onClick = {
             editSettings {

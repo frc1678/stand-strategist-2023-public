@@ -1,4 +1,4 @@
-package files
+package io.files
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
