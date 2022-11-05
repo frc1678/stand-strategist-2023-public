@@ -8,12 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.files.matchSchedule
@@ -25,6 +20,7 @@ import org.jetbrains.kotlinx.dataframe.api.firstOrNull
 import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.api.where
 import org.jetbrains.kotlinx.dataframe.api.with
+import ui.TextDataField
 
 @Composable
 fun NotesPage(modifier: Modifier) {
@@ -48,7 +44,7 @@ fun NotesPage(modifier: Modifier) {
             ) {
                 Text(col.name())
                 for (currentTeam in teams ?: emptyList()) {
-                    TeamDataText(
+                    TextDataField(
                         initialData = teamData!!
                             .firstOrNull { it[team] == currentTeam.number }
                             ?.get(col)
@@ -57,24 +53,11 @@ fun NotesPage(modifier: Modifier) {
                             teamData = teamData!!.update(col)
                                 .where { team() == currentTeam.number }
                                 .with { new }
-                        }
+                        },
+                        modifier = Modifier.width(330.dp)
                     )
                 }
             }
         }
     }
-
-}
-
-@Composable
-fun TeamDataText(initialData: String, onChange: (String) -> Unit) {
-    var text by remember { mutableStateOf(initialData) }
-    TextField(
-        value = text,
-        onValueChange = {
-            text = it
-            onChange(it)
-        },
-        modifier = Modifier.width(330.dp)
-    )
 }
