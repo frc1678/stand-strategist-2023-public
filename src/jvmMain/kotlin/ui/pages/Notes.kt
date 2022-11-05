@@ -28,43 +28,42 @@ import org.jetbrains.kotlinx.dataframe.api.with
 
 @Composable
 fun NotesPage(modifier: Modifier) {
+    val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
+        it.color == settings!!.alliance
+    }
     Row(modifier = modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-        val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
-            it.color == settings!!.alliance
-        }
-        Row(modifier = modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Column(
-                modifier = Modifier.padding(horizontal = 10.dp).fillMaxHeight().padding(top = 90.dp),
-                verticalArrangement = Arrangement.spacedBy(170.dp)
-            ) {
-                Text("")
-                for (currentTeam in teams ?: emptyList()) {
-                    Text("${currentTeam.number}")
-                }
+        Column(
+            modifier = Modifier.padding(horizontal = 10.dp).fillMaxHeight().padding(top = 90.dp),
+            verticalArrangement = Arrangement.spacedBy(170.dp)
+        ) {
+            Text("")
+            for (currentTeam in teams ?: emptyList()) {
+                Text("${currentTeam.number}")
             }
-            for (col in teamDataCols.filter { it.name() != team.name() }) {
-                Column(
-                    modifier = Modifier.padding(horizontal = 10.dp).padding(top = 90.dp).fillMaxHeight(),
-                    verticalArrangement = Arrangement.spacedBy(145.dp)
-                ) {
-                    Text(col.name())
-                    for (currentTeam in teams ?: emptyList()) {
-                        TeamDataText(
-                            initialData = teamData!!
-                                .firstOrNull { it[team] == currentTeam.number }
-                                ?.get(col)
-                                ?.toString() ?: "",
-                            onChange = { new ->
-                                teamData = teamData!!.update(col)
-                                    .where { team() == currentTeam.number }
-                                    .with { new }
-                            }
-                        )
-                    }
+        }
+        for (col in teamDataCols.filter { it.name() != team.name() }) {
+            Column(
+                modifier = Modifier.padding(horizontal = 10.dp).padding(top = 90.dp).fillMaxHeight(),
+                verticalArrangement = Arrangement.spacedBy(145.dp)
+            ) {
+                Text(col.name())
+                for (currentTeam in teams ?: emptyList()) {
+                    TeamDataText(
+                        initialData = teamData!!
+                            .firstOrNull { it[team] == currentTeam.number }
+                            ?.get(col)
+                            ?.toString() ?: "",
+                        onChange = { new ->
+                            teamData = teamData!!.update(col)
+                                .where { team() == currentTeam.number }
+                                .with { new }
+                        }
+                    )
                 }
             }
         }
     }
+
 }
 
 @Composable
