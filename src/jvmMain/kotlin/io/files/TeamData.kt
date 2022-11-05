@@ -15,23 +15,21 @@ import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 
 /**
+ * [ColumnAccessor] for accessing the 'Team' column. All other columns should be accessed through [teamDataCols].
+ */
+val team by column<Int>("Team")
+
+/**
  * The [ColumnAccessor]s for all the columns in the [teamData].
  * Used to initially construct the empty [DataFrame] with the correct columns.
  */
-val teamDataCols = mutableListOf<ColumnAccessor<Any?>>()
-
-/**
- * Adds a [ColumnAccessor] to [teamDataCols].
- *
- * @return The added [ColumnAccessor].
- */
-private fun <T> ColumnAccessor<T>.register() = this.also { teamDataCols.add(this) }
-
-val team by column<Int>("Team").register()
-val competence by column<String>("Driving and Scoring Competence").register()
-val strengthsAndWeaknesses by column<String>("Strengths/Weaknesses").register()
-val defensiveMethod by column<String>("Defensive Method").register()
-val extraNotes by column<String>("Notes").register()
+val teamDataCols = mutableListOf<ColumnAccessor<Any?>>(
+    team,
+    column<String>("Driving and Scoring Competence"),
+    column<String>("Strengths/Weaknesses"),
+    column<String>("Defensive Method"),
+    column<String>("Notes")
+)
 
 /**
  * The main object storing all the team data.
