@@ -1,49 +1,60 @@
 package io.files
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import io.DebouncedFileWriter
 import io.TEAM_DATA_FILE
 import io.TIM_DATA_FILE
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
 import org.jetbrains.kotlinx.dataframe.api.named
+import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 
 /**
+ * [ColumnAccessor] for accessing the 'Match Number' column. All other columns should be accessed through [timDataCols].
+ */
+val match by column<Int>("Match Number")
+
+/**
+ * [ColumnAccessor] for accessing the 'Alliance' column. All other columns should be accessed through [timDataCols].
+ */
+val alliance by column<String>("Alliance")
+
+/**
  * The [ColumnAccessor]s for all the columns in the [timData].
  * Used to initially construct the empty [DataFrame] with the correct columns.
  */
-private val timDataCols = mutableListOf<ColumnAccessor<Any?>>()
-
-/**
- * Adds a [ColumnAccessor] to [timDataCols].
- *
- * @return The added [ColumnAccessor].
- */
-private fun <T> ColumnAccessor<T>.register() = this.also { timDataCols.add(this) }
-
-val matchNumber by column<Int>("Match Number").register()
-val alliance by column<String>("Alliance").register()
-val teamNumber by column<Int>("Team Number").register()
-val defense by column<Boolean?>("Played Defense").register()
-val defenseRating by column<Int?>("Defense Rating").register()
-val shootingHub by column<Boolean?>("Shooting Hub").register()
-val timeLeftToClimb by column<Int?>("Time Left to Climb").register()
-val notes by column<String>("Notes").register()
+val timDataCols = mutableListOf<ColumnAccessor<Any?>>(
+    match,
+    alliance,
+    team,
+    column<Boolean?>("Played Defense"),
+    column<Int?>("Defense Rating"),
+    column<Boolean?>("Shooting Hub"),
+    column<Int?>("Time Left to Climb"),
+    column<String>("Notes")
+)
 
 /**
  * The main object storing all the Team-In-Match data.
  *
- * Don't directly make edits to this object, use [editTimData].
+ * To update the data, use [DataFrame.update]:
+ * ```kt
+ * timData = timData!!.update(/* column */)
+ *     .where { /* row condition */ }
+ *      .with { /* new value */ }
+ * ```
  */
-var timData: AnyFrame? by mutableStateOf(null)
+var timData: AnyFrame? = null
+    set(value) {
+        field = value
+        runBlocking { timDataWriter.writeData(value!!) }
+    }
 
 /**
  * Reads the team data from the [TEAM_DATA_FILE] into [teamData]. Creates a new [DataFrame] if the file doesn't exist.
@@ -54,18 +65,6 @@ fun readTimData() {
     } else {
         dataFrameOf(timDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
-    doneReadingTimData = true
-}
-
-var doneReadingTimData = false
-
-/**
- * Applies [edit] to the [timData] and sets a new [DataFrame] so that recomposition gets triggered.
- *
- * @param edit The operation to be applied to the [timData].
- */
-fun editTimData(edit: AnyFrame.() -> Unit) {
-    timData = dataFrameOf(timData!!.columns()).apply(edit)
 }
 
 /**

@@ -15,7 +15,8 @@ import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 
 /**
- * [ColumnAccessor] for accessing the 'Team' column. All other columns should be accessed through [teamDataCols].
+ * [ColumnAccessor] for accessing the 'Team' column.
+ * All other columns should be accessed through [teamDataCols] or [timDataCols].
  */
 val team by column<Int>("Team")
 
@@ -56,10 +57,7 @@ fun readTeamData() {
     } else {
         dataFrameOf(teamDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
-    doneReadingTeamData = true
 }
-
-var doneReadingTeamData = false
 
 /**
  * The [DebouncedFileWriter] for the [teamData].
