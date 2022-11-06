@@ -50,6 +50,7 @@ fun NotesScreen(modifier: Modifier) {
                         val row = teamData!!.singleOrNull {
                             get(team).toString() == (teams?.get(i)?.number?.toString() ?: "")
                         }
+
                         TextField(
                             value = row?.get(col)?.toString() ?: "",
                             onValueChange = { input ->

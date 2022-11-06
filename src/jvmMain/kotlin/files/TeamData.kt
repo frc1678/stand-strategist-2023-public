@@ -45,8 +45,11 @@ var teamData: AnyFrame? by mutableStateOf(null)
  * Reads the team data from the [TEAM_DATA_FILE] into [teamData]. Creates a new [DataFrame] if the file doesn't exist.
  */
 fun readTeamData() {
+
+
     teamData = if (TEAM_DATA_FILE.exists()) {
         TEAM_DATA_FILE.readDataFrame()
+
     } else {
         dataFrameOf(teamDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
