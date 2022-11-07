@@ -1,11 +1,11 @@
 # Common settings that generally should always be used with your language specific settings
 
-# Auto detect text io.files and perform LF normalization
+# Auto detect text files and perform LF normalization
 # https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 *          text=auto
 
 #
-# The above will handle all io.files NOT found below
+# The above will handle all files NOT found below
 #
 
 # Documents
@@ -50,7 +50,7 @@
 *.bash     text eol=lf
 *.fish     text eol=lf
 *.sh       text eol=lf
-# These are explicitly windows io.files and should use crlf
+# These are explicitly windows files and should use crlf
 *.bat      text eol=crlf
 *.cmd      text eol=crlf
 *.ps1      text eol=crlf
@@ -69,11 +69,11 @@
 *.tgz      binary
 *.zip      binary
 
-# Text io.files where line endings should be preserved
+# Text files where line endings should be preserved
 *.patch    -text
 
 #
-# Exclude io.files from exporting
+# Exclude files from exporting
 #
 
 .gitattributes export-ignore
@@ -83,7 +83,7 @@
 *.gradle        text diff=java
 *.gradle.kts    text diff=java
 
-# These io.files are text and should be normalized (Convert crlf => lf)
+# These files are text and should be normalized (Convert crlf => lf)
 *.css           text diff=css
 *.df            text
 *.htm           text diff=html
@@ -98,7 +98,7 @@
 *.tagx          text
 *.xml           text
 
-# These io.files are binary and should be left untouched
+# These files are binary and should be left untouched
 # (binary is a macro for -text -diff)
 *.class         binary
 *.dll           binary
