@@ -7,7 +7,9 @@ import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
+import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
+import org.jetbrains.kotlinx.dataframe.api.firstOrNull
 import org.jetbrains.kotlinx.dataframe.api.named
 import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
@@ -22,14 +24,14 @@ val team by column<Int>("Team")
 
 /**
  * The [ColumnAccessor]s for all the columns in the [teamData].
- * Used to initially construct the empty [DataFrame] with the correct columns.
+ * The keys are the [ColumnAccessor]s and the values are the default values for the columns.
  */
-val teamDataCols = mutableListOf<ColumnAccessor<Any?>>(
-    team,
-    column<String>("Driving and Scoring Competence"),
-    column<String>("Strengths/Weaknesses"),
-    column<String>("Defensive Method"),
-    column<String>("Notes")
+val teamDataCols = mutableMapOf<ColumnAccessor<Any?>, Any?>(
+    team to 0,
+    column<String>("Driving and Scoring Competence") to "",
+    column<String>("Strengths/Weaknesses") to "",
+    column<String>("Defensive Method") to "",
+    column<String>("Notes") to ""
 )
 
 /**
@@ -55,7 +57,34 @@ fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
         TEAM_DATA_FILE.readDataFrame()
     } else {
-        dataFrameOf(teamDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+        dataFrameOf(teamDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+    }
+}
+
+/**
+ * Adds rows for any missing teams to the team data. The rows are appended with the default values.
+ */
+fun populateTeamData() {
+    // Get the full teams list using the match schedule
+    val teams = mutableSetOf<Int>()
+    matchSchedule!!.values.forEach { match -> match.teams.forEach { team -> teams.add(team.number) } }
+
+    for (teamNum in teams) {
+        // Check if there is no row for the team
+        if (teamData!!.firstOrNull { team() == teamNum } == null) {
+            // Get the default values from the columns
+            val defaults = teamDataCols.map { (accessor, default) ->
+                if (accessor == team) teamNum else default
+            }.toTypedArray()
+            // Create a new dataframe with one row of the default values
+            val df = dataFrameOf(
+                teamDataCols.keys.mapIndexed { i, it ->
+                    columnOf(values = arrayOf(defaults[i])) named it.name()
+                }
+            )
+            // Concat the new dataframe
+            teamData = teamData!!.concat(df)
+        }
     }
 }
 

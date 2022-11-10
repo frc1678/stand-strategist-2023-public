@@ -41,7 +41,7 @@ fun NotesPage(modifier: Modifier) {
                 }
             }
         }
-        for (col in teamDataCols.filter { it.name() != team.name() }) {
+        for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
             Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
                     Text(col.name())
