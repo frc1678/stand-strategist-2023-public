@@ -9,11 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.text.style.TextAlign
+import io.MAIN_FOLDER
 import io.files.readMatchSchedule
 import io.files.readSettings
 import io.files.readTeamData
 import io.files.readTimData
-import io.MAIN_FOLDER
 
 @Composable
 fun LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {

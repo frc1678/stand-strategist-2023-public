@@ -21,9 +21,10 @@ fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Mod
         modifier = modifier
     )
 }
+
 @Composable
 fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
-    var text by remember { mutableStateOf(initialData)}
+    var text by remember { mutableStateOf(initialData) }
     Checkbox(
         checked = text,
         onCheckedChange = {
