@@ -11,6 +11,7 @@ import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.text.style.TextAlign
 import io.MAIN_FOLDER
 import io.files.populateTeamData
+import io.files.populateTimData
 import io.files.readMatchSchedule
 import io.files.readSettings
 import io.files.readTeamData
@@ -25,6 +26,7 @@ fun LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {
         readTeamData()
         readMatchSchedule(window)
         populateTeamData()
+        populateTimData()
         onLoaded()
     }
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

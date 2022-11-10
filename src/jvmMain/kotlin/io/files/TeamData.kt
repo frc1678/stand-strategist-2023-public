@@ -75,7 +75,7 @@ fun populateTeamData() {
             // Get the default values from the columns
             val defaults = teamDataCols.map { (accessor, default) ->
                 if (accessor == team) teamNum else default
-            }.toTypedArray()
+            }
             // Create a new dataframe with one row of the default values
             val df = dataFrameOf(
                 teamDataCols.keys.mapIndexed { i, it ->

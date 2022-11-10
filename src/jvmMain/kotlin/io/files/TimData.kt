@@ -8,7 +8,9 @@ import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
+import org.jetbrains.kotlinx.dataframe.api.concat
 import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
+import org.jetbrains.kotlinx.dataframe.api.firstOrNull
 import org.jetbrains.kotlinx.dataframe.api.named
 import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
@@ -27,17 +29,17 @@ val alliance by column<String>("Alliance")
 
 /**
  * The [ColumnAccessor]s for all the columns in the [timData].
- * Used to initially construct the empty [DataFrame] with the correct columns.
+ * The keys are the [ColumnAccessor]s and the values are the default values for the columns.
  */
-val timDataCols = mutableListOf<ColumnAccessor<Any?>>(
-    match,
-    alliance,
-    team,
-    column<Boolean?>("Played Defense"),
-    column<Int?>("Defense Rating"),
-    column<Boolean?>("Shooting Hub"),
-    column<Int?>("Time Left to Climb"),
-    column<String>("Notes")
+val timDataCols = mutableMapOf<ColumnAccessor<Any?>, Any?>(
+    match to 0,
+    alliance to "blue",
+    team to 0,
+    column<Boolean?>("Played Defense") to false,
+    column<Int?>("Defense Rating") to 0,
+    column<Boolean?>("Shooting Hub") to false,
+    column<Int?>("Time Left to Climb") to 0,
+    column<String>("Notes") to ""
 )
 
 /**
@@ -63,7 +65,40 @@ fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
         TIM_DATA_FILE.readDataFrame()
     } else {
-        dataFrameOf(timDataCols.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+        dataFrameOf(timDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+    }
+}
+
+/**
+ * Adds rows for any missing teams in matches to the TIM data. The rows are appended with the default values.
+ */
+fun populateTimData() {
+    // Loop over teams and matches in the match schedule
+    for ((matchNum, matchObj) in matchSchedule!!) {
+        for (teamObj in matchObj.teams) {
+            // See if the corresponding row exists yet
+            if (timData!!.firstOrNull {
+                    matchNum == match().toString() && teamObj.number == team() && teamObj.color == alliance()
+                } == null) {
+                // Get the default values for the row
+                val defaults = timDataCols.map { (accessor, default) ->
+                    when (accessor) {
+                        match -> matchNum.toInt()
+                        team -> teamObj.number
+                        alliance -> teamObj.color
+                        else -> default
+                    }
+                }
+                // Create a new dataframe with one row containing the default values
+                val df = dataFrameOf(
+                    timDataCols.keys.mapIndexed { i, it ->
+                        columnOf(values = arrayOf(defaults[i])) named it.name()
+                    }
+                )
+                // Concat the new dataframe
+                timData = timData!!.concat(df)
+            }
+        }
     }
 }
 

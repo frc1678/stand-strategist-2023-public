@@ -45,7 +45,7 @@ fun DataPage(modifier: Modifier) {
         }
     }
 
-    for (col in timDataCols.filter { it.name() != team.name() }) {
+    for (col in timDataCols.keys.filter { it.name() != team.name() }) {
         Column(modifier = Modifier.fillMaxHeight().padding(horizontal = 5.dp)) {
             Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
                 Text(col.name())
