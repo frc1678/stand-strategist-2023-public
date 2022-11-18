@@ -58,14 +58,18 @@ fun DataPage(modifier: Modifier) {
                             TextDataField(
                                 initialData = timData!!
                                     .firstOrNull {
-                                        it[team] == currentTeam.number && it[alliance] == currentTeam.color && it[match] == settings!!.match
+                                        it[team] == currentTeam.number &&
+                                            it[alliance] == currentTeam.color &&
+                                            it[match] == settings!!.match
                                     }
                                     ?.get(col)
                                     ?.toString() ?: "",
                                 onChange = { new ->
                                     timData = timData!!.update(col)
                                         .where {
-                                            team() == currentTeam.number && alliance() == currentTeam.color && match() == settings!!.match
+                                            team() == currentTeam.number &&
+                                                alliance() == currentTeam.color &&
+                                                match() == settings!!.match
                                         }
                                         .with { new }
                                 },
@@ -77,13 +81,17 @@ fun DataPage(modifier: Modifier) {
                             CheckBox(
                                 initialData = timData!!
                                     .firstOrNull {
-                                        it[team] == currentTeam.number && it[alliance] == currentTeam.color && it[match] == settings!!.match
+                                        it[team] == currentTeam.number &&
+                                            it[alliance] == currentTeam.color &&
+                                            it[match] == settings!!.match
                                     }
                                     ?.get(col) as Boolean,
                                 onChange = { new ->
                                     timData = timData!!.update(col)
                                         .where {
-                                            team() == currentTeam.number && alliance() == currentTeam.color && match() == settings!!.match
+                                            team() == currentTeam.number &&
+                                                alliance() == currentTeam.color &&
+                                                match() == settings!!.match
                                         }
                                         .with { new }
                                 },
@@ -95,13 +103,17 @@ fun DataPage(modifier: Modifier) {
                             NumberPicker(
                                 initialData = timData!!
                                     .firstOrNull {
-                                        it[team] == currentTeam.number && it[alliance] == currentTeam.color && it[match] == settings!!.match
+                                        it[team] == currentTeam.number &&
+                                            it[alliance] == currentTeam.color &&
+                                            it[match] == settings!!.match
                                     }
                                     ?.get(col) as Int,
                                 onChange = { new ->
                                     timData = timData!!.update(col)
                                         .where {
-                                            team() == currentTeam.number && alliance() == currentTeam.color && match() == settings!!.match
+                                            team() == currentTeam.number &&
+                                                alliance() == currentTeam.color &&
+                                                match() == settings!!.match
                                         }
                                         .with { new }
                                 },
