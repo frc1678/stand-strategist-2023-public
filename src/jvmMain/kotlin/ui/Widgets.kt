@@ -1,6 +1,7 @@
 package ui
 
 import androidx.compose.material.Checkbox
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,13 +25,18 @@ fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Mod
 
 @Composable
 fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
-    var text by remember { mutableStateOf(initialData) }
+    var value by remember { mutableStateOf(initialData) }
     Checkbox(
-        checked = text,
+        checked = value,
         onCheckedChange = {
-            text = it
+            value = it
             onChange(it)
         },
         modifier = modifier
     )
+}
+
+@Composable
+fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier = Modifier) {
+    Text("TODO", modifier = modifier)
 }
