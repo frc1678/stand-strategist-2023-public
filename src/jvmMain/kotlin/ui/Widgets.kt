@@ -38,5 +38,14 @@ fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifi
 
 @Composable
 fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier = Modifier) {
-    Text("TODO", modifier = modifier)
+    var text by remember { mutableStateOf(initialData.toString()) }
+    TextField(
+        value = text,
+        isError = text.toIntOrNull() == null,
+        onValueChange = { new ->
+            text = new
+            text.toIntOrNull()?.let { onChange(it) }
+        },
+        modifier = modifier
+    )
 }
