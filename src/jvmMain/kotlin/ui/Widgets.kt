@@ -46,6 +46,9 @@ fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier =
             text = new
             text.toIntOrNull()?.let { onChange(it) }
         },
+        label = if (text.toIntOrNull() == null) {
+            { Text("Must be an integer") }
+        } else null,
         modifier = modifier
     )
 }
