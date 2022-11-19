@@ -1,6 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +16,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import io.Observer
+import io.files.copyFileDialog
 import ui.NavWrapper
 import ui.pages.LoadingPage
 
@@ -40,10 +42,20 @@ enum class Screens {
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
         if (it.isMetaPressed && it.key == Key.S && it.type == KeyEventType.KeyDown) {
+            //Replace with function of saving
+            copyFileDialog(composeWindow!!)
+
             println("yes")
         }
         true
     }) {
+        LaunchedEffect(true) {
+            composeWindow = window
+        }
+
         App(window)
+
     }
 }
+
+var composeWindow: ComposeWindow? = null

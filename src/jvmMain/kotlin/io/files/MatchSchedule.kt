@@ -5,11 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.awt.ComposeWindow
 import io.MATCH_SCHEDULE_FILE
+import io.TIM_DATA_FILE
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.awt.FileDialog
 import java.io.File
+import java.nio.file.Path
 
 /**
  * Data class representing a match in the match schedule.
@@ -78,4 +80,24 @@ fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSched
     File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
     // Serialize the data
     return Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
+}
+
+
+fun copyFileDialog(window: ComposeWindow) {
+    val fileDialog = FileDialog(window, "Select a directory", FileDialog.SAVE).apply {
+        isMultipleMode = false
+        isVisible = true
+    }
+
+    if (fileDialog.file == null) {
+        // The user clicked 'Cancel'
+        return
+    }
+
+    TIM_DATA_FILE.copyTo(File(fileDialog.directory, fileDialog.file))
+
+
+
+
+
 }
