@@ -18,7 +18,7 @@ import kotlinx.serialization.json.Json
 data class Settings(
     var match: Int = 1,
     var alliance: String = "blue",
-    var name: String = "Unnamed",
+    var name: String = System.getProperty("user.name"),
     var screen: Screens = Screens.STARTING
 )
 
