@@ -10,6 +10,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
@@ -42,7 +43,7 @@ enum class Screens {
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
-        if (it.isMetaPressed && it.key == Key.S && it.type == KeyEventType.KeyDown) {
+        if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
             copyFileDialog(composeWindow!!)
         }
         true
