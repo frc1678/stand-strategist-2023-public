@@ -11,7 +11,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.awt.FileDialog
 import java.io.File
-import java.nio.file.Path
 
 /**
  * Data class representing a match in the match schedule.
@@ -82,7 +81,6 @@ fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSched
     return Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
 }
 
-
 fun copyFileDialog(window: ComposeWindow) {
     val fileDialog = FileDialog(window, "Select a directory", FileDialog.SAVE).apply {
         isMultipleMode = false
@@ -95,9 +93,4 @@ fun copyFileDialog(window: ComposeWindow) {
     }
 
     TIM_DATA_FILE.copyTo(File(fileDialog.directory, fileDialog.file))
-
-
-
-
-
 }

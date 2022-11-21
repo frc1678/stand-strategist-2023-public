@@ -43,19 +43,14 @@ enum class Screens {
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
         if (it.isMetaPressed && it.key == Key.S && it.type == KeyEventType.KeyDown) {
-            //Replace with function of saving
             copyFileDialog(composeWindow!!)
-
-            println("yes")
         }
         true
     }) {
         LaunchedEffect(true) {
             composeWindow = window
         }
-
         App(window)
-
     }
 }
 
