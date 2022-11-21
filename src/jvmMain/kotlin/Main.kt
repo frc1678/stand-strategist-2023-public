@@ -19,11 +19,12 @@ import io.Observer
 import io.files.copyFileDialog
 import ui.NavWrapper
 import ui.pages.LoadingPage
+import ui.theme.StandStrategistTypography
 
 @Composable
 @Preview
 fun App(window: ComposeWindow) {
-    MaterialTheme {
+    MaterialTheme(typography = StandStrategistTypography) {
         Observer()
         var loaded by remember { mutableStateOf(false) }
         if (!loaded) {
