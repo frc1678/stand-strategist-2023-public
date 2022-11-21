@@ -24,12 +24,13 @@ kotlin {
         withJava()
     }
     sourceSets {
-        val jvmMain by getting {
+        @Suppress("UNUSED_VARIABLE") val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
                 implementation("org.jetbrains.kotlinx:dataframe:0.8.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("org.jetbrains.kotlinx:dataframe-excel:0.8.1")
             }
         }
     }

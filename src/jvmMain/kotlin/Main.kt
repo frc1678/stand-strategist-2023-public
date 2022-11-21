@@ -17,7 +17,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import io.Observer
-import io.copyFileDialog
+import io.saveDialog
 import ui.NavWrapper
 import ui.pages.LoadingPage
 import ui.theme.StandStrategistTypography
@@ -44,7 +44,7 @@ enum class Screens {
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
         if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
-            copyFileDialog(composeWindow!!)
+            saveDialog(composeWindow!!)
         }
         true
     }) {
