@@ -17,7 +17,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import io.Observer
-import io.files.copyFileDialog
+import io.copyFileDialog
 import ui.NavWrapper
 import ui.pages.LoadingPage
 import ui.theme.StandStrategistTypography
