@@ -25,11 +25,11 @@ import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
 
 @Composable
-fun NotesPage(modifier: Modifier) {
+fun NotesPage() {
     val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
         it.color == settings!!.alliance
     }
-    Row(modifier = modifier.fillMaxSize().padding(vertical = 50.dp)) {
+    Row(modifier = Modifier.fillMaxSize().padding(vertical = 50.dp)) {
         Column(
             modifier = Modifier.fillMaxHeight().weight(0.5f),
             horizontalAlignment = Alignment.CenterHorizontally

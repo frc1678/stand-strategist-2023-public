@@ -18,11 +18,11 @@ import io.files.matchSchedule
 import io.files.settings
 
 @Composable
-fun StartingPage(modifier: Modifier) {
+fun StartingPage() {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         TextField(
             value = settings!!.name,

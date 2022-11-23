@@ -31,11 +31,11 @@ import ui.NumberPicker
 import ui.TextDataField
 
 @Composable
-fun DataPage(modifier: Modifier) {
+fun DataPage() {
     val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
         it.color == settings!!.alliance
     }
-    Row(modifier = modifier.fillMaxSize().padding(vertical = 50.dp)) {
+    Row(modifier = Modifier.fillMaxSize().padding(vertical = 50.dp)) {
         Column(
             modifier = Modifier.fillMaxWidth().weight(0.5f),
             horizontalAlignment = Alignment.CenterHorizontally

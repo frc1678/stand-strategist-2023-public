@@ -4,7 +4,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -60,14 +59,12 @@ fun App(window: ComposeWindow) {
                 }
             }
         ) {
-            Surface {
-                Observer()
-                var loaded by remember { mutableStateOf(false) }
-                if (!loaded) {
-                    LoadingPage(window, onLoaded = { loaded = true })
-                } else {
-                    NavWrapper()
-                }
+            Observer()
+            var loaded by remember { mutableStateOf(false) }
+            if (!loaded) {
+                LoadingPage(window, onLoaded = { loaded = true })
+            } else {
+                NavWrapper()
             }
         }
     }
