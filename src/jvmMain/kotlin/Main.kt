@@ -56,6 +56,12 @@ fun App(window: ComposeWindow) {
                             contentDescription = "Change theme"
                         )
                     }
+                    IconButton(onClick = { saveDialog(window) }) {
+                        Icon(
+                            painter = painterResource("drawable/file_download_black_24dp.svg"),
+                            contentDescription = "Export"
+                        )
+                    }
                 }
             }
         ) {
