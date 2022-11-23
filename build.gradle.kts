@@ -43,8 +43,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Stand Strategist"
             packageVersion = "1.0.0"
+            windows {
+                iconFile.set(project.file("src/jvmMain/resources").resolve("app_icon/icon.ico"))
+            }
             macOS {
-                iconFile.set(project.file("src/jvmMain/resources").resolve("macos/icon.icns"))
+                iconFile.set(project.file("src/jvmMain/resources").resolve("app_icon/icon.icns"))
+            }
+            linux {
+                iconFile.set(project.file("src/jvmMain/resources").resolve("app_icon/icon.png"))
             }
         }
 
