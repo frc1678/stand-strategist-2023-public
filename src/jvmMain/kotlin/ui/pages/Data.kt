@@ -54,29 +54,6 @@ fun DataPage() {
                 }
                 for (currentTeam in teams ?: emptyList()) {
                     when (timData!!.first()[col]) {
-                        is String -> {
-                            TextDataField(
-                                initialData = timData!!
-                                    .firstOrNull {
-                                        it[team] == currentTeam.number &&
-                                            it[alliance] == currentTeam.color &&
-                                            it[match] == settings!!.match
-                                    }
-                                    ?.get(col)
-                                    ?.toString() ?: "",
-                                onChange = { new ->
-                                    timData = timData!!.update(col)
-                                        .where {
-                                            team() == currentTeam.number &&
-                                                alliance() == currentTeam.color &&
-                                                match() == settings!!.match
-                                        }
-                                        .with { new }
-                                },
-                                modifier = Modifier.weight(1f).wrapContentHeight()
-                            )
-                        }
-
                         is Boolean -> {
                             CheckBox(
                                 initialData = timData!!
@@ -108,6 +85,29 @@ fun DataPage() {
                                             it[match] == settings!!.match
                                     }
                                     ?.get(col) as Int,
+                                onChange = { new ->
+                                    timData = timData!!.update(col)
+                                        .where {
+                                            team() == currentTeam.number &&
+                                                alliance() == currentTeam.color &&
+                                                match() == settings!!.match
+                                        }
+                                        .with { new }
+                                },
+                                modifier = Modifier.weight(1f).wrapContentHeight()
+                            )
+                        }
+
+                        else -> {
+                            TextDataField(
+                                initialData = timData!!
+                                    .firstOrNull {
+                                        it[team] == currentTeam.number &&
+                                            it[alliance] == currentTeam.color &&
+                                            it[match] == settings!!.match
+                                    }
+                                    ?.get(col)
+                                    ?.toString() ?: "",
                                 onChange = { new ->
                                     timData = timData!!.update(col)
                                         .where {
