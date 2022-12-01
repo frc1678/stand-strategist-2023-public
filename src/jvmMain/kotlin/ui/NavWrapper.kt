@@ -49,7 +49,7 @@ fun NavWrapper() {
                     Icon(Icons.Default.ArrowBack, "Back")
                     Column {
                         Text("Back", style = MaterialTheme.typography.h5)
-                        Text(screenName(previousScreen(settings?.screen)), style = MaterialTheme.typography.body1)
+                        Text(screenName(previousScreen(settings?.screen)), style = MaterialTheme.typography.body2)
                     }
                 }
             }
@@ -64,7 +64,7 @@ fun NavWrapper() {
                     Icon(Icons.Default.ArrowForward, "Next")
                     Column {
                         Text("Next", style = MaterialTheme.typography.h5)
-                        Text(screenName(nextScreen(settings?.screen)), style = MaterialTheme.typography.body1)
+                        Text(screenName(nextScreen(settings?.screen)), style = MaterialTheme.typography.body2)
                     }
                 }
             }
