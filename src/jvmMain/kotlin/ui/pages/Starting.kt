@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -27,9 +30,9 @@ fun StartingPage() {
         TextField(
             value = settings!!.name,
             onValueChange = { editSettings { name = it } },
-            label = { Text("Input Name:") },
+            label = { Text("Your Name:") },
             textStyle = (TextStyle(fontSize = 100.sp)),
-            modifier = Modifier.padding(50.dp)
+            modifier = Modifier.padding(20.dp)
         )
 
         TextField(
@@ -37,15 +40,23 @@ fun StartingPage() {
             onValueChange = { editSettings { match = it.toIntOrNull() ?: 0 } },
             label = { Text("Match Number: ") },
             textStyle = (TextStyle(fontSize = 100.sp)),
-            modifier = Modifier.padding(50.dp)
+            modifier = Modifier.padding(20.dp)
         )
+
+        Button(
+            modifier = Modifier.padding(20.dp).height(100.dp).width(500.dp),
+            onClick = { if (settings!!.alliance == "blue") editSettings{alliance = "red"}
+            else if (settings!!.alliance == "red") editSettings{ alliance = "blue"} },
+            ) {
+            Text(text = settings!!.alliance)
+        }
 
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
             for (i in 0 until 3) {
                 Text(
                     matchSchedule!![settings!!.match.toString()]?.teams?.filter {
                         it.color == settings!!.alliance
-                    }?.get(i)?.number?.toString() ?: "?",
+                    }?.getOrNull(i)?.number?.toString() ?: "?",
                     fontSize = 100.sp
                 )
             }
