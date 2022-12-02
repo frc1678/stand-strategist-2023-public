@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,8 +48,11 @@ fun StartingPage() {
         Button(
             modifier = Modifier.padding(20.dp).height(100.dp).width(500.dp),
             onClick = { if (settings!!.alliance == "blue") editSettings{alliance = "red"}
-            else if (settings!!.alliance == "red") editSettings{ alliance = "blue"} },
-            ) {
+                else if (settings!!.alliance == "red") editSettings{ alliance = "blue"} },
+            colors= ButtonDefaults.buttonColors(backgroundColor = Color(
+                if (settings!!.alliance == "red"){0xFFFF6961}
+                else{0xFFAEC6CF} ) )
+        ) {
             Text(text = settings!!.alliance)
         }
 
