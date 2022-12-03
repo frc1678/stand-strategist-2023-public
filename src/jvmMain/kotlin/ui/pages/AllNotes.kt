@@ -12,8 +12,16 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,6 +37,14 @@ import ui.TextDataField
 @Composable
 fun AllNotesPage() {
     Column {
+        var search by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = search,
+            onValueChange = { search = it },
+            placeholder = { Text("Search teams...") },
+            leadingIcon = { Icon(Icons.Default.Search, "Search") },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, start = 30.dp)
+        )
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.5f))
             for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
@@ -39,7 +55,7 @@ fun AllNotesPage() {
             val listState = rememberLazyListState()
             LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
                 teamData!![team].toList().sorted().forEach { currentTeam ->
-                    item {
+                    if ("$currentTeam".contains(search)) item {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
                                 Text("$currentTeam")
