@@ -47,11 +47,22 @@ fun StartingPage() {
 
         Button(
             modifier = Modifier.padding(20.dp).height(100.dp).width(500.dp),
-            onClick = { if (settings!!.alliance == "blue") editSettings{alliance = "red"}
-                else if (settings!!.alliance == "red") editSettings{ alliance = "blue"} },
-            colors= ButtonDefaults.buttonColors(backgroundColor = Color(
-                if (settings!!.alliance == "red"){0xFFFF6961}
-                else{0xFFAEC6CF} ) )
+            onClick = {
+                if (settings!!.alliance == "blue") {
+                    editSettings { alliance = "red" }
+                } else if (settings!!.alliance == "red") {
+                    editSettings { alliance = "blue" }
+                }
+            },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(
+                    if (settings!!.alliance == "red") {
+                        0xFFFF6961
+                    } else {
+                        0xFFAEC6CF
+                    }
+                )
+            )
         ) {
             Text(text = settings!!.alliance)
         }
