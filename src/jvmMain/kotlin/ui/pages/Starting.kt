@@ -63,7 +63,7 @@ fun StartingPage() {
                 )
             )
         ) {
-            Text(text = settings!!.alliance)
+            Text(text = settings!!.alliance, style = MaterialTheme.typography.h3)
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
