@@ -22,6 +22,8 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import io.Observer
 import io.files.editSettings
@@ -82,12 +84,17 @@ enum class Screens {
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "Stand Strategist", onKeyEvent = {
-        if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
-            saveDialog(composeWindow!!)
+    Window(
+        state = WindowState(placement = WindowPlacement.Maximized),
+        onCloseRequest = ::exitApplication,
+        title = "Stand Strategist",
+        onKeyEvent = {
+            if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
+                saveDialog(composeWindow!!)
+            }
+            true
         }
-        true
-    }) {
+    ) {
         LaunchedEffect(true) {
             composeWindow = window
         }
