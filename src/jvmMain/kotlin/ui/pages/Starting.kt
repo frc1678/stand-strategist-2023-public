@@ -63,7 +63,7 @@ fun StartingPage() {
                     } else {
                         0xFF808080
                     }
-                )
+                ), contentColor = Color(0xFFFFFFFF)
             )
         ) {
             if(settings!!.alliance == "red"){
