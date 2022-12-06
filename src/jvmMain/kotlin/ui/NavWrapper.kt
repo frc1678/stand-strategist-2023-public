@@ -40,7 +40,7 @@ fun NavWrapper() {
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp), modifier = Modifier.padding(horizontal = 150.dp)) {
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
                 editSettings {
-                    if (settings!!.screen == Screens.STARTING && settings!!.match > 1) match--
+                    if (screen == Screens.STARTING && match > 1) match--
                     screen = previousScreen(screen)
                 }
             }) {
@@ -58,7 +58,7 @@ fun NavWrapper() {
             }
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
                 editSettings {
-                    if (settings!!.screen == Screens.NOTES && settings!!.match <= 200) match++
+                    if (screen == Screens.NOTES && match <= 200) match++
                     screen = previousScreen(screen)
                 }
             }) {
