@@ -39,10 +39,10 @@ fun NavWrapper() {
         }
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp), modifier = Modifier.padding(horizontal = 150.dp)) {
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
-                if((settings!!.screen == Screens.STARTING ) && (settings!!.match > 1) ) { editSettings{match -= 1}
-                    editSettings{screen = previousScreen(screen)}
+                editSettings {
+                    if (settings!!.screen == Screens.STARTING && settings!!.match > 1) match--
+                    screen = previousScreen(screen)
                 }
-                else {editSettings { screen = previousScreen(screen) } }
             }) {
                 Row(
                     modifier = Modifier.padding(30.dp),
@@ -57,10 +57,11 @@ fun NavWrapper() {
                 }
             }
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
-                if((settings!!.screen == Screens.NOTES) && (settings!!.match <= 200)) { editSettings{match += 1}
-                    editSettings{screen = previousScreen(screen)}
+                editSettings {
+                    if (settings!!.screen == Screens.NOTES && settings!!.match <= 200) match++
+                    screen = previousScreen(screen)
                 }
-                else {editSettings { screen = previousScreen(screen) } }            }) {
+            }) {
                 Row(
                     modifier = Modifier.padding(30.dp),
                     verticalAlignment = Alignment.CenterVertically,
