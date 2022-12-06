@@ -87,8 +87,7 @@ fun previousScreen(screen: Screens?) = when (screen) {
 fun nextScreen(screen: Screens?) = when (screen) {
     Screens.STARTING -> Screens.DATA
     Screens.DATA -> Screens.NOTES
-    Screens.NOTES -> {editSettings{settings!!.match = settings!!.match + 1}
-        Screens.STARTING}
+    Screens.NOTES -> Screens.STARTING
     else -> Screens.STARTING
 }
 
