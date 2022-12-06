@@ -58,13 +58,23 @@ fun StartingPage() {
                 backgroundColor = Color(
                     if (settings!!.alliance == "red") {
                         0xFFFF6961
+                    } else if(settings!!.alliance == "blue"){
+                        0xFF1F51FF
                     } else {
-                        0xFFAEC6CF
+                        0xFF808080
                     }
-                )
+                ), contentColor = Color(0xFFFFFFFF)
             )
         ) {
-            Text(text = settings!!.alliance)
+            if(settings!!.alliance == "red"){
+                Text("Red Alliance")
+            }
+            else if(settings!!.alliance == "blue"){
+                Text("Blue Alliance")
+            }
+            else {
+                Text("None")
+            }
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
