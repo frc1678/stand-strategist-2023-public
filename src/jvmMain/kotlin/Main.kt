@@ -4,6 +4,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +47,8 @@ fun App(window: ComposeWindow) {
             topBar = {
                 TopAppBar {
                     Spacer(Modifier.weight(1f))
+                    Text( "Match Number: " + settings?.match.toString())
+                    Spacer(Modifier.weight(0.95f))
                     IconButton(onClick = { editSettings { darkTheme = !darkTheme } }) {
                         Icon(
                             painter = if (settings?.darkTheme != false) {
