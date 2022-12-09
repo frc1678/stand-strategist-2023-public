@@ -47,7 +47,7 @@ fun App(window: ComposeWindow) {
             topBar = {
                 TopAppBar {
                     Spacer(Modifier.weight(1f))
-                    Text( "Match Number: " + settings?.match.toString())
+                    Text("Match Number: ${settings?.match}")
                     Spacer(Modifier.weight(0.95f))
                     IconButton(onClick = { editSettings { darkTheme = !darkTheme } }) {
                         Icon(

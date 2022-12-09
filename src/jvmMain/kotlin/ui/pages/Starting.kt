@@ -56,24 +56,19 @@ fun StartingPage() {
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(
-                    if (settings!!.alliance == "red") {
-                        0xFFFF6961
-                    } else if(settings!!.alliance == "blue"){
-                        0xFF1F51FF
-                    } else {
-                        0xFF808080
+                    when (settings!!.alliance) {
+                        "red" -> 0xFFFF6961
+                        "blue" -> 0xFF1F51FF
+                        else -> 0xFF808080
                     }
-                ), contentColor = Color(0xFFFFFFFF)
+                ),
+                contentColor = Color(0xFFFFFFFF)
             )
         ) {
-            if(settings!!.alliance == "red"){
-                Text("Red Alliance")
-            }
-            else if(settings!!.alliance == "blue"){
-                Text("Blue Alliance")
-            }
-            else {
-                Text("None")
+            when (settings!!.alliance) {
+                "red" -> Text("Red Alliance")
+                "blue" -> Text("Blue Alliance")
+                else -> Text("None")
             }
         }
 
