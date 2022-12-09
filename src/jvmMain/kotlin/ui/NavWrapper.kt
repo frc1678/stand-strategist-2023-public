@@ -59,7 +59,7 @@ fun NavWrapper() {
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
                 editSettings {
                     if (screen == Screens.NOTES && match <= 200) match++
-                    screen = previousScreen(screen)
+                    screen = nextScreen(screen)
                 }
             }) {
                 Row(
