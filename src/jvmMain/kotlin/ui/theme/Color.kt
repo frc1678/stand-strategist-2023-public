@@ -5,10 +5,10 @@ import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 val StandStrategistLightColorScheme = lightColors(
-    primary = Color(0xFF1E66F5),
-    primaryVariant = Color(0xFF1E66F5),
-    secondary = Color(0xFF1E66F5),
-    secondaryVariant = Color(0xFF1E66F5),
+    primary = Color(0xFF3D7AEB),
+    primaryVariant = Color(0xFF3D7AEB),
+    secondary = Color(0xFF3D7AEB),
+    secondaryVariant = Color(0xFF3D7AEB),
     background = Color(0xFFEFF1F5),
     surface = Color(0xFFEFF1F5),
     error = Color(0xFFE64553),

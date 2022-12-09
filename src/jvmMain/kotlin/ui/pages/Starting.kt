@@ -55,15 +55,23 @@ fun StartingPage() {
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(
-                    if (settings!!.alliance == "red") {
-                        0xFFFF6961
-                    } else {
-                        0xFFAEC6CF
+                    when (settings!!.alliance) {
+                        "red" -> 0xFFFF6961
+                        "blue" -> 0xFF1F51FF
+                        else -> 0xFF808080
                     }
-                )
+                ),
+                contentColor = Color(0xFFFFFFFF)
             )
         ) {
-            Text(text = settings!!.alliance, style = MaterialTheme.typography.h3)
+            Text(
+                when (settings!!.alliance) {
+                    "red" -> "Red Alliance"
+                    "blue" -> "Blue Alliance"
+                    else -> "None"
+                },
+                style = MaterialTheme.typography.h3
+            )
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
