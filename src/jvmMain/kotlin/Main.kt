@@ -1,11 +1,6 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,7 +8,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -21,16 +15,15 @@ import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import io.Observer
-import io.files.editSettings
 import io.files.settings
 import io.saveDialog
 import ui.NavWrapper
+import ui.TopBar
 import ui.pages.LoadingPage
 import ui.theme.StandStrategistDarkColorScheme
 import ui.theme.StandStrategistLightColorScheme
@@ -43,33 +36,7 @@ fun App(window: ComposeWindow) {
         typography = StandStrategistTypography,
         colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
     ) {
-        Scaffold(
-            topBar = {
-                TopAppBar {
-                    Spacer(Modifier.weight(1f))
-                    Text("Match Number: ${settings?.match}")
-                    Spacer(Modifier.weight(0.95f))
-                    IconButton(onClick = { editSettings { darkTheme = !darkTheme } }) {
-                        Icon(
-                            painter = if (settings?.darkTheme != false) {
-                                painterResource(
-                                    "drawable/dark_mode_black_24dp.svg"
-                                )
-                            } else {
-                                painterResource("drawable/light_mode_black_24dp.svg")
-                            },
-                            contentDescription = "Change theme"
-                        )
-                    }
-                    IconButton(onClick = { saveDialog(window) }) {
-                        Icon(
-                            painter = painterResource("drawable/file_download_black_24dp.svg"),
-                            contentDescription = "Export"
-                        )
-                    }
-                }
-            }
-        ) {
+        Scaffold(topBar = { TopBar(window) }) {
             Observer()
             var loaded by remember { mutableStateOf(false) }
             if (!loaded) {
