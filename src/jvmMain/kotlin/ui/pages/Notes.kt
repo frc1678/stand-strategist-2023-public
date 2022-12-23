@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,14 +38,14 @@ fun NotesPage() {
             Spacer(modifier = Modifier.weight(0.5f))
             for (currentTeam in teams ?: emptyList()) {
                 Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                    Text("${currentTeam.number}")
+                    Text("${currentTeam.number}", style = MaterialTheme.typography.h3)
                 }
             }
         }
         for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
             Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                    Text(col.name())
+                    Text(col.name(), style = MaterialTheme.typography.h4)
                 }
                 for (currentTeam in teams ?: emptyList()) {
                     TextDataField(

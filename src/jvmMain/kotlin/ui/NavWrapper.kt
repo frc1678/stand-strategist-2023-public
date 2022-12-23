@@ -39,7 +39,10 @@ fun NavWrapper() {
         }
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp), modifier = Modifier.padding(horizontal = 150.dp)) {
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
-                editSettings { screen = previousScreen(screen) }
+                editSettings {
+                    if (screen == Screens.STARTING && match > 1) match--
+                    screen = previousScreen(screen)
+                }
             }) {
                 Row(
                     modifier = Modifier.padding(30.dp),
@@ -48,13 +51,16 @@ fun NavWrapper() {
                 ) {
                     Icon(Icons.Default.ArrowBack, "Back")
                     Column {
-                        Text("Back")
-                        Text(screenName(previousScreen(settings?.screen)))
+                        Text("Back", style = MaterialTheme.typography.h5)
+                        Text(screenName(previousScreen(settings?.screen)), style = MaterialTheme.typography.body2)
                     }
                 }
             }
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
-                editSettings { screen = nextScreen(screen) }
+                editSettings {
+                    if (screen == Screens.NOTES && match <= 200) match++
+                    screen = nextScreen(screen)
+                }
             }) {
                 Row(
                     modifier = Modifier.padding(30.dp),
@@ -63,8 +69,8 @@ fun NavWrapper() {
                 ) {
                     Icon(Icons.Default.ArrowForward, "Next")
                     Column {
-                        Text("Next")
-                        Text(screenName(nextScreen(settings?.screen)))
+                        Text("Next", style = MaterialTheme.typography.h5)
+                        Text(screenName(nextScreen(settings?.screen)), style = MaterialTheme.typography.body2)
                     }
                 }
             }
