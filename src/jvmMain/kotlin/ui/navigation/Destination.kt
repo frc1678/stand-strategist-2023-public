@@ -28,4 +28,6 @@ object DestinationSerializer : KSerializer<Destination> {
     )
 }
 
+fun navigateTo(destination: Destination) = editSettings { screen = destination }
+
 fun navigateTo(otherScreen: NavGraph) = editSettings { screen = otherScreen.destination }
