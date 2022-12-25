@@ -4,6 +4,11 @@ import ui.pages.DataPage
 import ui.pages.NotesPage
 import ui.pages.StartingPage
 
+/**
+ * The main navigation graph for all the pages in the app. If a new page is added to the app, it should be registered
+ * here. Note that to access the [Destination] object for a given enum constant, you will need to access the
+ * [destination] property.
+ */
 enum class NavGraph(val destination: Destination) {
     STARTING(
         Destination(

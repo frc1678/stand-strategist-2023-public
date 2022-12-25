@@ -20,10 +20,14 @@ import androidx.compose.ui.unit.dp
 import io.files.editSettings
 import io.files.settings
 
+/**
+ * The 'Back' and 'Next' navigation buttons that appear at the bottom of the app UI.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NavButtons() {
     Row(horizontalArrangement = Arrangement.spacedBy(50.dp), modifier = Modifier.padding(horizontal = 150.dp)) {
+        // 'Back' button
         Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
             editSettings {
                 screen.apply { onBack() }
@@ -45,6 +49,8 @@ fun NavButtons() {
                 }
             }
         }
+
+        // 'Next' button (only appears if there is a specified next page)
         if (settings!!.screen.next() != null) {
             Card(modifier = Modifier.weight(1f), backgroundColor = MaterialTheme.colors.primarySurface, onClick = {
                 editSettings {
