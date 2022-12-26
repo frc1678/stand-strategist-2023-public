@@ -25,7 +25,7 @@ fun Separator() = Text("\u22C5")
 fun TopBar(window: ComposeWindow) = TopAppBar {
     Box(modifier = Modifier.fillMaxSize()) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.align(Alignment.Center)) {
-            Text(screenName(settings?.screen))
+            Text(settings?.screen?.name ?: "")
             Separator()
             Text("Match ${settings?.match ?: '?'}")
             Separator()

@@ -1,6 +1,5 @@
 package io.files
 
-import Screens
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,6 +9,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ui.navigation.Destination
+import ui.navigation.NavGraph
 
 /**
  * Data class used to represent the app's current settings.
@@ -19,7 +20,7 @@ data class Settings(
     var match: Int = 1,
     var alliance: String = "blue",
     var name: String = System.getProperty("user.name"),
-    var screen: Screens = Screens.STARTING,
+    var screen: Destination = NavGraph.STARTING.destination,
     var darkTheme: Boolean = true
 )
 
