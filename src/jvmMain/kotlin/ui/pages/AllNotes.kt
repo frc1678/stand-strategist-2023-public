@@ -55,20 +55,26 @@ fun AllNotesPage() {
             val listState = rememberLazyListState()
             LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
                 teamData!![team].toList().sorted().forEach { currentTeam ->
-                    if ("$currentTeam".contains(search)) item {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                                Text("$currentTeam")
-                            }
-                            for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
-                                TextDataField(
-                                    initialData = teamData!!.firstOrNull { row -> row[team] == currentTeam }?.get(col)
-                                        ?.toString() ?: "",
-                                    onChange = { new ->
-                                        teamData = teamData!!.update(col).where { team() == currentTeam }.with { new }
-                                    },
-                                    modifier = Modifier.weight(1f).padding(horizontal = 5.dp).wrapContentHeight()
-                                )
+                    if ("$currentTeam".contains(search)) {
+                        item {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
+                                    Text("$currentTeam")
+                                }
+                                for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
+                                    TextDataField(
+                                        initialData = teamData!!.firstOrNull { row ->
+                                            row[team] == currentTeam
+                                        }?.get(col)?.toString() ?: "",
+                                        onChange = { new ->
+                                            teamData = teamData!!
+                                                .update(col)
+                                                .where { team() == currentTeam }
+                                                .with { new }
+                                        },
+                                        modifier = Modifier.weight(1f).padding(horizontal = 5.dp).wrapContentHeight()
+                                    )
+                                }
                             }
                         }
                     }

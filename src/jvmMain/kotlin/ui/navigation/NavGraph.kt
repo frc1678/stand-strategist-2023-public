@@ -41,7 +41,7 @@ enum class NavGraph(val destination: Destination) {
         Destination(
             content = { AllNotesPage() },
             name = "All Team Notes",
-            back = { NOTES },
+            back = { NOTES }
         )
     )
 }

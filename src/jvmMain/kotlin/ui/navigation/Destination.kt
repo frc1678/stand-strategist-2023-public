@@ -67,13 +67,6 @@ object DestinationSerializer : KSerializer<Destination> {
 }
 
 /**
- * Helper function that sets the current destination to the given [Destination].
- */
-@Suppress("unused")
-fun navigateTo(destination: Destination) = editSettings { screen = destination }
-
-/**
  * Helper function that sets the current screen to the given [otherScreen].
  */
-@Suppress("unused")
 fun navigateTo(otherScreen: NavGraph) = editSettings { screen = otherScreen.destination }
