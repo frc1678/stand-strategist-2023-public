@@ -1,5 +1,6 @@
 package ui.navigation
 
+import ui.pages.AllNotesPage
 import ui.pages.DataPage
 import ui.pages.NotesPage
 import ui.pages.StartingPage
@@ -34,6 +35,13 @@ enum class NavGraph(val destination: Destination) {
             back = { DATA },
             next = { STARTING },
             onNext = { if (match <= 200) match++ }
+        )
+    ),
+    ALL_NOTES(
+        Destination(
+            content = { AllNotesPage() },
+            name = "All Team Notes",
+            back = { NOTES }
         )
     )
 }
