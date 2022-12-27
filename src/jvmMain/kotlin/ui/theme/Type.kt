@@ -19,7 +19,7 @@ val StandStrategistTypography = Typography(
     subtitle2 = TextStyle(fontSize = 14.sp),
     body1 = TextStyle(fontSize = 20.sp),
     body2 = TextStyle(fontSize = 18.sp),
-    button = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Medium),
+    button = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Medium),
     caption = TextStyle(fontSize = 14.sp),
     overline = TextStyle(fontSize = 12.sp)
 )
