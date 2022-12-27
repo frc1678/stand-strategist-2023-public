@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -41,8 +42,9 @@ fun AllNotesPage() {
         OutlinedTextField(
             value = search,
             onValueChange = { search = it },
-            placeholder = { Text("Search teams...") },
+            placeholder = { Text("Search teams...", style = MaterialTheme.typography.body1) },
             leadingIcon = { Icon(Icons.Default.Search, "Search") },
+            textStyle = MaterialTheme.typography.body1,
             modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, start = 30.dp)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
