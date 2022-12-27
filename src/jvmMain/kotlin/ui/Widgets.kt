@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 
 @Composable
 fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Modifier = Modifier) {
@@ -32,7 +33,7 @@ fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifi
             value = it
             onChange(it)
         },
-        modifier = modifier
+        modifier = modifier.scale(1.5f)
     )
 }
 

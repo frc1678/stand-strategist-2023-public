@@ -13,6 +13,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,21 +40,26 @@ fun StartingPage() {
             modifier = Modifier.padding(20.dp)
         )
 
+        var matchNumText by remember { mutableStateOf(settings!!.match.toString()) }
         TextField(
-            value = settings!!.match.toString(),
-            onValueChange = { editSettings { match = it.toIntOrNull() ?: 0 } },
+            value = matchNumText,
+            onValueChange = {
+                matchNumText = it
+                if (matchSchedule!!.containsKey(matchNumText)) editSettings { match = it.toIntOrNull() ?: 0 }
+            },
             label = { Text("Match Number: ") },
             textStyle = MaterialTheme.typography.h2,
+            isError = !matchSchedule!!.containsKey(matchNumText),
             modifier = Modifier.padding(20.dp)
         )
 
         Button(
             modifier = Modifier.padding(20.dp).height(100.dp).width(500.dp),
             onClick = {
-                if (settings!!.alliance == "blue") {
-                    editSettings { alliance = "red" }
-                } else if (settings!!.alliance == "red") {
-                    editSettings { alliance = "blue" }
+                editSettings {
+                    if (alliance == "blue") {
+                        alliance = "red"
+                    } else if (alliance == "red") alliance = "blue"
                 }
             },
             colors = ButtonDefaults.buttonColors(

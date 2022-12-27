@@ -73,7 +73,7 @@ fun DataPage() {
                                         }
                                         .with { new }
                                 },
-                                modifier = Modifier.weight(1f).wrapContentHeight()
+                                modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
                             )
                         }
 
@@ -95,7 +95,7 @@ fun DataPage() {
                                         }
                                         .with { new }
                                 },
-                                modifier = Modifier.weight(1f).wrapContentHeight()
+                                modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
                         }
 
@@ -118,7 +118,7 @@ fun DataPage() {
                                         }
                                         .with { new }
                                 },
-                                modifier = Modifier.weight(1f).wrapContentHeight()
+                                modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
                         }
                     }
