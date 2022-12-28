@@ -3,12 +3,12 @@
   <component name="GitToolBoxProjectSettings">
     <option name="commitMessageIssueKeyValidationOverride">
       <BoolValueOverride>
-        <option name="enabled" value="false" />
+        <option name="enabled" value="true" />
       </BoolValueOverride>
     </option>
     <option name="commitMessageValidationEnabledOverride">
       <BoolValueOverride>
-        <option name="enabled" value="false" />
+        <option name="enabled" value="true" />
       </BoolValueOverride>
     </option>
   </component>
