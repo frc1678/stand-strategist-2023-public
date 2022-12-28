@@ -25,11 +25,11 @@ val DEBOUNCE = 1000.milliseconds
  *
  * @param T The type of object that needs to be deserialized.
  * @param file The [File] to write to.
- * @param deserializer A lambda function that takes the serialized data as a parameter
+ * @param serializer A lambda function that takes the serialized data as a parameter
  * and returns a `String` version ready to be written to the [file].
  * @see Observer
  */
-class DebouncedFileWriter<T>(private val file: File, private val deserializer: (T) -> String) {
+class DebouncedFileWriter<T>(private val file: File, private val serializer: (T) -> String) {
 
     /**
      * Starts listening for new data and writes the new data to the [file].
@@ -38,7 +38,7 @@ class DebouncedFileWriter<T>(private val file: File, private val deserializer: (
     suspend fun start() {
         for (data in channel) withContext(Dispatchers.IO) {
             if (!file.exists()) file.createNewFile()
-            file.writeText(deserializer(data))
+            file.writeText(serializer(data))
             delay(DEBOUNCE)
         }
     }
