@@ -17,6 +17,8 @@ import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 
+typealias TimDataCols = Map<ColumnAccessor<Any?>, Any?>
+
 /**
  * [ColumnAccessor] for accessing the 'Match Number' column. All other columns should be accessed through [timDataCols].
  */
@@ -26,21 +28,6 @@ val match by column<Int>("Match Number")
  * [ColumnAccessor] for accessing the 'Alliance' column. All other columns should be accessed through [timDataCols].
  */
 val alliance by column<String>("Alliance")
-
-/**
- * The [ColumnAccessor]s for all the columns in the [timData].
- * The keys are the [ColumnAccessor]s and the values are the default values for the columns.
- */
-val timDataCols = mutableMapOf<ColumnAccessor<Any?>, Any?>(
-    match to 0,
-    alliance to "blue",
-    team to 0,
-    column<Boolean?>("Played Defense") to false,
-    column<Int?>("Defense Rating") to 0,
-    column<Boolean?>("Shooting Hub") to false,
-    column<Int?>("Time Left to Climb") to 0,
-    column<String>("Notes") to ""
-)
 
 /**
  * The main object storing all the Team-In-Match data.

@@ -16,23 +16,13 @@ import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
 import org.jetbrains.kotlinx.dataframe.io.readDataFrame
 import org.jetbrains.kotlinx.dataframe.io.toCsv
 
+typealias TeamDataCols = Map<ColumnAccessor<Any?>, Any?>
+
 /**
  * [ColumnAccessor] for accessing the 'Team' column.
  * All other columns should be accessed through [teamDataCols] or [timDataCols].
  */
 val team by column<Int>("Team")
-
-/**
- * The [ColumnAccessor]s for all the columns in the [teamData].
- * The keys are the [ColumnAccessor]s and the values are the default values for the columns.
- */
-val teamDataCols = mutableMapOf<ColumnAccessor<Any?>, Any?>(
-    team to 0,
-    column<String>("Driving and Scoring Competence") to "",
-    column<String>("Strengths/Weaknesses") to "",
-    column<String>("Defensive Method") to "",
-    column<String>("Notes") to ""
-)
 
 /**
  * The main object storing all the team data.
