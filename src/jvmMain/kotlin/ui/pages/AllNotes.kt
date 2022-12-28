@@ -57,11 +57,11 @@ fun AllNotesPage() {
             val listState = rememberLazyListState()
             LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
                 teamData!![team].toList().sorted().forEach { currentTeam ->
-                    if ("$currentTeam".contains(search)) {
+                    if (currentTeam.contains(search)) {
                         item {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                                    Text("$currentTeam")
+                                    Text(currentTeam)
                                 }
                                 for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
                                     TextDataField(

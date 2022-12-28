@@ -22,7 +22,7 @@ typealias TeamDataCols = Map<ColumnAccessor<Any?>, Any?>
  * [ColumnAccessor] for accessing the 'Team' column.
  * All other columns should be accessed through [teamDataCols] or [timDataCols].
  */
-val team by column<Int>("Team")
+val team by column<String>("Team")
 
 /**
  * The main object storing all the team data.
@@ -56,7 +56,7 @@ fun readTeamData() {
  */
 fun populateTeamData() {
     // Get the full teams list using the match schedule
-    val teams = mutableSetOf<Int>()
+    val teams = mutableSetOf<String>()
     matchSchedule!!.values.forEach { match -> match.teams.forEach { team -> teams.add(team.number) } }
 
     for (teamNum in teams) {

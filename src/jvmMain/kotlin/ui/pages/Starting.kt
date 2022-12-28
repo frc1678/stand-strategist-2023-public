@@ -88,7 +88,7 @@ fun StartingPage() {
                 Text(
                     matchSchedule!![settings!!.match.toString()]?.teams?.filter {
                         it.color == settings!!.alliance
-                    }?.getOrNull(i)?.number?.toString() ?: "?",
+                    }?.getOrNull(i)?.number ?: "?",
                     style = MaterialTheme.typography.h2
                 )
             }

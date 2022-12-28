@@ -44,7 +44,7 @@ fun DataPage() {
             Spacer(modifier = Modifier.weight(0.5f))
             for (currentTeam in teams ?: emptyList()) {
                 Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                    Text("${currentTeam.number}", style = MaterialTheme.typography.h3)
+                    Text(currentTeam.number, style = MaterialTheme.typography.h3)
                 }
             }
         }

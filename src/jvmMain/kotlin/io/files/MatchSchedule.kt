@@ -20,7 +20,7 @@ data class Match(val teams: List<Team>)
  * Data class representing a team within a match in the match schedule.
  */
 @Serializable
-data class Team(val number: Int, val color: String)
+data class Team(val number: String, val color: String)
 
 /**
  * Type that the match schedule is structured in.
