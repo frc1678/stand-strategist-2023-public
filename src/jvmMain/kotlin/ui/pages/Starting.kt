@@ -20,10 +20,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import io.files.editSettings
 import io.files.matchSchedule
 import io.files.settings
+import org.jetbrains.skiko.PredefinedCursors
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 
@@ -53,7 +56,10 @@ fun StartingPage() {
             textStyle = MaterialTheme.typography.h2,
             isError = !matchSchedule!!.containsKey(matchNumText),
             trailingIcon = {
-                Button(onClick = { navigateTo(NavGraph.MATCH_SELECTION) }, modifier = Modifier.padding(20.dp)) {
+                Button(
+                    onClick = { navigateTo(NavGraph.MATCH_SELECTION) },
+                    modifier = Modifier.padding(20.dp).pointerHoverIcon(PointerIcon(PredefinedCursors.HAND))
+                ) {
                     Text("Choose...")
                 }
             },
