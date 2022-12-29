@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import io.files.editSettings
 import io.files.matchSchedule
 import io.files.settings
+import ui.navigation.NavGraph
+import ui.navigation.navigateTo
 
 @Composable
 fun StartingPage() {
@@ -50,6 +52,12 @@ fun StartingPage() {
             label = { Text("Match Number: ") },
             textStyle = MaterialTheme.typography.h2,
             isError = !matchSchedule!!.containsKey(matchNumText),
+            trailingIcon = {
+                Button(onClick = { navigateTo(NavGraph.MATCH_SELECTION) }, modifier = Modifier.padding(20.dp)) {
+                    Text("Choose...")
+                }
+            },
+            maxLines = 1,
             modifier = Modifier.padding(20.dp)
         )
 
