@@ -61,7 +61,6 @@ fun WindowScope.App(window: ComposeWindow) = MaterialTheme(
     }
 }
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
     Window(
