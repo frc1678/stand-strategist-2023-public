@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,7 +37,6 @@ import ui.theme.StandStrategistLightColorScheme
 import ui.theme.StandStrategistTypography
 
 @Composable
-@Preview
 fun WindowScope.App(window: ComposeWindow) = MaterialTheme(
     typography = StandStrategistTypography,
     colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
