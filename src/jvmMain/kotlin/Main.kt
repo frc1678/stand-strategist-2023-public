@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +24,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
+import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import io.Observer
@@ -37,17 +39,17 @@ import ui.theme.StandStrategistTypography
 
 @Composable
 @Preview
-fun App(window: ComposeWindow) {
-    MaterialTheme(
-        typography = StandStrategistTypography,
-        colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
-    ) {
-        Scaffold(topBar = { TopBar(window) }) {
-            Observer()
-            var loaded by remember { mutableStateOf(false) }
-            if (!loaded) {
-                LoadingPage(window, onLoaded = { loaded = true })
-            } else {
+fun WindowScope.App(window: ComposeWindow) = MaterialTheme(
+    typography = StandStrategistTypography,
+    colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
+) {
+    Surface(color = MaterialTheme.colors.background) {
+        var loaded by remember { mutableStateOf(false) }
+        if (!loaded) {
+            LoadingPage(window, onLoaded = { loaded = true })
+        } else {
+            Scaffold(topBar = { TopBar(window) }) {
+                Observer()
                 Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
                     Box(modifier = Modifier.weight(1f)) {
                         settings!!.screen.content()
@@ -58,6 +60,7 @@ fun App(window: ComposeWindow) {
         }
     }
 }
+
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {

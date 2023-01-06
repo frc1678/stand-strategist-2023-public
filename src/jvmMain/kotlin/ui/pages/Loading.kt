@@ -1,7 +1,10 @@
 package ui.pages
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,27 +12,46 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowScope
 import io.MAIN_FOLDER
+import io.MATCH_SCHEDULE_FILE
 import io.files.populateTeamData
 import io.files.populateTimData
 import io.files.readMatchSchedule
 import io.files.readSettings
 import io.files.readTeamData
 import io.files.readTimData
+import ui.Dialog
 
 @Composable
-fun LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {
-    LaunchedEffect(true) {
-        MAIN_FOLDER.mkdir()
+fun WindowScope.LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Text("Loading...", textAlign = TextAlign.Center)
+    }
+    LaunchedEffect(true) { MAIN_FOLDER.mkdir() }
+    fun loadOthers() {
         readSettings()
         readTimData()
         readTeamData()
-        readMatchSchedule(window)
         populateTeamData()
         populateTimData()
         onLoaded()
     }
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        Text("Loading...", textAlign = TextAlign.Center)
+    if (!MATCH_SCHEDULE_FILE.exists()) {
+        Dialog(allowCancel = false) {
+            Column(verticalArrangement = Arrangement.spacedBy(30.dp)) {
+                Text("Choose match schedule...")
+                Button(onClick = {
+                    readMatchSchedule(window)
+                    loadOthers()
+                }) { Text("Choose") }
+            }
+        }
+    } else {
+        LaunchedEffect(true) {
+            readMatchSchedule(window)
+            loadOthers()
+        }
     }
 }
