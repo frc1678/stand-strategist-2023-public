@@ -10,7 +10,6 @@ val teamDataCols: TeamDataCols = mapOf(
     team to 0,
     column<String>("Driving and Scoring Competence") to "",
     column<String>("Strengths/Weaknesses") to "",
-    column<String>("Defensive Method") to "",
     column<String>("Notes") to ""
 )
 
@@ -24,7 +23,7 @@ val timDataCols: TimDataCols = mapOf(
     team to 0,
     column<Boolean?>("Played Defense") to false,
     column<Int?>("Defense Rating") to 0,
-    column<Boolean?>("Shooting Hub") to false,
-    column<Int?>("Time Left to Climb") to 0,
+    column<Boolean?>("Drives over charging station?") to false,
+    column<Boolean?>("Moves pieces between rows?") to false,
     column<String>("Notes") to ""
 )
