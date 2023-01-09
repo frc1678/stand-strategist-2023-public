@@ -50,7 +50,7 @@ fun AllNotesPage() {
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.5f))
             for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
-                Text(col.name(), modifier = Modifier.weight(1f))
+                Text(col.name(), style = MaterialTheme.typography.h5, modifier = Modifier.weight(1f))
             }
         }
         Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(vertical = 40.dp)) {

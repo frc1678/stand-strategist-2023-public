@@ -49,12 +49,17 @@ fun DataPage() {
             }
         }
         for (col in timDataCols.keys.filter { it.name() !in listOf(team.name(), alliance.name(), match.name()) }) {
-            Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
+            val firstCell = timData!!.first()[col]
+            Column(
+                modifier = Modifier.weight(
+                    if (firstCell is Boolean || firstCell is Int) 0.5f else 1f
+                ).fillMaxHeight().padding(horizontal = 10.dp)
+            ) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                    Text(col.name(), style = MaterialTheme.typography.h4)
+                    Text(col.name(), style = MaterialTheme.typography.h5)
                 }
                 for (currentTeam in teams ?: emptyList()) {
-                    when (timData!!.first()[col]) {
+                    when (firstCell) {
                         is Boolean -> {
                             CheckBox(
                                 initialData = timData!!

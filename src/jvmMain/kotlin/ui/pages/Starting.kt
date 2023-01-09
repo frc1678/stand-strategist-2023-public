@@ -92,8 +92,7 @@ fun StartingPage() {
                     "red" -> "Red Alliance"
                     "blue" -> "Blue Alliance"
                     else -> "None"
-                },
-                style = MaterialTheme.typography.h4
+                }
             )
         }
 

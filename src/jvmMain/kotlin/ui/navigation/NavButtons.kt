@@ -41,7 +41,7 @@ fun NavButtons() {
             ) {
                 Icon(Icons.Default.ArrowBack, "Back")
                 Column {
-                    Text("Back", style = MaterialTheme.typography.h5)
+                    Text("Back", style = MaterialTheme.typography.h6)
                     Text(
                         settings?.screen?.back?.let { it() }?.destination?.name ?: "",
                         style = MaterialTheme.typography.body2
@@ -65,7 +65,7 @@ fun NavButtons() {
                 ) {
                     Icon(Icons.Default.ArrowForward, "Next")
                     Column {
-                        Text("Next", style = MaterialTheme.typography.h5)
+                        Text("Next", style = MaterialTheme.typography.h6)
                         Text(
                             settings?.screen?.next?.let { it() }?.destination?.name ?: "",
                             style = MaterialTheme.typography.body2
