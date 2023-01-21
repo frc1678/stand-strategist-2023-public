@@ -21,6 +21,7 @@ import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowScope
@@ -37,7 +38,7 @@ import ui.theme.StandStrategistLightColorScheme
 import ui.theme.StandStrategistTypography
 
 @Composable
-fun WindowScope.App(window: ComposeWindow) = MaterialTheme(
+fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) = MaterialTheme(
     typography = StandStrategistTypography,
     colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
 ) {
@@ -46,7 +47,7 @@ fun WindowScope.App(window: ComposeWindow) = MaterialTheme(
         if (!loaded) {
             LoadingPage(window, onLoaded = { loaded = true })
         } else {
-            Scaffold(topBar = { TopBar(window) }) {
+            Scaffold(topBar = { applicationScope.TopBar(window) }) {
                 Observer()
                 Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
                     Box(modifier = Modifier.weight(1f)) {
@@ -75,7 +76,7 @@ fun main() = application {
         LaunchedEffect(true) {
             composeWindow = window
         }
-        App(window)
+        App(this@application, window)
     }
 }
 

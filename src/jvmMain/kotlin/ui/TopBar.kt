@@ -6,23 +6,41 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.ApplicationScope
+import io.BACKUPS_FOLDER
+import io.MATCH_SCHEDULE_FILE
+import io.SETTINGS_FILE
+import io.TEAM_DATA_FILE
+import io.TIM_DATA_FILE
 import io.files.editSettings
 import io.files.settings
 import io.saveDialog
+import kotlinx.datetime.Clock
+import java.io.File
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 @Composable
 fun Separator() = Text("\u22C5")
 
 @Composable
-fun TopBar(window: ComposeWindow) = TopAppBar {
+fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {
     Box(modifier = Modifier.fillMaxSize()) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.align(Alignment.Center)) {
             Text(settings?.screen?.name ?: "")
@@ -38,6 +56,34 @@ fun TopBar(window: ComposeWindow) = TopAppBar {
             )
         }
         Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+            var confirmingDeletion by remember { mutableStateOf(false) }
+            if (!confirmingDeletion) {
+                IconButton(onClick = { confirmingDeletion = true }) {
+                    Icon(Icons.Default.Delete, contentDescription = "Delete data")
+                }
+            } else {
+                Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                    TextButton(onClick = {
+                        BACKUPS_FOLDER.mkdir()
+                        val backupFile = File(BACKUPS_FOLDER, "${Clock.System.now().toEpochMilliseconds()}.zip")
+                        backupFile.createNewFile()
+                        val stream = ZipOutputStream(backupFile.outputStream())
+                        for (file in listOf(MATCH_SCHEDULE_FILE, TEAM_DATA_FILE, TIM_DATA_FILE, SETTINGS_FILE)) {
+                            stream.putNextEntry(ZipEntry(file.name))
+                            stream.write(file.readBytes())
+                            stream.closeEntry()
+                            file.deleteOnExit()
+                        }
+                        stream.close()
+                        exitApplication()
+                    }) {
+                        Text("Confirm", style = MaterialTheme.typography.body1)
+                    }
+                    TextButton(onClick = { confirmingDeletion = false }) {
+                        Text("Cancel", style = MaterialTheme.typography.body1)
+                    }
+                }
+            }
             IconButton(onClick = { editSettings { darkTheme = !darkTheme } }) {
                 Icon(
                     painter = if (settings?.darkTheme != false) {

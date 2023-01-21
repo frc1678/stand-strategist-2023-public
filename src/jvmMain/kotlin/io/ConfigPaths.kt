@@ -33,3 +33,8 @@ val TEAM_DATA_FILE = File(MAIN_FOLDER, "team_data.csv")
  * The full path to the settings file.
  */
 val SETTINGS_FILE = File(MAIN_FOLDER, "settings.json")
+
+/**
+ * The full path to the folder containing the backups.
+ */
+val BACKUPS_FOLDER = File(MAIN_FOLDER, "backups")
