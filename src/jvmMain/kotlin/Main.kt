@@ -30,6 +30,7 @@ import androidx.compose.ui.window.application
 import io.Observer
 import io.files.settings
 import io.saveDialog
+import ui.AnimatedContentByScreen
 import ui.TopBar
 import ui.navigation.NavButtons
 import ui.pages.LoadingPage
@@ -49,9 +50,11 @@ fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) =
         } else {
             Scaffold(topBar = { applicationScope.TopBar(window) }) {
                 Observer()
-                Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
-                    Box(modifier = Modifier.weight(1f)) {
-                        settings!!.screen.content()
+                Column(modifier = Modifier.fillMaxSize().padding(vertical = 50.dp)) {
+                    AnimatedContentByScreen(modifier = Modifier.weight(1f)) { screen ->
+                        Box(modifier = Modifier.padding(horizontal = 50.dp)) {
+                            screen.content()
+                        }
                     }
                     NavButtons()
                 }
