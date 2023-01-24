@@ -1,5 +1,8 @@
+@file:Suppress("UnusedReceiverParameter")
+
 package ui.theme
 
+import androidx.compose.material.Colors
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
@@ -33,3 +36,9 @@ val StandStrategistDarkColorScheme = darkColors(
     onSurface = Color.White,
     onError = Color.Black
 )
+
+val Colors.blueAlliance
+    get() = Color(0xFF1F51FF)
+
+val Colors.redAlliance
+    get() = Color(0xFFFF6961)

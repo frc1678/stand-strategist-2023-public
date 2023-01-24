@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
@@ -29,6 +28,8 @@ import io.files.settings
 import org.jetbrains.skiko.PredefinedCursors
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
+import ui.theme.blueAlliance
+import ui.theme.redAlliance
 
 @Composable
 fun StartingPage() {
@@ -77,14 +78,12 @@ fun StartingPage() {
                 }
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(
-                    when (settings!!.alliance) {
-                        "red" -> 0xFFFF6961
-                        "blue" -> 0xFF1F51FF
-                        else -> 0xFF808080
-                    }
-                ),
-                contentColor = Color(0xFFFFFFFF)
+                backgroundColor = when (settings!!.alliance) {
+                    "blue" -> MaterialTheme.colors.blueAlliance
+                    "red" -> MaterialTheme.colors.redAlliance
+                    else -> MaterialTheme.colors.primary
+                },
+                contentColor = MaterialTheme.colors.onPrimary
             )
         ) {
             Text(
