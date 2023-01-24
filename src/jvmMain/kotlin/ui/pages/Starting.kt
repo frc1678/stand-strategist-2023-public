@@ -81,9 +81,9 @@ fun StartingPage() {
                 backgroundColor = when (settings!!.alliance) {
                     "blue" -> MaterialTheme.colors.blueAlliance
                     "red" -> MaterialTheme.colors.redAlliance
-                    else -> MaterialTheme.colors.primary
+                    else -> MaterialTheme.colors.surface
                 },
-                contentColor = MaterialTheme.colors.onPrimary
+                contentColor = MaterialTheme.colors.onSurface
             )
         ) {
             Text(
