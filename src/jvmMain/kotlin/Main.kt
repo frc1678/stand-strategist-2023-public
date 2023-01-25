@@ -20,6 +20,7 @@ import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Window
@@ -69,6 +70,7 @@ fun main() = application {
         state = WindowState(placement = WindowPlacement.Maximized),
         onCloseRequest = ::exitApplication,
         title = "Stand Strategist",
+        icon = painterResource("app_icon/icon.png"),
         onKeyEvent = {
             if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
                 saveDialog(composeWindow!!)
