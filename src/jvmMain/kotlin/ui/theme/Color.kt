@@ -8,13 +8,13 @@ import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 val StandStrategistLightColorScheme = lightColors(
-    primary = Color(0xFF3D7AEB),
-    primaryVariant = Color(0xFF3D7AEB),
-    secondary = Color(0xFF3D7AEB),
-    secondaryVariant = Color(0xFF3D7AEB),
-    background = Color(0xFFEFF1F5),
-    surface = Color(0xFFEFF1F5),
-    error = Color(0xFFE64553),
+    primary = Color(0xFF4078F2),
+    primaryVariant = Color(0xFF4885E4),
+    secondary = Color(0xFF50A14F),
+    secondaryVariant = Color(0xFF2FA67F),
+    background = Color(0xFFFAFAFA),
+    surface = Color(0xFFF0F0F0),
+    error = Color(0xFFE45649),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onBackground = Color.Black,
@@ -23,13 +23,13 @@ val StandStrategistLightColorScheme = lightColors(
 )
 
 val StandStrategistDarkColorScheme = darkColors(
-    primary = Color(0xFF87B0F9),
-    primaryVariant = Color(0xFF87B0F9),
-    secondary = Color(0xFF87B0F9),
-    secondaryVariant = Color(0xFF87B0F9),
-    background = Color(0xFF1E1E2E),
-    surface = Color(0xFF565970),
-    error = Color(0xFFEBA0AC),
+    primary = Color(0xFF61AFEF),
+    primaryVariant = Color(0xFF7AAFE5),
+    secondary = Color(0xFF98C379),
+    secondaryVariant = Color(0xFF75C5A0),
+    background = Color(0xFF21252B),
+    surface = Color(0xFF282C34),
+    error = Color(0xFFF44747),
     onPrimary = Color.Black,
     onSecondary = Color.Black,
     onBackground = Color.White,
