@@ -29,6 +29,8 @@ import org.jetbrains.skiko.PredefinedCursors
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 import ui.theme.blueAlliance
+import ui.theme.onBlueAlliance
+import ui.theme.onRedAlliance
 import ui.theme.redAlliance
 
 @Composable
@@ -83,7 +85,11 @@ fun StartingPage() {
                     "red" -> MaterialTheme.colors.redAlliance
                     else -> MaterialTheme.colors.surface
                 },
-                contentColor = MaterialTheme.colors.onSurface
+                contentColor = when (settings!!.alliance) {
+                    "blue" -> MaterialTheme.colors.onBlueAlliance
+                    "red" -> MaterialTheme.colors.onRedAlliance
+                    else -> MaterialTheme.colors.onSurface
+                }
             )
         ) {
             Text(

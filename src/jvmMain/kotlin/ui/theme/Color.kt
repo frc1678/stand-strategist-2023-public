@@ -40,5 +40,11 @@ val StandStrategistDarkColorScheme = darkColors(
 val Colors.blueAlliance
     get() = Color(0xFF1F51FF)
 
+val Colors.onBlueAlliance
+    get() = if (isLight) onPrimary else onSurface
+
 val Colors.redAlliance
     get() = Color(0xFFFF6961)
+
+val Colors.onRedAlliance
+    get() = if (isLight) onSurface else onPrimary
