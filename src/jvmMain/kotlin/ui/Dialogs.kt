@@ -25,7 +25,7 @@ fun WindowScope.Dialog(
     Box(contentAlignment = Alignment.Center) {
         WindowDraggableArea {
             Box(
-                modifier = Modifier.background(MaterialTheme.colors.surface.copy(alpha = 0.7f)).fillMaxSize().onClick {
+                modifier = Modifier.background(MaterialTheme.colors.background).fillMaxSize().onClick {
                     if (allowCancel) onCancel()
                 }
             )
