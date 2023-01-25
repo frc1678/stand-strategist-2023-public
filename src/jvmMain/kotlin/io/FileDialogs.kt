@@ -20,10 +20,9 @@ import java.time.format.DateTimeFormatter
  * When a file is selected, it is moved to the config directory and the data is read to [matchSchedule].
  *
  * @param window The current window instance of the app.
- * @param onCancel Called if the user clicks the 'Cancel' button in the file dialog instead of selecting a file.
  * @return The [MatchSchedule] object read from the selected file, or null if no file is selected.
  */
-fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSchedule? {
+fun matchScheduleDialog(window: ComposeWindow): MatchSchedule? {
     val fileDialog = FileDialog(window, "Select match schedule", FileDialog.LOAD).apply {
         // Only let the user select one file
         isMultipleMode = false
@@ -34,7 +33,6 @@ fun matchScheduleDialog(window: ComposeWindow, onCancel: () -> Unit): MatchSched
     }
     if (fileDialog.file == null) {
         // The user clicked 'Cancel'
-        onCancel()
         return null
     }
     // Copy the file to the config directory

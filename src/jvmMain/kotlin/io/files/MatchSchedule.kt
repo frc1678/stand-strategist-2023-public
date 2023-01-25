@@ -38,15 +38,11 @@ var matchSchedule: MatchSchedule? by mutableStateOf(null)
  * If there is no existing match schedule file, this opens a dialog window to select a match schedule file.
  *
  * @param window The current window instance of the app, used to open the dialog window.
- * @throws RuntimeException If the user clicks the 'Cancel' button in the file dialog instead of selecting a file.
  */
 fun readMatchSchedule(window: ComposeWindow) {
-    matchSchedule = if (MATCH_SCHEDULE_FILE.exists()) {
-        Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
+    if (MATCH_SCHEDULE_FILE.exists()) {
+        matchSchedule = Json.decodeFromString(MATCH_SCHEDULE_FILE.readText())
     } else {
-        matchScheduleDialog(
-            window,
-            onCancel = { throw RuntimeException("Error: No match schedule file selected! Please select one.") }
-        )
+        matchScheduleDialog(window)?.also { matchSchedule = it }
     }
 }

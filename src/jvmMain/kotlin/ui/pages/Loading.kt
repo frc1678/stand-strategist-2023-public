@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
 import io.MAIN_FOLDER
 import io.MATCH_SCHEDULE_FILE
+import io.files.matchSchedule
 import io.files.populateTeamData
 import io.files.populateTimData
 import io.files.readMatchSchedule
@@ -44,7 +45,7 @@ fun WindowScope.LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {
                 Text("Choose match schedule...")
                 Button(onClick = {
                     readMatchSchedule(window)
-                    loadOthers()
+                    if (matchSchedule != null) loadOthers()
                 }) { Text("Choose") }
             }
         }
