@@ -28,6 +28,7 @@ import io.files.settings
 import org.jetbrains.skiko.PredefinedCursors
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
+import ui.theme.CustomTypography
 import ui.theme.blueAlliance
 import ui.theme.onBlueAlliance
 import ui.theme.onRedAlliance
@@ -44,7 +45,7 @@ fun StartingPage() {
             value = settings!!.name,
             onValueChange = { editSettings { name = it } },
             label = { Text("Your Name:") },
-            textStyle = MaterialTheme.typography.h2,
+            textStyle = CustomTypography.h2,
             modifier = Modifier.padding(20.dp)
         )
 
@@ -56,7 +57,7 @@ fun StartingPage() {
                 if (matchSchedule!!.containsKey(matchNumText)) editSettings { match = it.toIntOrNull() ?: 0 }
             },
             label = { Text("Match Number: ") },
-            textStyle = MaterialTheme.typography.h2,
+            textStyle = CustomTypography.h2,
             isError = !matchSchedule!!.containsKey(matchNumText),
             trailingIcon = {
                 Button(
@@ -107,7 +108,7 @@ fun StartingPage() {
                     matchSchedule!![settings!!.match.toString()]?.teams?.filter {
                         it.color == settings!!.alliance
                     }?.getOrNull(i)?.number ?: "?",
-                    style = MaterialTheme.typography.h2
+                    style = CustomTypography.h2
                 )
             }
         }

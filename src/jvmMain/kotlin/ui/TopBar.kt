@@ -10,6 +10,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.Typography
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
@@ -32,6 +33,7 @@ import io.files.editSettings
 import io.files.settings
 import io.saveDialog
 import kotlinx.datetime.Clock
+import ui.theme.CustomTypography
 import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -77,10 +79,10 @@ fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {
                         stream.close()
                         exitApplication()
                     }) {
-                        Text("Confirm", style = MaterialTheme.typography.body1)
+                        Text("Confirm", style = CustomTypography.body1)
                     }
                     TextButton(onClick = { confirmingDeletion = false }) {
-                        Text("Cancel", style = MaterialTheme.typography.body1)
+                        Text("Cancel", style = CustomTypography.body1)
                     }
                 }
             }

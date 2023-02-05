@@ -34,6 +34,7 @@ import org.jetbrains.kotlinx.dataframe.api.update
 import org.jetbrains.kotlinx.dataframe.api.where
 import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
+import ui.theme.CustomTypography
 
 @Composable
 fun AllNotesPage() {
@@ -42,15 +43,15 @@ fun AllNotesPage() {
         OutlinedTextField(
             value = search,
             onValueChange = { search = it },
-            placeholder = { Text("Search teams...", style = MaterialTheme.typography.body1) },
+            placeholder = { Text("Search teams...", style = CustomTypography.body1) },
             leadingIcon = { Icon(Icons.Default.Search, "Search") },
-            textStyle = MaterialTheme.typography.body1,
+            textStyle = CustomTypography.body1,
             modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, start = 30.dp)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.5f))
             for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
-                Text(col.name(), style = MaterialTheme.typography.h5, modifier = Modifier.weight(1f))
+                Text(col.name(), style = CustomTypography.h5, modifier = Modifier.weight(1f))
             }
         }
         Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(vertical = 40.dp)) {

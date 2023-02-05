@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -33,6 +32,7 @@ import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
+import ui.theme.CustomTypography
 
 @Composable
 fun NotesPage() {
@@ -42,33 +42,26 @@ fun NotesPage() {
     Column(modifier = Modifier.fillMaxSize().padding(top = 50.dp, bottom = 40.dp)) {
         Row(modifier = Modifier.fillMaxSize().weight(1f)) {
             Column(
-                modifier = Modifier.fillMaxHeight().weight(0.5f),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxHeight().weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.weight(0.5f))
                 for (currentTeam in teams ?: emptyList()) {
                     Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                        Text(currentTeam.number, style = MaterialTheme.typography.h3)
+                        Text(currentTeam.number, style = CustomTypography.h3)
                     }
                 }
             }
             for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
                 Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                     Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                        Text(col.name(), style = MaterialTheme.typography.h4)
+                        Text(col.name(), style = CustomTypography.h4)
                     }
                     for (currentTeam in teams ?: emptyList()) {
                         TextDataField(
-                            initialData = teamData!!
-                                .firstOrNull { it[team] == currentTeam.number }
-                                ?.get(col)
-                                ?.toString() ?: "",
-                            onChange = { new ->
-                                teamData = teamData!!.update(col)
-                                    .where { team() == currentTeam.number }
-                                    .with { new }
-                            },
-                            modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
+                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col)
+                                ?.toString() ?: "", onChange = { new ->
+                                teamData = teamData!!.update(col).where { team() == currentTeam.number }.with { new }
+                            }, modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                         )
                     }
                 }

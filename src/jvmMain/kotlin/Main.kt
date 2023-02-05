@@ -35,13 +35,16 @@ import ui.AnimatedContentByScreen
 import ui.TopBar
 import ui.navigation.NavButtons
 import ui.pages.LoadingPage
+import ui.theme.CustomTypography
 import ui.theme.StandStrategistDarkColorScheme
 import ui.theme.StandStrategistLightColorScheme
-import ui.theme.StandStrategistTypography
+import ui.theme.resetZoom
+import ui.theme.zoomIn
+import ui.theme.zoomOut
 
 @Composable
 fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) = MaterialTheme(
-    typography = StandStrategistTypography,
+    typography = CustomTypography,
     colors = if (settings?.darkTheme != false) StandStrategistDarkColorScheme else StandStrategistLightColorScheme
 ) {
     Surface(color = MaterialTheme.colors.background) {
@@ -66,18 +69,21 @@ fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) =
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-    Window(
-        state = WindowState(placement = WindowPlacement.Maximized),
+    Window(state = WindowState(placement = WindowPlacement.Maximized),
         onCloseRequest = ::exitApplication,
         title = "Stand Strategist",
         icon = painterResource("app_icon/icon.png"),
         onKeyEvent = {
-            if ((it.isMetaPressed || it.isCtrlPressed) && it.key == Key.S && it.type == KeyEventType.KeyDown) {
-                saveDialog(composeWindow!!)
+            if ((it.isMetaPressed || it.isCtrlPressed) && it.type == KeyEventType.KeyDown) {
+                when (it.key) {
+                    Key.S -> saveDialog(composeWindow!!)
+                    Key.Equals -> zoomIn()
+                    Key.Minus -> zoomOut()
+                    Key.Zero -> resetZoom()
+                }
             }
             true
-        }
-    ) {
+        }) {
         LaunchedEffect(true) {
             composeWindow = window
         }

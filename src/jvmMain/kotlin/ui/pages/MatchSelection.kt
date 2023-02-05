@@ -29,40 +29,33 @@ import io.files.editSettings
 import io.files.matchSchedule
 import io.files.settings
 import org.jetbrains.skiko.PredefinedCursors
+import ui.theme.CustomTypography
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MatchSelectionPage() {
     Column(modifier = Modifier.padding(start = 50.dp, end = 50.dp)) {
-        Text("Select a match", style = MaterialTheme.typography.h3)
+        Text("Select a match", style = CustomTypography.h3)
         Spacer(modifier = Modifier.height(30.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(
-                "Match",
-                style = MaterialTheme.typography.h4,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1.5f)
+                "Match", style = CustomTypography.h4, textAlign = TextAlign.Center, modifier = Modifier.weight(1.5f)
             )
-            Text("Blue Teams", style = MaterialTheme.typography.h4, modifier = Modifier.weight(3f))
-            Text("Red Teams", style = MaterialTheme.typography.h4, modifier = Modifier.weight(3f))
+            Text("Blue Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
+            Text("Red Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
         }
         Box {
             val listState = rememberLazyListState()
             LazyColumn(state = listState, modifier = Modifier.padding(vertical = 10.dp)) {
                 for ((matchNum, matchObj) in matchSchedule!!.toList().sortedBy { it.first.toIntOrNull() }) item {
-                    Box(
-                        modifier = Modifier.onClick { editSettings { match = matchNum.toInt() } }
-                            .pointerHoverIcon(PointerIcon(PredefinedCursors.HAND))
-                            .border(
-                                width = 3.dp,
-                                color = if (matchNum.toIntOrNull() == settings!!.match) {
-                                    MaterialTheme.colors.primary
-                                } else {
-                                    Color.Transparent
-                                },
-                                shape = RoundedCornerShape(5.dp)
-                            )
-                    ) {
+                    Box(modifier = Modifier.onClick { editSettings { match = matchNum.toInt() } }
+                        .pointerHoverIcon(PointerIcon(PredefinedCursors.HAND)).border(
+                            width = 3.dp, color = if (matchNum.toIntOrNull() == settings!!.match) {
+                                MaterialTheme.colors.primary
+                            } else {
+                                Color.Transparent
+                            }, shape = RoundedCornerShape(5.dp)
+                        )) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(10.dp),

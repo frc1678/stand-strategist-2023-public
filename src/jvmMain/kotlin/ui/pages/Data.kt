@@ -30,6 +30,7 @@ import org.jetbrains.kotlinx.dataframe.api.with
 import ui.CheckBox
 import ui.NumberPicker
 import ui.TextDataField
+import ui.theme.CustomTypography
 
 @Composable
 fun DataPage() {
@@ -44,7 +45,7 @@ fun DataPage() {
             Spacer(modifier = Modifier.weight(0.5f))
             for (currentTeam in teams ?: emptyList()) {
                 Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                    Text(currentTeam.number, style = MaterialTheme.typography.h3)
+                    Text(currentTeam.number, style = CustomTypography.h3)
                 }
             }
         }
@@ -56,7 +57,7 @@ fun DataPage() {
                 ).fillMaxHeight().padding(horizontal = 10.dp)
             ) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                    Text(col.name(), style = MaterialTheme.typography.h5)
+                    Text(col.name(), style = CustomTypography.h5)
                 }
                 for (currentTeam in teams ?: emptyList()) {
                     when (firstCell) {

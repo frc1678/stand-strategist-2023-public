@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.files.editSettings
 import io.files.settings
+import ui.theme.CustomTypography
 
 /**
  * The 'Back' and 'Next' navigation buttons that appear at the bottom of the app UI.
@@ -41,10 +42,10 @@ fun NavButtons() {
             ) {
                 Icon(Icons.Default.ArrowBack, "Back")
                 Column {
-                    Text("Back", style = MaterialTheme.typography.h6)
+                    Text("Back", style = CustomTypography.h6)
                     Text(
                         settings?.screen?.back?.let { it() }?.destination?.name ?: "",
-                        style = MaterialTheme.typography.body2
+                        style = CustomTypography.body2
                     )
                 }
             }
@@ -65,10 +66,10 @@ fun NavButtons() {
                 ) {
                     Icon(Icons.Default.ArrowForward, "Next")
                     Column {
-                        Text("Next", style = MaterialTheme.typography.h6)
+                        Text("Next", style = CustomTypography.h6)
                         Text(
                             settings?.screen?.next?.let { it() }?.destination?.name ?: "",
-                            style = MaterialTheme.typography.body2
+                            style = CustomTypography.body2
                         )
                     }
                 }
