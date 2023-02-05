@@ -11,6 +11,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ui.navigation.Destination
 import ui.navigation.NavGraph
+import ui.theme.updateTypography
 
 /**
  * Data class used to represent the app's current settings.
@@ -21,7 +22,8 @@ data class Settings(
     var alliance: String = "blue",
     var name: String = System.getProperty("user.name"),
     var screen: Destination = NavGraph.STARTING.destination,
-    var darkTheme: Boolean = true
+    var darkTheme: Boolean = true,
+    var zoomLevel: Float = 1.0f
 )
 
 /**
@@ -38,6 +40,7 @@ fun readSettings() {
     } else {
         Settings()
     }
+    updateTypography { it * settings!!.zoomLevel }
     doneReadingSettings = true
 }
 

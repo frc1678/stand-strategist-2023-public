@@ -10,11 +10,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import io.files.editSettings
 
 /**
  * The factor that every font size is multiplied by when zooming in, or divided by when zooming out.
  */
-const val ZOOM_MULTIPLIER = 1.1
+const val ZOOM_MULTIPLIER = 1.1f
 
 /**
  * The initial [Typography] for the app. The actual typography can change depending on zoom level.
@@ -67,16 +68,23 @@ fun updateTypography(transform: (TextUnit) -> TextUnit) = with(CustomTypography)
 /**
  * Multiplies all font sizes by the [ZOOM_MULTIPLIER].
  */
-fun zoomIn() = updateTypography { it * ZOOM_MULTIPLIER }
+fun zoomIn() {
+    editSettings { zoomLevel *= ZOOM_MULTIPLIER }
+    updateTypography { it * ZOOM_MULTIPLIER }
+}
 
 /**
  * Divides all font sizes by the [ZOOM_MULTIPLIER]
  */
-fun zoomOut() = updateTypography { it / ZOOM_MULTIPLIER }
+fun zoomOut() {
+    editSettings { zoomLevel /= ZOOM_MULTIPLIER }
+    updateTypography { it / ZOOM_MULTIPLIER }
+}
 
 /**
  * Resets all font sizes to the defaults.
  */
 fun resetZoom() {
+    editSettings { zoomLevel = 1.0f }
     CustomTypography = DefaultTypography
 }
