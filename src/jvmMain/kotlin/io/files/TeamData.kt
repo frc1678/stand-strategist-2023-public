@@ -5,6 +5,7 @@ import io.TEAM_DATA_FILE
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
+import org.jetbrains.kotlinx.dataframe.api.add
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.concat
@@ -45,7 +46,13 @@ var teamData: AnyFrame? = null
  */
 fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
-        TEAM_DATA_FILE.readDataFrame()
+        var df = TEAM_DATA_FILE.readDataFrame()
+        teamDataCols.forEach { (column, default) ->
+            if (!df.containsColumn(column.name())) {
+                df = df.add(column) { default }
+            }
+        }
+        df
     } else {
         dataFrameOf(teamDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }

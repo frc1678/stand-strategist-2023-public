@@ -6,6 +6,7 @@ import io.TIM_DATA_FILE
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlinx.dataframe.AnyFrame
 import org.jetbrains.kotlinx.dataframe.DataFrame
+import org.jetbrains.kotlinx.dataframe.api.add
 import org.jetbrains.kotlinx.dataframe.api.column
 import org.jetbrains.kotlinx.dataframe.api.columnOf
 import org.jetbrains.kotlinx.dataframe.api.concat
@@ -50,7 +51,13 @@ var timData: AnyFrame? = null
  */
 fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
-        TIM_DATA_FILE.readDataFrame()
+        var df = TIM_DATA_FILE.readDataFrame()
+        timDataCols.forEach { (column, default) ->
+            if (!df.containsColumn(column.name())) {
+                df = df.add(column) { default }
+            }
+        }
+        df
     } else {
         dataFrameOf(timDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
     }
