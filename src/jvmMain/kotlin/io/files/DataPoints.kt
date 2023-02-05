@@ -8,6 +8,7 @@ import org.jetbrains.kotlinx.dataframe.api.column
  */
 val teamDataCols: TeamDataCols = mapOf(
     team to 0,
+    column<String>("Auto Strategies") to "",
     column<String>("Driving and Scoring Competence") to "",
     column<String>("Strengths/Weaknesses") to "",
     column<String>("Notes") to ""
