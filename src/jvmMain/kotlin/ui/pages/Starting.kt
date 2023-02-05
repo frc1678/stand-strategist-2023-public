@@ -2,11 +2,10 @@ package ui.pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -72,7 +71,8 @@ fun StartingPage() {
         )
 
         Button(
-            modifier = Modifier.padding(20.dp).height(100.dp).width(500.dp),
+            modifier = Modifier.padding(20.dp),
+            contentPadding = PaddingValues(horizontal = 100.dp, vertical = 20.dp),
             onClick = {
                 editSettings {
                     if (alliance == "blue") {
