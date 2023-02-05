@@ -69,7 +69,8 @@ fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) =
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-    Window(state = WindowState(placement = WindowPlacement.Maximized),
+    Window(
+        state = WindowState(placement = WindowPlacement.Maximized),
         onCloseRequest = ::exitApplication,
         title = "Stand Strategist",
         icon = painterResource("app_icon/icon.png"),
@@ -83,7 +84,8 @@ fun main() = application {
                 }
             }
             true
-        }) {
+        }
+    ) {
         LaunchedEffect(true) {
             composeWindow = window
         }

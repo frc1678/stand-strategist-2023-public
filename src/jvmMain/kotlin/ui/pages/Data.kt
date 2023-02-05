@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -63,21 +62,17 @@ fun DataPage() {
                     when (firstCell) {
                         is Boolean -> {
                             CheckBox(
-                                initialData = timData!!
-                                    .firstOrNull {
-                                        it[team] == currentTeam.number &&
-                                            it[alliance] == currentTeam.color &&
-                                            it[match] == settings!!.match
-                                    }
-                                    ?.get(col) as Boolean,
+                                initialData = timData!!.firstOrNull {
+                                    it[team] == currentTeam.number &&
+                                        it[alliance] == currentTeam.color &&
+                                        it[match] == settings!!.match
+                                }?.get(col) as Boolean,
                                 onChange = { new ->
-                                    timData = timData!!.update(col)
-                                        .where {
-                                            team() == currentTeam.number &&
-                                                alliance() == currentTeam.color &&
-                                                match() == settings!!.match
-                                        }
-                                        .with { new }
+                                    timData = timData!!.update(col).where {
+                                        team() == currentTeam.number &&
+                                            alliance() == currentTeam.color &&
+                                            match() == settings!!.match
+                                    }.with { new }
                                 },
                                 modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
                             )
@@ -85,21 +80,17 @@ fun DataPage() {
 
                         is Int -> {
                             NumberPicker(
-                                initialData = timData!!
-                                    .firstOrNull {
-                                        it[team] == currentTeam.number &&
-                                            it[alliance] == currentTeam.color &&
-                                            it[match] == settings!!.match
-                                    }
-                                    ?.get(col) as Int,
+                                initialData = timData!!.firstOrNull {
+                                    it[team] == currentTeam.number &&
+                                        it[alliance] == currentTeam.color &&
+                                        it[match] == settings!!.match
+                                }?.get(col) as Int,
                                 onChange = { new ->
-                                    timData = timData!!.update(col)
-                                        .where {
-                                            team() == currentTeam.number &&
-                                                alliance() == currentTeam.color &&
-                                                match() == settings!!.match
-                                        }
-                                        .with { new }
+                                    timData = timData!!.update(col).where {
+                                        team() == currentTeam.number &&
+                                            alliance() == currentTeam.color &&
+                                            match() == settings!!.match
+                                    }.with { new }
                                 },
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
@@ -107,22 +98,17 @@ fun DataPage() {
 
                         else -> {
                             TextDataField(
-                                initialData = timData!!
-                                    .firstOrNull {
-                                        it[team] == currentTeam.number &&
-                                            it[alliance] == currentTeam.color &&
-                                            it[match] == settings!!.match
-                                    }
-                                    ?.get(col)
-                                    ?.toString() ?: "",
+                                initialData = timData!!.firstOrNull {
+                                    it[team] == currentTeam.number &&
+                                        it[alliance] == currentTeam.color &&
+                                        it[match] == settings!!.match
+                                }?.get(col)?.toString() ?: "",
                                 onChange = { new ->
-                                    timData = timData!!.update(col)
-                                        .where {
-                                            team() == currentTeam.number &&
-                                                alliance() == currentTeam.color &&
-                                                match() == settings!!.match
-                                        }
-                                        .with { new }
+                                    timData = timData!!.update(col).where {
+                                        team() == currentTeam.number &&
+                                            alliance() == currentTeam.color &&
+                                            match() == settings!!.match
+                                    }.with { new }
                                 },
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )

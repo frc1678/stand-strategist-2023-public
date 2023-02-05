@@ -39,7 +39,10 @@ fun MatchSelectionPage() {
         Spacer(modifier = Modifier.height(30.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(
-                "Match", style = CustomTypography.h4, textAlign = TextAlign.Center, modifier = Modifier.weight(1.5f)
+                "Match",
+                style = CustomTypography.h4,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1.5f)
             )
             Text("Blue Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
             Text("Red Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
@@ -48,14 +51,18 @@ fun MatchSelectionPage() {
             val listState = rememberLazyListState()
             LazyColumn(state = listState, modifier = Modifier.padding(vertical = 10.dp)) {
                 for ((matchNum, matchObj) in matchSchedule!!.toList().sortedBy { it.first.toIntOrNull() }) item {
-                    Box(modifier = Modifier.onClick { editSettings { match = matchNum.toInt() } }
-                        .pointerHoverIcon(PointerIcon(PredefinedCursors.HAND)).border(
-                            width = 3.dp, color = if (matchNum.toIntOrNull() == settings!!.match) {
-                                MaterialTheme.colors.primary
-                            } else {
-                                Color.Transparent
-                            }, shape = RoundedCornerShape(5.dp)
-                        )) {
+                    Box(
+                        modifier = Modifier.onClick { editSettings { match = matchNum.toInt() } }
+                            .pointerHoverIcon(PointerIcon(PredefinedCursors.HAND)).border(
+                                width = 3.dp,
+                                color = if (matchNum.toIntOrNull() == settings!!.match) {
+                                    MaterialTheme.colors.primary
+                                } else {
+                                    Color.Transparent
+                                },
+                                shape = RoundedCornerShape(5.dp)
+                            )
+                    ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(10.dp),

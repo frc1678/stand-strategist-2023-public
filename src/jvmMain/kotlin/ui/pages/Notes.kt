@@ -42,7 +42,8 @@ fun NotesPage() {
     Column(modifier = Modifier.fillMaxSize().padding(top = 50.dp, bottom = 40.dp)) {
         Row(modifier = Modifier.fillMaxSize().weight(1f)) {
             Column(
-                modifier = Modifier.fillMaxHeight().weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxHeight().weight(0.5f),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.weight(0.5f))
                 for (currentTeam in teams ?: emptyList()) {
@@ -59,9 +60,11 @@ fun NotesPage() {
                     for (currentTeam in teams ?: emptyList()) {
                         TextDataField(
                             initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col)
-                                ?.toString() ?: "", onChange = { new ->
+                                ?.toString() ?: "",
+                            onChange = { new ->
                                 teamData = teamData!!.update(col).where { team() == currentTeam.number }.with { new }
-                            }, modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
+                            },
+                            modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                         )
                     }
                 }
