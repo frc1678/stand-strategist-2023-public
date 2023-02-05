@@ -29,6 +29,7 @@ import androidx.compose.ui.window.WindowScope
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import io.Observer
+import io.files.editSettings
 import io.files.settings
 import io.saveDialog
 import ui.AnimatedContentByScreen
@@ -81,6 +82,15 @@ fun main() = application {
                     Key.Equals -> zoomIn()
                     Key.Minus -> zoomOut()
                     Key.Zero -> resetZoom()
+                    Key.DirectionRight -> editSettings {
+                        screen.apply { onNext() }
+                        screen = screen.next()!!.destination
+                    }
+
+                    Key.DirectionLeft -> editSettings {
+                        screen.apply { onBack() }
+                        screen = screen.back().destination
+                    }
                 }
             }
             true
