@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.files.editSettings
 import io.files.settings
+import ui.AnimatedSmallContentByScreen
 import ui.theme.CustomTypography
 
 /**
@@ -43,10 +44,9 @@ fun NavButtons() {
                 Icon(Icons.Default.ArrowBack, "Back")
                 Column {
                     Text("Back", style = CustomTypography.h6)
-                    Text(
-                        settings?.screen?.back?.let { it() }?.destination?.name ?: "",
-                        style = CustomTypography.body2
-                    )
+                    AnimatedSmallContentByScreen {
+                        Text(it.back().destination.name, style = CustomTypography.body2)
+                    }
                 }
             }
         }
@@ -67,10 +67,9 @@ fun NavButtons() {
                     Icon(Icons.Default.ArrowForward, "Next")
                     Column {
                         Text("Next", style = CustomTypography.h6)
-                        Text(
-                            settings?.screen?.next?.let { it() }?.destination?.name ?: "",
-                            style = CustomTypography.body2
-                        )
+                        AnimatedSmallContentByScreen {
+                            Text(it.next()?.destination?.name ?: "", style = CustomTypography.body2)
+                        }
                     }
                 }
             }

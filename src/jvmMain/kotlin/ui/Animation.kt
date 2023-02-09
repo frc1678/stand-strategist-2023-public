@@ -37,3 +37,20 @@ fun AnimatedContentByScreen(
         else -> defaultContentTransform
     }.using(SizeTransform(clip = false))
 })
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun AnimatedSmallContentByScreen(
+    modifier: Modifier = Modifier,
+    content: @Composable AnimatedVisibilityScope.(Destination) -> Unit
+) = AnimatedContent(targetState = settings!!.screen, content = content, modifier = modifier, transitionSpec = {
+    when {
+        targetState == initialState.back().destination && targetState.next()?.destination == initialState ->
+            slideInHorizontally { -it / 3 } + fadeIn() with slideOutHorizontally { it / 3 } + fadeOut()
+
+        targetState == initialState.next()?.destination && targetState.back().destination == initialState ->
+            slideInHorizontally { it / 3 } + fadeIn() with slideOutHorizontally { -it / 3 } + fadeOut()
+
+        else -> defaultContentTransform
+    }.using(SizeTransform(clip = false))
+})
