@@ -1,9 +1,11 @@
 package ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.onClick
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
 import io.BACKUPS_FOLDER
@@ -40,6 +43,7 @@ import java.util.zip.ZipOutputStream
 @Composable
 fun Separator() = Text("\u22C5")
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -53,7 +57,9 @@ fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {
                     "red" -> "Red Alliance"
                     "blue" -> "Blue Alliance"
                     else -> "None"
-                }
+                },
+                style = CustomTypography.body1.copy(fontWeight = FontWeight.Bold),
+                modifier = Modifier.onClick { editSettings { alliance = if (alliance == "red") "blue" else "red" } }
             )
         }
         Row(modifier = Modifier.align(Alignment.CenterEnd)) {
