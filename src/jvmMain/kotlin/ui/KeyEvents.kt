@@ -27,8 +27,10 @@ val onKeyEvent: (KeyEvent) -> Boolean = {
             Key.Minus -> zoomOut()
             Key.Zero -> resetZoom()
             Key.DirectionRight -> editSettings {
-                screen.apply { onNext() }
-                screen = screen.next()!!.destination
+                if (screen.next() != null) {
+                    screen.apply { onNext() }
+                    screen = screen.next()!!.destination
+                }
             }
 
             Key.DirectionLeft -> editSettings {
