@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
@@ -77,10 +78,10 @@ fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {
                         stream.close()
                         exitApplication()
                     }) {
-                        Text("Confirm", style = CustomTypography.body1)
+                        Text("Confirm", style = CustomTypography.body1, color = MaterialTheme.colors.onSurface)
                     }
                     TextButton(onClick = { confirmingDeletion = false }) {
-                        Text("Cancel", style = CustomTypography.body1)
+                        Text("Cancel", style = CustomTypography.body1, color = MaterialTheme.colors.onSurface)
                     }
                 }
             }
