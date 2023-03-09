@@ -1,6 +1,7 @@
 package io
 
 import androidx.compose.ui.awt.ComposeWindow
+import io.files.Match
 import io.files.MatchSchedule
 import io.files.matchSchedule
 import io.files.settings
@@ -35,10 +36,13 @@ fun matchScheduleDialog(window: ComposeWindow): MatchSchedule? {
         // The user clicked 'Cancel'
         return null
     }
+    val matchschedule:  Map<String, Match>? = Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
+
     // Copy the file to the config directory
     File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
+
     // Serialize the data
-    return Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
+    return matchschedule
 }
 
 /**
