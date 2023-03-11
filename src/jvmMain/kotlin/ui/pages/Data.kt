@@ -59,8 +59,11 @@ fun DataPage() {
                             if (it[team] == currentTeam.number &&
                                 it[alliance] == currentTeam.color &&
                                 it[match] == settings!!.match.toString()
-                            ) it.toMutableMap().apply { set(col.first, new.toString()) }
-                            else it
+                            ) {
+                                it.toMutableMap().apply { set(col.first, new.toString()) }
+                            } else {
+                                it
+                            }
                         }
                     }
                     when (col.second) {

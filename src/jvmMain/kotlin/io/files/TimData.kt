@@ -42,8 +42,8 @@ fun populateTimData() {
         for (teamObj in matchObj.teams) {
             // See if the corresponding row exists yet
             if (timData!!.firstOrNull {
-                    matchNum == it[match] && teamObj.number == it[team] && teamObj.color == it[alliance]
-                } == null
+                matchNum == it[match] && teamObj.number == it[team] && teamObj.color == it[alliance]
+            } == null
             ) {
                 // Get the default values for the row
                 val entry = timDataCols

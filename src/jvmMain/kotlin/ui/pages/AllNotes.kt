@@ -65,9 +65,12 @@ fun AllNotesPage() {
                                             ?.get(col.first) ?: "",
                                         onChange = { new ->
                                             teamData = teamData!!.map {
-                                                if (it[team] == currentTeam) it.toMutableMap()
-                                                    .apply { set(col.first, new) }
-                                                else it
+                                                if (it[team] == currentTeam) {
+                                                    it.toMutableMap()
+                                                        .apply { set(col.first, new) }
+                                                } else {
+                                                    it
+                                                }
                                             }
                                         },
                                         modifier = Modifier.weight(1f).padding(horizontal = 5.dp).wrapContentHeight()
