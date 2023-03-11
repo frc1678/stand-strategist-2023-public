@@ -23,13 +23,13 @@ fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
         var data = csvReader().readAllWithHeader(TIM_DATA_FILE)
         timDataCols.forEach { (column, default) ->
-            if (column.first !in data.first().keys) {
-                data = data.map { it.toMutableMap().apply { set(column.first, default.toString()) } }
+            if (column.name !in data.first().keys) {
+                data = data.map { it.toMutableMap().apply { set(column.name, default.toString()) } }
             }
         }
         data
     } else {
-        listOf(timDataCols.mapKeys { (dataPoint, _) -> dataPoint.first }.mapValues { "" })
+        listOf(timDataCols.mapKeys { (dataPoint, _) -> dataPoint.name }.mapValues { "" })
     }
 }
 
@@ -47,7 +47,7 @@ fun populateTimData() {
             ) {
                 // Get the default values for the row
                 val entry = timDataCols
-                    .mapKeys { (dataPoint, _) -> dataPoint.first }
+                    .mapKeys { (dataPoint, _) -> dataPoint.name }
                     .mapValues { (dataPoint, default) ->
                         when (dataPoint) {
                             match -> matchNum

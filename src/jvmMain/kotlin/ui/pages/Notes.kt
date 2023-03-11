@@ -51,19 +51,19 @@ fun NotesPage() = AnimatedContent(targetState = settings) { settings ->
                     }
                 }
             }
-            for (col in teamDataCols.keys.filter { it.first != team }) {
+            for (col in teamDataCols.keys.filter { it.name != team }) {
                 Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                     Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                        Text(col.first, style = CustomTypography.h4)
+                        Text(col.name, style = CustomTypography.h4)
                     }
                     for (currentTeam in teams ?: emptyList()) {
                         TextDataField(
-                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col.first)
+                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col.name)
                                 ?: "",
                             onChange = { new ->
                                 teamData = teamData!!.map {
                                     if (it[team] == currentTeam.number) {
-                                        it.toMutableMap().apply { set(col.first, new) }
+                                        it.toMutableMap().apply { set(col.name, new) }
                                     } else {
                                         it
                                     }

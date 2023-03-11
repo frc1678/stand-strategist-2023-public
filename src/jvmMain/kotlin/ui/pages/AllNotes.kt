@@ -48,8 +48,8 @@ fun AllNotesPage() {
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.5f))
-            for (col in teamDataCols.keys.filter { it.first != team }) {
-                Text(col.first, style = CustomTypography.h5, modifier = Modifier.weight(1f))
+            for (col in teamDataCols.keys.filter { it.name != team }) {
+                Text(col.name, style = CustomTypography.h5, modifier = Modifier.weight(1f))
             }
         }
         AnimatedContent(search) { currentSearch ->
@@ -63,15 +63,15 @@ fun AllNotesPage() {
                                     Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
                                         Text(currentTeam)
                                     }
-                                    for (col in teamDataCols.keys.filter { it.first != team }) {
+                                    for (col in teamDataCols.keys.filter { it.name != team }) {
                                         TextDataField(
                                             initialData = teamData!!.firstOrNull { row -> row[team] == currentTeam }
-                                                ?.get(col.first) ?: "",
+                                                ?.get(col.name) ?: "",
                                             onChange = { new ->
                                                 teamData = teamData!!.map {
                                                     if (it[team] == currentTeam) {
                                                         it.toMutableMap()
-                                                            .apply { set(col.first, new) }
+                                                            .apply { set(col.name, new) }
                                                     } else {
                                                         it
                                                     }

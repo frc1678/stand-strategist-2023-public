@@ -22,13 +22,13 @@ fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
         var data = csvReader().readAllWithHeader(TEAM_DATA_FILE)
         teamDataCols.forEach { (column, default) ->
-            if (column.first !in data.first().keys) {
-                data = data.map { it.toMutableMap().apply { set(column.first, default.toString()) } }
+            if (column.name !in data.first().keys) {
+                data = data.map { it.toMutableMap().apply { set(column.name, default.toString()) } }
             }
         }
         data
     } else {
-        listOf(teamDataCols.mapKeys { (dataPoint, _) -> dataPoint.first }.mapValues { "" })
+        listOf(teamDataCols.mapKeys { (dataPoint, _) -> dataPoint.name }.mapValues { "" })
     }
 }
 
@@ -45,7 +45,7 @@ fun populateTeamData() {
         if (teamData!!.firstOrNull { it[team] == teamNum } == null) {
             // Get the default values from the columns
             val entry = teamDataCols
-                .mapKeys { (dataPoint, _) -> dataPoint.first }
+                .mapKeys { (dataPoint, _) -> dataPoint.name }
                 .mapValues { (dataPoint, default) -> if (dataPoint == team) teamNum else default.toString() }
             // Add the new entry
             teamData = teamData!!.toMutableList().apply { add(entry) }

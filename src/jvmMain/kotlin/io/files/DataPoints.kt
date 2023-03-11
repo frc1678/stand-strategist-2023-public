@@ -4,7 +4,7 @@ const val team = "Team"
 const val match = "Match Number"
 const val alliance = "Alliance"
 
-val teamDataCols = mapOf<Pair<String, DataType>, Any>(
+val teamDataCols = mapOf<Column, Any>(
     team(DataType.Str) to "0",
     "Auto Strategies"(DataType.Str) to "",
     "Driving and Scoring Competence"(DataType.Str) to "",
@@ -12,7 +12,7 @@ val teamDataCols = mapOf<Pair<String, DataType>, Any>(
     "Notes"(DataType.Str) to ""
 )
 
-val timDataCols = mapOf<Pair<String, DataType>, Any>(
+val timDataCols = mapOf<Column, Any>(
     match(DataType.Num) to "",
     alliance(DataType.Str) to "blue",
     team(DataType.Str) to "0",
@@ -29,4 +29,6 @@ sealed interface DataType {
     object Bool : DataType
 }
 
-operator fun String.invoke(dataType: DataType) = this to dataType
+data class Column(val name: String, val type: DataType)
+
+operator fun String.invoke(dataType: DataType) = Column(this, dataType)

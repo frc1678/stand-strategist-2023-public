@@ -47,14 +47,14 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                 }
             }
         }
-        for (col in timDataCols.keys.filter { it.first !in listOf(team, alliance, match) }) {
+        for (col in timDataCols.keys.filter { it.name !in listOf(team, alliance, match) }) {
             Column(
                 modifier = Modifier.weight(
-                    if (col.second == DataType.Num || col.second == DataType.Bool) 0.5f else 1f
+                    if (col.type == DataType.Num || col.type == DataType.Bool) 0.5f else 1f
                 ).fillMaxHeight().padding(horizontal = 10.dp)
             ) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                    Text(col.first, style = CustomTypography.h5)
+                    Text(col.name, style = CustomTypography.h5)
                 }
                 for (currentTeam in teams ?: emptyList()) {
                     val onChange = { new: Any ->
@@ -63,20 +63,20 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                 it[alliance] == currentTeam.color &&
                                 it[match] == settings.match.toString()
                             ) {
-                                it.toMutableMap().apply { set(col.first, new.toString()) }
+                                it.toMutableMap().apply { set(col.name, new.toString()) }
                             } else {
                                 it
                             }
                         }
                     }
-                    when (col.second) {
+                    when (col.type) {
                         DataType.Bool -> {
                             CheckBox(
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
                                         it[match] == settings.match.toString()
-                                }?.get(col.first).toBoolean(),
+                                }?.get(col.name).toBoolean(),
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
                             )
@@ -88,7 +88,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
                                         it[match] == settings.match.toString()
-                                }?.get(col.first)?.toIntOrNull() ?: 0,
+                                }?.get(col.name)?.toIntOrNull() ?: 0,
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
@@ -100,7 +100,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
                                         it[match] == settings.match.toString()
-                                }?.get(col.first) ?: "",
+                                }?.get(col.name) ?: "",
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
