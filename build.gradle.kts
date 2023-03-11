@@ -31,6 +31,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("org.jetbrains.kotlinx:dataframe:0.9.1")
                 implementation("org.jetbrains.kotlinx:dataframe-excel:0.9.1")
+                implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.8.0")
             }
         }
     }
