@@ -1,5 +1,7 @@
 package ui.pages
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,10 +29,11 @@ import ui.NumberPicker
 import ui.TextDataField
 import ui.theme.CustomTypography
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun DataPage() {
+fun DataPage() = AnimatedContent(targetState = settings) { settings ->
     val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
-        it.color == settings!!.alliance
+        it.color == settings.alliance
     }
     Row(modifier = Modifier.fillMaxSize().padding(vertical = 50.dp)) {
         Column(
@@ -58,7 +61,7 @@ fun DataPage() {
                         timData = timData!!.map {
                             if (it[team] == currentTeam.number &&
                                 it[alliance] == currentTeam.color &&
-                                it[match] == settings!!.match.toString()
+                                it[match] == settings.match.toString()
                             ) {
                                 it.toMutableMap().apply { set(col.first, new.toString()) }
                             } else {
@@ -72,7 +75,7 @@ fun DataPage() {
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match.toString()
+                                        it[match] == settings.match.toString()
                                 }?.get(col.first).toBoolean(),
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
@@ -84,7 +87,7 @@ fun DataPage() {
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match.toString()
+                                        it[match] == settings.match.toString()
                                 }?.get(col.first)?.toIntOrNull() ?: 0,
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
@@ -96,7 +99,7 @@ fun DataPage() {
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match.toString()
+                                        it[match] == settings.match.toString()
                                 }?.get(col.first) ?: "",
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
