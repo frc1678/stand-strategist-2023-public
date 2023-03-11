@@ -28,10 +28,6 @@ import androidx.compose.ui.unit.dp
 import io.files.team
 import io.files.teamData
 import io.files.teamDataCols
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.api.where
-import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
 import ui.theme.CustomTypography
 
@@ -49,30 +45,30 @@ fun AllNotesPage() {
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(0.5f))
-            for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
-                Text(col.name(), style = CustomTypography.h5, modifier = Modifier.weight(1f))
+            for (col in teamDataCols.keys.filter { it.first != team }) {
+                Text(col.first, style = CustomTypography.h5, modifier = Modifier.weight(1f))
             }
         }
         Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(vertical = 40.dp)) {
             val listState = rememberLazyListState()
             LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
-                teamData!![team].toList().sorted().forEach { currentTeam ->
+                teamData!!.map { it[team]!! }.sortedBy { it.toIntOrNull() }.forEach { currentTeam ->
                     if (currentTeam.contains(search)) {
                         item {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
                                     Text(currentTeam)
                                 }
-                                for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
+                                for (col in teamDataCols.keys.filter { it.first != team }) {
                                     TextDataField(
-                                        initialData = teamData!!.firstOrNull { row ->
-                                            row[team] == currentTeam
-                                        }?.get(col)?.toString() ?: "",
+                                        initialData = teamData!!.firstOrNull { row -> row[team] == currentTeam }
+                                            ?.get(col.first) ?: "",
                                         onChange = { new ->
-                                            teamData = teamData!!
-                                                .update(col)
-                                                .where { team() == currentTeam }
-                                                .with { new }
+                                            teamData = teamData!!.map {
+                                                if (it[team] == currentTeam) it.toMutableMap()
+                                                    .apply { set(col.first, new) }
+                                                else it
+                                            }
                                         },
                                         modifier = Modifier.weight(1f).padding(horizontal = 5.dp).wrapContentHeight()
                                     )

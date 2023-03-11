@@ -25,10 +25,6 @@ import io.files.settings
 import io.files.team
 import io.files.teamData
 import io.files.teamDataCols
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.api.where
-import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
@@ -52,17 +48,20 @@ fun NotesPage() {
                     }
                 }
             }
-            for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
+            for (col in teamDataCols.keys.filter { it.first != team }) {
                 Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                     Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                        Text(col.name(), style = CustomTypography.h4)
+                        Text(col.first, style = CustomTypography.h4)
                     }
                     for (currentTeam in teams ?: emptyList()) {
                         TextDataField(
-                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col)
-                                ?.toString() ?: "",
+                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col.first)
+                                ?: "",
                             onChange = { new ->
-                                teamData = teamData!!.update(col).where { team() == currentTeam.number }.with { new }
+                                teamData = teamData!!.map {
+                                    if (it[team] == currentTeam.number) it.toMutableMap().apply { set(col.first, new) }
+                                    else it
+                                }
                             },
                             modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                         )

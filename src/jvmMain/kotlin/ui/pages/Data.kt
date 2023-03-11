@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.files.DataType
 import io.files.alliance
 import io.files.match
 import io.files.matchSchedule
@@ -21,11 +22,6 @@ import io.files.settings
 import io.files.team
 import io.files.timData
 import io.files.timDataCols
-import org.jetbrains.kotlinx.dataframe.api.first
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.api.where
-import org.jetbrains.kotlinx.dataframe.api.with
 import ui.CheckBox
 import ui.NumberPicker
 import ui.TextDataField
@@ -48,68 +44,58 @@ fun DataPage() {
                 }
             }
         }
-        for (col in timDataCols.keys.filter { it.name() !in listOf(team.name(), alliance.name(), match.name()) }) {
-            val firstCell = timData!!.first()[col]
+        for (col in timDataCols.keys.filter { it.first !in listOf(team, alliance, match) }) {
             Column(
                 modifier = Modifier.weight(
-                    if (firstCell is Boolean || firstCell is Int) 0.5f else 1f
+                    if (col.second == DataType.Num || col.second == DataType.Bool) 0.5f else 1f
                 ).fillMaxHeight().padding(horizontal = 10.dp)
             ) {
                 Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                    Text(col.name(), style = CustomTypography.h5)
+                    Text(col.first, style = CustomTypography.h5)
                 }
                 for (currentTeam in teams ?: emptyList()) {
-                    when (firstCell) {
-                        is Boolean -> {
+                    val onChange = { new: Any ->
+                        timData = timData!!.map {
+                            if (it[team] == currentTeam.number &&
+                                it[alliance] == currentTeam.color &&
+                                it[match] == settings!!.match.toString()
+                            ) it.toMutableMap().apply { set(col.first, new.toString()) }
+                            else it
+                        }
+                    }
+                    when (col.second) {
+                        DataType.Bool -> {
                             CheckBox(
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match
-                                }?.get(col) as Boolean,
-                                onChange = { new ->
-                                    timData = timData!!.update(col).where {
-                                        team() == currentTeam.number &&
-                                            alliance() == currentTeam.color &&
-                                            match() == settings!!.match
-                                    }.with { new }
-                                },
+                                        it[match] == settings!!.match.toString()
+                                }?.get(col.first).toBoolean(),
+                                onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
                             )
                         }
 
-                        is Int -> {
+                        DataType.Num -> {
                             NumberPicker(
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match
-                                }?.get(col) as Int,
-                                onChange = { new ->
-                                    timData = timData!!.update(col).where {
-                                        team() == currentTeam.number &&
-                                            alliance() == currentTeam.color &&
-                                            match() == settings!!.match
-                                    }.with { new }
-                                },
+                                        it[match] == settings!!.match.toString()
+                                }?.get(col.first)?.toIntOrNull() ?: 0,
+                                onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
                         }
 
-                        else -> {
+                        DataType.Str -> {
                             TextDataField(
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings!!.match
-                                }?.get(col)?.toString() ?: "",
-                                onChange = { new ->
-                                    timData = timData!!.update(col).where {
-                                        team() == currentTeam.number &&
-                                            alliance() == currentTeam.color &&
-                                            match() == settings!!.match
-                                    }.with { new }
-                                },
+                                        it[match] == settings!!.match.toString()
+                                }?.get(col.first) ?: "",
+                                onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                             )
                         }
