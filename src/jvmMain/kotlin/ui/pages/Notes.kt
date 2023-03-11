@@ -1,5 +1,7 @@
 package ui.pages
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,19 +27,16 @@ import io.files.settings
 import io.files.team
 import io.files.teamData
 import io.files.teamDataCols
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.api.where
-import org.jetbrains.kotlinx.dataframe.api.with
 import ui.TextDataField
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 import ui.theme.CustomTypography
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun NotesPage() {
+fun NotesPage() = AnimatedContent(targetState = settings) { settings ->
     val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
-        it.color == settings!!.alliance
+        it.color == settings.alliance
     }
     Column(modifier = Modifier.fillMaxSize().padding(top = 50.dp, bottom = 40.dp)) {
         Row(modifier = Modifier.fillMaxSize().weight(1f)) {
@@ -52,17 +51,23 @@ fun NotesPage() {
                     }
                 }
             }
-            for (col in teamDataCols.keys.filter { it.name() != team.name() }) {
+            for (col in teamDataCols.keys.filter { it.name != team }) {
                 Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(horizontal = 5.dp)) {
                     Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                        Text(col.name(), style = CustomTypography.h4)
+                        Text(col.name, style = CustomTypography.h4)
                     }
                     for (currentTeam in teams ?: emptyList()) {
                         TextDataField(
-                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col)
-                                ?.toString() ?: "",
+                            initialData = teamData!!.firstOrNull { it[team] == currentTeam.number }?.get(col.name)
+                                ?: "",
                             onChange = { new ->
-                                teamData = teamData!!.update(col).where { team() == currentTeam.number }.with { new }
+                                teamData = teamData!!.map {
+                                    if (it[team] == currentTeam.number) {
+                                        it.toMutableMap().apply { set(col.name, new) }
+                                    } else {
+                                        it
+                                    }
+                                }
                             },
                             modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
                         )

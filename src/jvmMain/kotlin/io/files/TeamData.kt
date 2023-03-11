@@ -1,60 +1,34 @@
 package io.files
 
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import io.DebouncedFileWriter
 import io.TEAM_DATA_FILE
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.kotlinx.dataframe.AnyFrame
-import org.jetbrains.kotlinx.dataframe.DataFrame
-import org.jetbrains.kotlinx.dataframe.api.add
-import org.jetbrains.kotlinx.dataframe.api.column
-import org.jetbrains.kotlinx.dataframe.api.columnOf
-import org.jetbrains.kotlinx.dataframe.api.concat
-import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.named
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
-import org.jetbrains.kotlinx.dataframe.io.readDataFrame
-import org.jetbrains.kotlinx.dataframe.io.toCsv
-
-typealias TeamDataCols = Map<ColumnAccessor<Any?>, Any?>
-
-/**
- * [ColumnAccessor] for accessing the 'Team' column.
- * All other columns should be accessed through [teamDataCols] or [timDataCols].
- */
-val team by column<String>("Team")
 
 /**
  * The main object storing all the team data.
- *
- * To update the data, use [DataFrame.update]:
- * ```kt
- * teamData = teamData!!.update(/* column */)
- *     .where { /* row condition */ }
- *      .with { /* new value */ }
- * ```
  */
-var teamData: AnyFrame? = null
+var teamData: List<Map<String, String>>? = null
     set(value) {
         field = value
         runBlocking { teamDataWriter.writeData(value!!) }
     }
 
 /**
- * Reads the team data from the [TEAM_DATA_FILE] into [teamData]. Creates a new [DataFrame] if the file doesn't exist.
+ * Reads the team data from the [TEAM_DATA_FILE] into [teamData].
  */
 fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
-        var df = TEAM_DATA_FILE.readDataFrame()
+        var data = csvReader().readAllWithHeader(TEAM_DATA_FILE)
         teamDataCols.forEach { (column, default) ->
-            if (!df.containsColumn(column.name())) {
-                df = df.add(column) { default }
+            if (column.name !in data.first().keys) {
+                data = data.map { it.toMutableMap().apply { set(column.name, default.toString()) } }
             }
         }
-        df
+        data
     } else {
-        dataFrameOf(teamDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+        listOf(teamDataCols.mapKeys { (dataPoint, _) -> dataPoint.name }.mapValues { "" })
     }
 }
 
@@ -68,25 +42,24 @@ fun populateTeamData() {
 
     for (teamNum in teams) {
         // Check if there is no row for the team
-        if (teamData!!.firstOrNull { team() == teamNum } == null) {
+        if (teamData!!.firstOrNull { it[team] == teamNum } == null) {
             // Get the default values from the columns
-            val defaults = teamDataCols.map { (accessor, default) ->
-                if (accessor == team) teamNum else default
-            }
-            // Create a new dataframe with one row of the default values
-            val df = dataFrameOf(
-                teamDataCols.keys.mapIndexed { i, it ->
-                    columnOf(values = arrayOf(defaults[i])) named it.name()
-                }
-            )
-            // Concat the new dataframe
-            teamData = teamData!!.concat(df)
+            val entry = teamDataCols
+                .mapKeys { (dataPoint, _) -> dataPoint.name }
+                .mapValues { (dataPoint, default) -> if (dataPoint == team) teamNum else default.toString() }
+            // Add the new entry
+            teamData = teamData!!.toMutableList().apply { add(entry) }
         }
     }
+    // Remove empty rows
+    teamData = teamData!!.filter { it[team] != "" }
 }
 
 /**
  * The [DebouncedFileWriter] for the [teamData].
  * Data can be written to the file by calling [DebouncedFileWriter.writeData] on this instance.
  */
-val teamDataWriter = DebouncedFileWriter<AnyFrame>(TEAM_DATA_FILE) { it.toCsv() }
+val teamDataWriter = DebouncedFileWriter<List<Map<String, String>>>(TEAM_DATA_FILE) { data ->
+    csvWriter().writeAllAsString(listOf(data.first().keys.toList())) +
+        csvWriter().writeAllAsString(data.map { it.values.toList() })
+}

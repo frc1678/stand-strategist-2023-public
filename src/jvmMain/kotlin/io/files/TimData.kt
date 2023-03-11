@@ -1,65 +1,35 @@
 package io.files
 
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import io.DebouncedFileWriter
 import io.TEAM_DATA_FILE
 import io.TIM_DATA_FILE
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.kotlinx.dataframe.AnyFrame
-import org.jetbrains.kotlinx.dataframe.DataFrame
-import org.jetbrains.kotlinx.dataframe.api.add
-import org.jetbrains.kotlinx.dataframe.api.column
-import org.jetbrains.kotlinx.dataframe.api.columnOf
-import org.jetbrains.kotlinx.dataframe.api.concat
-import org.jetbrains.kotlinx.dataframe.api.dataFrameOf
-import org.jetbrains.kotlinx.dataframe.api.firstOrNull
-import org.jetbrains.kotlinx.dataframe.api.named
-import org.jetbrains.kotlinx.dataframe.api.update
-import org.jetbrains.kotlinx.dataframe.columns.ColumnAccessor
-import org.jetbrains.kotlinx.dataframe.io.readDataFrame
-import org.jetbrains.kotlinx.dataframe.io.toCsv
-
-typealias TimDataCols = Map<ColumnAccessor<Any?>, Any?>
-
-/**
- * [ColumnAccessor] for accessing the 'Match Number' column. All other columns should be accessed through [timDataCols].
- */
-val match by column<Int>("Match Number")
-
-/**
- * [ColumnAccessor] for accessing the 'Alliance' column. All other columns should be accessed through [timDataCols].
- */
-val alliance by column<String>("Alliance")
 
 /**
  * The main object storing all the Team-In-Match data.
- *
- * To update the data, use [DataFrame.update]:
- * ```kt
- * timData = timData!!.update(/* column */)
- *     .where { /* row condition */ }
- *      .with { /* new value */ }
- * ```
  */
-var timData: AnyFrame? = null
+var timData: List<Map<String, String>>? = null
     set(value) {
         field = value
         runBlocking { timDataWriter.writeData(value!!) }
     }
 
 /**
- * Reads the team data from the [TEAM_DATA_FILE] into [teamData]. Creates a new [DataFrame] if the file doesn't exist.
+ * Reads the team data from the [TEAM_DATA_FILE] into [teamData].
  */
 fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
-        var df = TIM_DATA_FILE.readDataFrame()
+        var data = csvReader().readAllWithHeader(TIM_DATA_FILE)
         timDataCols.forEach { (column, default) ->
-            if (!df.containsColumn(column.name())) {
-                df = df.add(column) { default }
+            if (column.name !in data.first().keys) {
+                data = data.map { it.toMutableMap().apply { set(column.name, default.toString()) } }
             }
         }
-        df
+        data
     } else {
-        dataFrameOf(timDataCols.keys.map { columnOf<Any?>(values = emptyArray()) named it.name() })
+        listOf(timDataCols.mapKeys { (dataPoint, _) -> dataPoint.name }.mapValues { "" })
     }
 }
 
@@ -72,33 +42,34 @@ fun populateTimData() {
         for (teamObj in matchObj.teams) {
             // See if the corresponding row exists yet
             if (timData!!.firstOrNull {
-                matchNum == match().toString() && teamObj.number == team() && teamObj.color == alliance()
+                matchNum == it[match] && teamObj.number == it[team] && teamObj.color == it[alliance]
             } == null
             ) {
                 // Get the default values for the row
-                val defaults = timDataCols.map { (accessor, default) ->
-                    when (accessor) {
-                        match -> matchNum.toInt()
-                        team -> teamObj.number
-                        alliance -> teamObj.color
-                        else -> default
+                val entry = timDataCols
+                    .mapKeys { (dataPoint, _) -> dataPoint.name }
+                    .mapValues { (dataPoint, default) ->
+                        when (dataPoint) {
+                            match -> matchNum
+                            team -> teamObj.number
+                            alliance -> teamObj.color
+                            else -> default.toString()
+                        }
                     }
-                }
-                // Create a new dataframe with one row containing the default values
-                val df = dataFrameOf(
-                    timDataCols.keys.mapIndexed { i, it ->
-                        columnOf(values = arrayOf(defaults[i])) named it.name()
-                    }
-                )
-                // Concat the new dataframe
-                timData = timData!!.concat(df)
+                // Add the new entry
+                timData = timData?.toMutableList()?.apply { add(entry) }
             }
         }
     }
+    // Remove empty rows
+    teamData = teamData!!.filter { it[team] != "" }
 }
 
 /**
  * The [DebouncedFileWriter] for the [timData].
  * Data can be written to the file by calling [DebouncedFileWriter.writeData] on this instance.
  */
-val timDataWriter = DebouncedFileWriter<AnyFrame>(TIM_DATA_FILE) { it.toCsv() }
+val timDataWriter = DebouncedFileWriter<List<Map<String, String>>>(TIM_DATA_FILE) { data ->
+    csvWriter().writeAllAsString(listOf(data.first().keys.toList())) +
+        csvWriter().writeAllAsString(data.map { it.values.toList() })
+}

@@ -7,10 +7,9 @@ import io.files.matchSchedule
 import io.files.settings
 import io.files.teamData
 import io.files.timData
+import io.github.evanrupert.excelkt.workbook
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.apache.poi.ss.usermodel.WorkbookFactory
-import org.jetbrains.kotlinx.dataframe.io.writeExcel
 import java.awt.FileDialog
 import java.io.File
 import java.time.LocalDateTime
@@ -36,13 +35,14 @@ fun matchScheduleDialog(window: ComposeWindow): MatchSchedule? {
         // The user clicked 'Cancel'
         return null
     }
-    val matchschedule:  Map<String, Match>? = Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
+    val matchSchedule: Map<String, Match>? =
+        Json.decodeFromString(File(fileDialog.directory, fileDialog.file).readText())
 
     // Copy the file to the config directory
     File(fileDialog.directory, fileDialog.file).copyTo(MATCH_SCHEDULE_FILE)
 
     // Serialize the data
-    return matchschedule
+    return matchSchedule
 }
 
 /**
@@ -63,11 +63,19 @@ fun saveDialog(window: ComposeWindow) {
     }
     // The user clicked 'Cancel'
     if (fileDialog.file == null) return
-    // Create a new Excel workbook with all the data
-    val wb = WorkbookFactory.create(true)
-    timData!!.writeExcel(wb, sheetName = "TIM Data (${settings!!.name})")
-    teamData!!.writeExcel(wb, sheetName = "Team Data (${settings!!.name})")
-    // Write the Excel workbook to the chosen file
-    wb.write(File(fileDialog.directory, fileDialog.file).outputStream())
-    wb.close()
+    // Create an Excel workbook from the data and write to the file
+    workbook {
+        sheet("TIM Data (${settings!!.name})") {
+            row { timData!!.first().keys.forEach { cell(it) } }
+            timData!!.forEach {
+                row { it.forEach { (_, value) -> cell(value) } }
+            }
+        }
+        sheet("Team Data (${settings!!.name})") {
+            row { teamData!!.first().keys.forEach { cell(it) } }
+            teamData!!.forEach {
+                row { it.forEach { (_, value) -> cell(value) } }
+            }
+        }
+    }.xssfWorkbook.write(File(fileDialog.directory, fileDialog.file).outputStream())
 }
