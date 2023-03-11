@@ -1,5 +1,7 @@
 package ui.pages
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +33,7 @@ import io.files.teamDataCols
 import ui.TextDataField
 import ui.theme.CustomTypography
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AllNotesPage() {
     Column {
@@ -49,42 +52,45 @@ fun AllNotesPage() {
                 Text(col.first, style = CustomTypography.h5, modifier = Modifier.weight(1f))
             }
         }
-        Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(vertical = 40.dp)) {
-            val listState = rememberLazyListState()
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
-                teamData!!.map { it[team]!! }.sortedBy { it.toIntOrNull() }.forEach { currentTeam ->
-                    if (currentTeam.contains(search)) {
-                        item {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
-                                    Text(currentTeam)
-                                }
-                                for (col in teamDataCols.keys.filter { it.first != team }) {
-                                    TextDataField(
-                                        initialData = teamData!!.firstOrNull { row -> row[team] == currentTeam }
-                                            ?.get(col.first) ?: "",
-                                        onChange = { new ->
-                                            teamData = teamData!!.map {
-                                                if (it[team] == currentTeam) {
-                                                    it.toMutableMap()
-                                                        .apply { set(col.first, new) }
-                                                } else {
-                                                    it
+        AnimatedContent(search) { currentSearch ->
+            Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(vertical = 40.dp)) {
+                val listState = rememberLazyListState()
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(60.dp), state = listState) {
+                    teamData!!.map { it[team]!! }.sortedBy { it.toIntOrNull() }.forEach { currentTeam ->
+                        if (currentTeam.contains(currentSearch)) {
+                            item {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(modifier = Modifier.weight(0.5f), contentAlignment = Alignment.Center) {
+                                        Text(currentTeam)
+                                    }
+                                    for (col in teamDataCols.keys.filter { it.first != team }) {
+                                        TextDataField(
+                                            initialData = teamData!!.firstOrNull { row -> row[team] == currentTeam }
+                                                ?.get(col.first) ?: "",
+                                            onChange = { new ->
+                                                teamData = teamData!!.map {
+                                                    if (it[team] == currentTeam) {
+                                                        it.toMutableMap()
+                                                            .apply { set(col.first, new) }
+                                                    } else {
+                                                        it
+                                                    }
                                                 }
-                                            }
-                                        },
-                                        modifier = Modifier.weight(1f).padding(horizontal = 5.dp).wrapContentHeight()
-                                    )
+                                            },
+                                            modifier = Modifier.weight(1f).padding(horizontal = 5.dp)
+                                                .wrapContentHeight()
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                VerticalScrollbar(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    adapter = rememberScrollbarAdapter(scrollState = listState)
+                )
             }
-            VerticalScrollbar(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                adapter = rememberScrollbarAdapter(scrollState = listState)
-            )
         }
     }
 }
