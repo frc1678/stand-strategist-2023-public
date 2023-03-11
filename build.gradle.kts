@@ -32,6 +32,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:dataframe:0.9.1")
                 implementation("org.jetbrains.kotlinx:dataframe-excel:0.9.1")
                 implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.8.0")
+                implementation("io.github.evanrupert:excelkt:1.0.2")
             }
         }
     }
