@@ -23,7 +23,7 @@ fun readTimData() {
     timData = if (TIM_DATA_FILE.exists()) {
         var data = csvReader().readAllWithHeader(TIM_DATA_FILE)
         timDataCols.forEach { (column, default) ->
-            if (column.first in data.first().keys) {
+            if (column.first !in data.first().keys) {
                 data = data.map { it.toMutableMap().apply { set(column.first, default.toString()) } }
             }
         }
@@ -61,6 +61,8 @@ fun populateTimData() {
             }
         }
     }
+    // Remove empty rows
+    teamData = teamData!!.filter { it[team] != "" }
 }
 
 /**

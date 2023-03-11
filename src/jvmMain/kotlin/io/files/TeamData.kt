@@ -22,7 +22,7 @@ fun readTeamData() {
     teamData = if (TEAM_DATA_FILE.exists()) {
         var data = csvReader().readAllWithHeader(TEAM_DATA_FILE)
         teamDataCols.forEach { (column, default) ->
-            if (column.first in data.first().keys) {
+            if (column.first !in data.first().keys) {
                 data = data.map { it.toMutableMap().apply { set(column.first, default.toString()) } }
             }
         }
@@ -51,6 +51,8 @@ fun populateTeamData() {
             teamData = teamData!!.toMutableList().apply { add(entry) }
         }
     }
+    // Remove empty rows
+    teamData = teamData!!.filter { it[team] != "" }
 }
 
 /**
