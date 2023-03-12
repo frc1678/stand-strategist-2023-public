@@ -76,8 +76,9 @@ fun NewMatchPage() {
                     matchSchedule = matchSchedule!!.toMutableMap().apply {
                         set(
                             matchNumber,
-                            Match(teams = blueTeams.map { Team(number = it, color = "blue") } +
-                                redTeams.map { Team(number = it, color = "red") }
+                            Match(
+                                teams = blueTeams.map { Team(number = it, color = "blue") } +
+                                    redTeams.map { Team(number = it, color = "red") }
                             )
                         )
                     }
