@@ -17,6 +17,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.files.Match
+import io.files.Team
+import io.files.editSettings
+import io.files.matchSchedule
+import io.files.populateTeamData
+import io.files.populateTimData
 import ui.TextDataField
 import ui.navigation.NavGraph
 import ui.navigation.navigateTo
@@ -65,7 +71,20 @@ fun NewMatchPage() {
             }
             Button(
                 enabled = matchNumber != "",
-                onClick = { }
+                onClick = {
+                    matchSchedule = matchSchedule!!.toMutableMap().apply {
+                        set(
+                            matchNumber,
+                            Match(teams = blueTeams.map { Team(number = it, color = "blue") } +
+                                redTeams.map { Team(number = it, color = "red") }
+                            )
+                        )
+                    }
+                    editSettings { match = matchNumber }
+                    populateTimData()
+                    populateTeamData()
+                    navigateTo(NavGraph.MATCH_SELECTION)
+                }
             ) {
                 Text("Done")
             }
