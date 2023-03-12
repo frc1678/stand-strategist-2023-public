@@ -1,9 +1,12 @@
 package ui
 
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isAltPressed
 import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
@@ -40,4 +43,17 @@ val onKeyEvent: (KeyEvent) -> Boolean = {
         }
     }
     true
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun getOnWidgetKeyEvent(focusManager: FocusManager): (KeyEvent) -> Boolean = {
+    if (it.isAltPressed && it.type == KeyEventType.KeyDown) {
+        when (it.key) {
+            Key.DirectionLeft -> focusManager.moveFocus(FocusDirection.Left)
+            Key.DirectionRight -> focusManager.moveFocus(FocusDirection.Right)
+            Key.DirectionUp -> focusManager.moveFocus(FocusDirection.Up)
+            Key.DirectionDown -> focusManager.moveFocus(FocusDirection.Down)
+        }
+    }
+    false
 }

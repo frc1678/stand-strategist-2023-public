@@ -10,6 +10,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
 fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Modifier = Modifier) {
@@ -20,7 +22,7 @@ fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Mod
             text = it
             onChange(it)
         },
-        modifier = modifier
+        modifier = modifier.onPreviewKeyEvent(getOnWidgetKeyEvent(LocalFocusManager.current))
     )
 }
 
@@ -33,7 +35,7 @@ fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifi
             value = it
             onChange(it)
         },
-        modifier = modifier.scale(1.5f)
+        modifier = modifier.scale(1.5f).onPreviewKeyEvent(getOnWidgetKeyEvent(LocalFocusManager.current))
     )
 }
 
@@ -52,6 +54,6 @@ fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier =
         } else {
             null
         },
-        modifier = modifier
+        modifier = modifier.onPreviewKeyEvent(getOnWidgetKeyEvent(LocalFocusManager.current))
     )
 }
