@@ -70,7 +70,7 @@ fun NewMatchPage() {
                 Text("Cancel")
             }
             Button(
-                enabled = matchNumber != "",
+                enabled = matchNumber != "" && !matchSchedule!!.containsKey(matchNumber),
                 onClick = {
                     matchSchedule = matchSchedule!!.toMutableMap().apply {
                         set(
