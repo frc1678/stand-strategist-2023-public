@@ -71,7 +71,8 @@ fun NewMatchPage() {
             }
             Button(
                 enabled = matchNumber != "" && !matchSchedule!!.containsKey(matchNumber) &&
-                    blueTeams.toSet().size == blueTeams.size && redTeams.toSet().size == redTeams.size,
+                    blueTeams.filter { it != "" }.toSet().size == blueTeams.filter { it != "" }.size &&
+                    redTeams.filter { it != "" }.toSet().size == redTeams.filter { it != "" }.size,
                 onClick = {
                     matchSchedule = matchSchedule!!.toMutableMap().apply {
                         set(
