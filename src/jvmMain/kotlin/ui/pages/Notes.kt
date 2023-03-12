@@ -35,7 +35,7 @@ import ui.theme.CustomTypography
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NotesPage() = AnimatedContent(targetState = settings) { settings ->
-    val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
+    val teams = matchSchedule!![settings!!.match]?.teams?.filter {
         it.color == settings.alliance
     }
     Column(modifier = Modifier.fillMaxSize().padding(top = 50.dp, bottom = 40.dp)) {

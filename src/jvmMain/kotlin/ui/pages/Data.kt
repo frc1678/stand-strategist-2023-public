@@ -32,7 +32,7 @@ import ui.theme.CustomTypography
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DataPage() = AnimatedContent(targetState = settings) { settings ->
-    val teams = matchSchedule!![settings!!.match.toString()]?.teams?.filter {
+    val teams = matchSchedule!![settings!!.match]?.teams?.filter {
         it.color == settings.alliance
     }
     Row(modifier = Modifier.fillMaxSize().padding(vertical = 50.dp)) {
@@ -61,7 +61,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                         timData = timData!!.map {
                             if (it[team] == currentTeam.number &&
                                 it[alliance] == currentTeam.color &&
-                                it[match] == settings.match.toString()
+                                it[match] == settings.match
                             ) {
                                 it.toMutableMap().apply { set(col.name, new.toString()) }
                             } else {
@@ -75,7 +75,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings.match.toString()
+                                        it[match] == settings.match
                                 }?.get(col.name).toBoolean(),
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().padding(horizontal = 50.dp)
@@ -87,7 +87,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings.match.toString()
+                                        it[match] == settings.match
                                 }?.get(col.name)?.toIntOrNull() ?: 0,
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()
@@ -99,7 +99,7 @@ fun DataPage() = AnimatedContent(targetState = settings) { settings ->
                                 initialData = timData!!.firstOrNull {
                                     it[team] == currentTeam.number &&
                                         it[alliance] == currentTeam.color &&
-                                        it[match] == settings.match.toString()
+                                        it[match] == settings.match
                                 }?.get(col.name) ?: "",
                                 onChange = onChange,
                                 modifier = Modifier.weight(1f).wrapContentHeight().fillMaxWidth()

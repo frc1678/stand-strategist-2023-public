@@ -48,12 +48,12 @@ fun StartingPage() {
             modifier = Modifier.padding(20.dp)
         )
 
-        var matchNumText by remember { mutableStateOf(settings!!.match.toString()) }
+        var matchNumText by remember { mutableStateOf(settings!!.match) }
         TextField(
             value = matchNumText,
             onValueChange = {
                 matchNumText = it
-                if (matchSchedule!!.containsKey(matchNumText)) editSettings { match = it.toIntOrNull() ?: 0 }
+                if (matchSchedule!!.containsKey(matchNumText)) editSettings { match = it }
             },
             label = { Text("Match Number: ") },
             textStyle = CustomTypography.h2,
@@ -105,7 +105,7 @@ fun StartingPage() {
         Row(horizontalArrangement = Arrangement.spacedBy(50.dp)) {
             for (i in 0 until 3) {
                 Text(
-                    matchSchedule!![settings!!.match.toString()]?.teams?.filter {
+                    matchSchedule!![settings!!.match]?.teams?.filter {
                         it.color == settings!!.alliance
                     }?.getOrNull(i)?.number ?: "?",
                     style = CustomTypography.h2

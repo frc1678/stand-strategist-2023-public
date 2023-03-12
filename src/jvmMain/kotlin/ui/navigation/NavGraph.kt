@@ -1,8 +1,10 @@
 package ui.navigation
 
+import io.files.matchSchedule
 import ui.pages.AllNotesPage
 import ui.pages.DataPage
 import ui.pages.MatchSelectionPage
+import ui.pages.NewMatchPage
 import ui.pages.NotesPage
 import ui.pages.StartingPage
 
@@ -18,7 +20,11 @@ enum class NavGraph(val destination: Destination) {
             name = "Match Info",
             back = { NOTES },
             next = { DATA },
-            onBack = { if (match > 1) match-- }
+            onBack = {
+                if (match.toIntOrNull() != null && matchSchedule!!.containsKey((match.toInt() - 1).toString())) {
+                    match = (match.toInt() - 1).toString()
+                }
+            }
         )
     ),
     MATCH_SELECTION(
@@ -26,6 +32,13 @@ enum class NavGraph(val destination: Destination) {
             content = { MatchSelectionPage() },
             name = "Match Selection",
             back = { STARTING }
+        )
+    ),
+    NEW_MATCH(
+        Destination(
+            content = { NewMatchPage() },
+            name = "New Match",
+            back = { MATCH_SELECTION }
         )
     ),
     DATA(
@@ -42,7 +55,11 @@ enum class NavGraph(val destination: Destination) {
             name = "Team Notes",
             back = { DATA },
             next = { STARTING },
-            onNext = { if (match <= 200) match++ }
+            onNext = {
+                if (match.toIntOrNull() != null && matchSchedule!!.containsKey((match.toInt() + 1).toString())) {
+                    match = (match.toInt() + 1).toString()
+                }
+            }
         )
     ),
     ALL_NOTES(

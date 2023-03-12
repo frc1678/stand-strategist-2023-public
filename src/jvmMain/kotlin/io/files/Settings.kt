@@ -18,7 +18,7 @@ import ui.theme.updateTypography
  */
 @Serializable
 data class Settings(
-    var match: Int = 1,
+    var match: String = "1",
     var alliance: String = "blue",
     var name: String = System.getProperty("user.name"),
     var screen: Destination = NavGraph.STARTING.destination,
