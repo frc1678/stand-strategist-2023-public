@@ -4,10 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.awt.ComposeWindow
+import io.DebouncedFileWriter
 import io.MATCH_SCHEDULE_FILE
 import io.matchScheduleDialog
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /**
@@ -29,7 +31,6 @@ typealias MatchSchedule = Map<String, Match>
 
 /**
  * The main match schedule object.
- * This shouldn't be modified from UI code; this will only be modified when a match schedule is imported.
  */
 var matchSchedule: MatchSchedule? by mutableStateOf(null)
 
@@ -45,4 +46,12 @@ fun readMatchSchedule(window: ComposeWindow) {
     } else {
         matchScheduleDialog(window)?.also { matchSchedule = it }
     }
+}
+
+/**
+ * The [DebouncedFileWriter] for the [matchSchedule].
+ * Data can be written to the file by calling [DebouncedFileWriter.writeData] on this instance.
+ */
+val matchScheduleWriter = DebouncedFileWriter<MatchSchedule>(MATCH_SCHEDULE_FILE) {
+    Json.encodeToString(matchSchedule)
 }
