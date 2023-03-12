@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.onClick
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,8 @@ import io.files.editSettings
 import io.files.matchSchedule
 import io.files.settings
 import org.jetbrains.skiko.PredefinedCursors
+import ui.navigation.NavGraph
+import ui.navigation.navigateTo
 import ui.theme.CustomTypography
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,7 +50,7 @@ fun MatchSelectionPage() {
             Text("Blue Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
             Text("Red Teams", style = CustomTypography.h4, modifier = Modifier.weight(3f))
         }
-        Box {
+        Box(modifier = Modifier.weight(1f)) {
             val listState = rememberLazyListState()
             LazyColumn(state = listState, modifier = Modifier.padding(vertical = 10.dp)) {
                 for ((matchNum, matchObj) in matchSchedule!!.toList().sortedBy { it.first.toIntOrNull() }) item {
@@ -87,6 +90,12 @@ fun MatchSelectionPage() {
                 adapter = rememberScrollbarAdapter(scrollState = listState),
                 modifier = Modifier.align(Alignment.CenterEnd)
             )
+        }
+        Button(
+            onClick = { navigateTo(NavGraph.NEW_MATCH) },
+            modifier = Modifier.align(Alignment.CenterHorizontally).padding(30.dp)
+        ) {
+            Text("New Match...")
         }
     }
 }

@@ -3,6 +3,7 @@ package ui.navigation
 import ui.pages.AllNotesPage
 import ui.pages.DataPage
 import ui.pages.MatchSelectionPage
+import ui.pages.NewMatchPage
 import ui.pages.NotesPage
 import ui.pages.StartingPage
 
@@ -26,6 +27,13 @@ enum class NavGraph(val destination: Destination) {
             content = { MatchSelectionPage() },
             name = "Match Selection",
             back = { STARTING }
+        )
+    ),
+    NEW_MATCH(
+        Destination(
+            content = { NewMatchPage() },
+            name = "New Match",
+            back = { MATCH_SELECTION }
         )
     ),
     DATA(
