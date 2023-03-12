@@ -70,7 +70,8 @@ fun NewMatchPage() {
                 Text("Cancel")
             }
             Button(
-                enabled = matchNumber != "" && !matchSchedule!!.containsKey(matchNumber),
+                enabled = matchNumber != "" && !matchSchedule!!.containsKey(matchNumber) &&
+                    blueTeams.toSet().size == blueTeams.size && redTeams.toSet().size == redTeams.size,
                 onClick = {
                     matchSchedule = matchSchedule!!.toMutableMap().apply {
                         set(
