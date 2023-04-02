@@ -44,20 +44,20 @@ fun NewMatchPage() {
         }
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1f).fillMaxWidth()) {
             Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxHeight()) {
-                Text("Blue Teams", style = CustomTypography.h4)
-                for (i in 0..2) {
-                    TextDataField(
-                        initialData = "",
-                        onChange = { blueTeams = blueTeams.toMutableList().apply { set(i, it) } }
-                    )
-                }
-            }
-            Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxHeight()) {
                 Text("Red Teams", style = CustomTypography.h4)
                 for (i in 0..2) {
                     TextDataField(
                         initialData = "",
                         onChange = { redTeams = redTeams.toMutableList().apply { set(i, it) } }
+                    )
+                }
+            }
+            Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxHeight()) {
+                Text("Blue Teams", style = CustomTypography.h4)
+                for (i in 0..2) {
+                    TextDataField(
+                        initialData = "",
+                        onChange = { blueTeams = blueTeams.toMutableList().apply { set(i, it) } }
                     )
                 }
             }
