@@ -21,8 +21,8 @@ const val alliance = "Alliance"
 val teamDataCols = mapOf<Column, Any>(
     team(DataType.Str) to "0",
     "Auto Strategies"(DataType.Str) to "",
-    "Driving and Scoring Competence"(DataType.Str) to "",
-    "Strengths/Weaknesses"(DataType.Str) to "",
+    "Strengths"(DataType.Str) to "",
+    "Weaknesses"(DataType.Str) to "",
     "Notes"(DataType.Str) to ""
 )
 
