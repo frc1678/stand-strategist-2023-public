@@ -32,6 +32,8 @@ import ui.theme.CustomTypography
 import ui.theme.StandStrategistDarkColorScheme
 import ui.theme.StandStrategistLightColorScheme
 
+const val APP_VERSION = "2023cmptx v1"
+
 @Composable
 fun WindowScope.App(applicationScope: ApplicationScope, window: ComposeWindow) = MaterialTheme(
     typography = CustomTypography,
@@ -61,7 +63,7 @@ fun main() = application {
     Window(
         state = WindowState(placement = WindowPlacement.Maximized),
         onCloseRequest = ::exitApplication,
-        title = "Stand Strategist",
+        title = "Stand Strategist - $APP_VERSION",
         icon = painterResource("app_icon/icon.png"),
         onKeyEvent = onKeyEvent
     ) {
