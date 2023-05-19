@@ -46,7 +46,7 @@ fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifi
 }
 
 /**
- * Text box that takes an integer as input. Used for 
+ * Text box that takes an integer as input. Used for integer data.
  */
 @Composable
 fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier = Modifier) {
