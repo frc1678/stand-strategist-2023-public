@@ -15,6 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
 
+/**
+ * A generic dialog to be shown anywhere in the app.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WindowScope.Dialog(

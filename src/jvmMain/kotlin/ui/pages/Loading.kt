@@ -25,6 +25,11 @@ import io.files.readTeamData
 import io.files.readTimData
 import ui.Dialog
 
+/**
+ * The page shown when loading all the data for the app. This page is not part of the navigation graph, since the
+ * navigation graph is not loaded yet at this point. This page serves as a placeholder before all the files have been
+ * read and the app is ready to be used.
+ */
 @Composable
 fun WindowScope.LoadingPage(window: ComposeWindow, onLoaded: () -> Unit) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

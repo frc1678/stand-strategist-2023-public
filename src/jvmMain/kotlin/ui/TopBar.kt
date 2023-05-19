@@ -43,6 +43,9 @@ import java.util.zip.ZipOutputStream
 @Composable
 fun Separator() = Text("\u22C5")
 
+/**
+ * The top bar of the app. Contains info about the current state of the app, and has menu buttons for special actions.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ApplicationScope.TopBar(window: ComposeWindow) = TopAppBar {

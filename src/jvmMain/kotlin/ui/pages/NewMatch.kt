@@ -28,6 +28,10 @@ import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 import ui.theme.CustomTypography
 
+/**
+ * The page allowing users to create new matches in the match schedule. There are fields to add a match number and the
+ * teams on each alliance. This page can be accessed through the Match Selection page.
+ */
 @Composable
 fun NewMatchPage() {
     var matchNumber by remember { mutableStateOf("") }

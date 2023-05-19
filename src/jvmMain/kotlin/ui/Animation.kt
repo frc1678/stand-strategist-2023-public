@@ -21,6 +21,9 @@ val defaultContentTransform = fadeIn(animationSpec = tween(220, delayMillis = 90
     scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)) with
     fadeOut(animationSpec = tween(90))
 
+/**
+ * Composable for content that needs to be animated by which page is currently selected.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedContentByScreen(
@@ -38,6 +41,9 @@ fun AnimatedContentByScreen(
     }.using(SizeTransform(clip = false))
 })
 
+/**
+ * Composable for smaller-sized content that needs to be animated by which page is currently selected.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimatedSmallContentByScreen(

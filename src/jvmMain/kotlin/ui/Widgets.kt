@@ -13,6 +13,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
 
+/**
+ * Text box for editable text data.
+ */
 @Composable
 fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf(initialData) }
@@ -26,6 +29,9 @@ fun TextDataField(initialData: String, onChange: (String) -> Unit, modifier: Mod
     )
 }
 
+/**
+ * Checkbox for boolean data.
+ */
 @Composable
 fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(initialData) }
@@ -39,6 +45,9 @@ fun CheckBox(initialData: Boolean, onChange: (Boolean) -> Unit, modifier: Modifi
     )
 }
 
+/**
+ * Text box that takes an integer as input. Used for integer data.
+ */
 @Composable
 fun NumberPicker(initialData: Int, onChange: (Int) -> Unit, modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf(initialData.toString()) }

@@ -24,6 +24,8 @@ import ui.theme.CustomTypography
 
 /**
  * The 'Back' and 'Next' navigation buttons that appear at the bottom of the app UI.
+ *
+ * If there is no designated 'next' page, only the 'Back' button is shown.
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
