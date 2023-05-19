@@ -33,6 +33,9 @@ import ui.theme.onBlueAlliance
 import ui.theme.onRedAlliance
 import ui.theme.redAlliance
 
+/**
+ * The page in which users can edit the username, which match is being played, and which alliance is being scouted.
+ */
 @Composable
 fun StartingPage() {
     Column(

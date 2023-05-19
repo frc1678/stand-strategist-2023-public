@@ -29,6 +29,10 @@ import ui.NumberPicker
 import ui.TextDataField
 import ui.theme.CustomTypography
 
+/**
+ * The page for entering Team-in-Match data for the current match. All three teams in the current alliance in the
+ * current match are shown.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DataPage() = AnimatedContent(targetState = settings) { settings ->

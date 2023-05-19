@@ -32,6 +32,10 @@ import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 import ui.theme.CustomTypography
 
+/**
+ * The page showing the team notes for the teams in the current alliance in the current match. These are for team notes
+ * **across the entire competition**, not match-specific notes.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NotesPage() = AnimatedContent(targetState = settings) { settings ->

@@ -33,6 +33,11 @@ import io.files.teamDataCols
 import ui.TextDataField
 import ui.theme.CustomTypography
 
+/**
+ * The page showing the team notes for every team. These team notes are editable and shown in a scrollable list, with a
+ * search bar for searching for teams. These are for team notes **across the entire competition**, not match-specific
+ * notes.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AllNotesPage() {

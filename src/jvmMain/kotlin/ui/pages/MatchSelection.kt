@@ -50,6 +50,11 @@ import ui.navigation.NavGraph
 import ui.navigation.navigateTo
 import ui.theme.CustomTypography
 
+/**
+ * The page showing all matches in the match schedule. Users can view the teams on each alliance in each match, and
+ * select the match that is being played. Matches can be deleted through this page by hovering over a match and clicking
+ * the trash can icon, and there is a button to navigate to the New Match page.
+ */
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun MatchSelectionPage() {
